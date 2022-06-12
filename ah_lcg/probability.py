@@ -54,9 +54,9 @@ def probability(skill, check, chaos_bag):
         for i in range (min(abs_chaos_bag), max(abs_chaos_bag)+1):
             for_crystal_pendulum.append(i)
             for_crystal_pendulum.append(abs_chaos_bag.count(i))
-        print(for_crystal_pendulum)
-        print(for_crystal_pendulum[1::2])
-        print(max(for_crystal_pendulum[1::2]))
+#        print(for_crystal_pendulum)
+#        print(for_crystal_pendulum[1::2])
+#        print(max(for_crystal_pendulum[1::2]))
         tokens = max(for_crystal_pendulum[1::2])
         num = for_crystal_pendulum[for_crystal_pendulum.index(tokens)-1]
         probe = round(max(for_crystal_pendulum[1::2])/len(abs_chaos_bag), 2) * 100
@@ -65,25 +65,3 @@ def probability(skill, check, chaos_bag):
 
 
 probability(skill, check, chaos_bag)
-
-
-
-
-
-
-
-#skull_token = int(input('skull token = '))
-#cultist_token = int(input('cultist token = '))
-#tablet_token = int(input('tablet token = '))
-#Elder_Thing_token = input('Elder Thing token = ')
-#Elder_Sign_token = int(input('Elder Sign token = '))
-#Auto_fail_token = - check
-#if not Elder_Thing_token:
-#    chaos_bag = [
-#        1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_token, skull_token, 
-#        cultist_token, tablet_token, Auto_fail_token, Elder_Sign_token
-#        ]
-#else: chaos_bag = [
-#        1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_token, skull_token, 
-#        cultist_token, tablet_token, Auto_fail_token, Elder_Sign_token, int(Elder_Thing_token)
-#        ]
