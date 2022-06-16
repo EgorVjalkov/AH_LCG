@@ -4,10 +4,10 @@
 
 def night_of_the_zealot_normal():
     skull = -int(input('Count of ghouls at your location? '))
-    cultist = -99
-    tablet = -99
+    cultist = -1
+    tablet = -2
     auto_fail = -99
-    Elder_Sign = -99
+    Elder_Sign = 1
     return [
     1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull, skull, cultist, tablet, Elder_Sign, auto_fail
     ]
