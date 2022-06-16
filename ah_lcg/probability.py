@@ -1,10 +1,10 @@
-from game_data.scenario_token_value import night_of_the_zealot_normal as NZ_norm 
+from game_data.scenario_token_value import *
 
 
 skill = int(input('Investigator`s skill = '))
 check = int(input('skill check = '))
-chaos_bag = NZ_norm
-
+chaos_bag = night_of_the_zealot_normal()
+#print(chaos_bag)
 
 def probability(skill, check, chaos_bag):
     result = skill - check
