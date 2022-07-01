@@ -1,5 +1,5 @@
 from random import choice
-from game_data.scenario_token_value import *
+from game_data.scenario_token_value import * #исключительно для внутреннего теста
 #добавил проверку на максимум, когда добавлять очки не нужно
 
 def short_probability(result, chaos_bag, chaos_bag_keys):
