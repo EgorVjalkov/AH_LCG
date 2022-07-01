@@ -1,4 +1,5 @@
 .venv
-ah_lcg/pycache/
+ah_lcg/__pycache__
+ah_lcg/game_data/__pycache__
 tests
 
