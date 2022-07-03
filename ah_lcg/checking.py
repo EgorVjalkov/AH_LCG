@@ -2,6 +2,7 @@
 from game_data.scenario_token_value import *
 from probability_for_action import short_probability, pull_a_token
 from game_data.cards import *
+from colorama import Fore, Back, Style
 
 #раскрась имена сыщиков и монстров
 chaos_bag = only_auto_fail_bag
@@ -16,10 +17,9 @@ def fight_action(fighter, enemy, asset_or_event={}):
      enemy_name = enemy['name']
      if not asset_or_event: 
           result = fighter['combat'] - enemy['combat']
-          weapon = {'name': 'unarmed', 'class': 'Weapon. Melee','add_skill': 0, 'result': result}
-     else: weapon = asset_or_event['prefunc'](fighter, enemy)
-     weapon_name = weapon['name']
-     before_token_result = weapon['result']
+          asset_or_event = {'name': 'unarmed', 'class': 'Weapon. Melee','add_skill': 0, 'result': result}
+     weapon_name = asset_or_event['name']
+     before_token_result = asset_or_event['prefunc'](fighter,enemy)
      print(f'You have a {before_token_result} points.')
      short_probability(before_token_result, chaos_bag, chaos_bag_keys)
 #Add_a_card     
@@ -36,9 +36,30 @@ def fight_action(fighter, enemy, asset_or_event={}):
                retalite_horror = enemy['horror']
                print(f'{enemy_name} deals {investigator_name} {retalite_damage} damage and {retalite_horror} horror')
 
+
+
+
+
+
+# def colored_keywords(print_text):
+#      list_of_coords = []
+#      for i in print_text:
+#           if not i.isalpha():
+#                if i != ' ':
+#                     index = print_text.index(i)
+#                     coords = dict.fromkeys([i], index)
+#                     list_of_coords.append(coords)
+#                     print_text = print_text.replace(i, ' ', 1)
+#      print(list_of_coords, print_text)
+#      for word in print_text:# остановнка здесь. нужно доделать, поставить знаки на их индексы и раскрасить слова конечно!!!
+#           if word in keywords:
+#                i = words.index(word)
+#                print(i)
+#                words.remove(word)
+#                colored_word = keywords[word]
+#                words.insert(i, colored_word)
+#      colored_text = ' '.join(words)
+#      # print(colored_text)
      
-     
-     
-      
-     
-fight_action(Roland, Ghoul, Derringer_41_lvl0)
+# colored_keywords('SEFSFSEFSFSE, SEFSEFSEF. +SEFSEFS. Guardian...')
+#fight_action(Roland, Ghoul, Rolands_38_Special_lvl0)
