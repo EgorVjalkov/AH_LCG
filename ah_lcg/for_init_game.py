@@ -1,4 +1,4 @@
-from game_data.investigators_list import investigators_list
+from AH_LCG.ah_lcg.game_data.investigators import investigators_list
 
 
 def choose_an_investigator():
