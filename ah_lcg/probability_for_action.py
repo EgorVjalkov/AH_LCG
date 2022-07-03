@@ -42,3 +42,5 @@ def pull_a_token(chaos_bag, chaos_bag_keys, result, check):
     return last_result
 
 #pull_a_token(night_of_the_zealot_normal_bag, night_of_the_zealot_normal_bag_keys, 5, 2)
+
+

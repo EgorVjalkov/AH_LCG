@@ -40,7 +40,7 @@ def Automatic_45_lvl0_prefunc(fighter, enemy):
     add_skill = 1
     result = fighter['combat'] + add_skill - enemy['combat']
     return {
-        'name': Fore.BLUE+'.45 Automatic lvl0'+Fore.RESET, 'class': 'Item. Weapon. Firearm', 
+        'name': '.45 Automatic lvl0', 'Class': 'Roland Banks', 'traits': 'Item. Weapon. Firearm', 
         'ammo': 4, 'add_skill': add_skill, 'result': result}
 
 def Automatic_45_lvl0_skillfunc():

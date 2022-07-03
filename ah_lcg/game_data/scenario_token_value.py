@@ -2,11 +2,11 @@
 #сделай хрень с жетонами, типа там удар на таблетку ну ты понял. 
 
 #значения жетонов
-night_of_the_zealot_normal_bag = {
-    '+1' : 1, '0': 0, '-1': -1, '-2': -2,
-    '-3': -3,'-4': -4, 'skull': -int(input('Count of ghouls at your location? ')), 
-    'cultist': -1, 'tablet': -2, 'Elder_Sign': 1, 'auto_fail': -99
-}
+# night_of_the_zealot_normal_bag = {
+#     '+1' : 1, '0': 0, '-1': -1, '-2': -2,
+#     '-3': -3,'-4': -4, 'skull': -int(input('Count of ghouls at your location? ')), 
+#     'cultist': -1, 'tablet': -2, 'Elder_Sign': 1, 'auto_fail': -99
+# }
 #список с ключами от словаря
 night_of_the_zealot_normal_bag_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Elder_Sign', 'auto_fail']
