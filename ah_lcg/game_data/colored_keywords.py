@@ -1,5 +1,5 @@
 from colorama import Fore, Back, Style
-import cards
+#import Enemies
 
 keywords = {
      'Guardian': Fore.BLUE+'Guardian'+Fore.RESET,
@@ -7,7 +7,13 @@ keywords = {
      'Seeker': Fore.YELLOW+'Seeker'+Fore.RESET,
      'Mystic': Fore.MAGENTA+'Mystic'+Fore.RESET,
      'Survivor': Fore.RED+'Survivor'+Fore.RESET,
-     'Guardian': Fore.BLUE+'Guardian'+Fore.RESET}
+     'damage': Fore.RED+'damage'+Fore.RESET,
+     'Elder Sign': Fore.CYAN+'Elder Sign'+Fore.RESET,
+     'Auto-fail': Fore.RED+'Auto-fail'+Fore.RESET,
+     'skull': Fore.YELLOW+'skull'+Fore.RESET,
+     'cultist': Fore.YELLOW+'cultist'+Fore.RESET,
+     'tablet': Fore.YELLOW+'tablet'+Fore.RESET,
+     'Elder Thing': Fore.YELLOW+'Elder Thing'+Fore.RESET}
 
 def colored_keywords(print_text):
      for key in keywords:
@@ -15,25 +21,21 @@ def colored_keywords(print_text):
               print_text = print_text.replace(key,keywords[key])
      return(print_text)
 
+#print(colored_keywords())
 
+keywords_names = [
+     {'Class': 'Special', 'pre': Back.WHITE, 'post': Back.RESET},
+     {'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET}, 
+     {'Class': 'Rouge', 'pre': Fore.GREEN, 'post': Fore.RESET},
+     {'Class': 'Enemy', 'pre': Fore.RED, 'post': Fore.RESET}
+     ]
 
-keywords_names = [{'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET}, 2]
-#print(keywords_names[0])
-
-TypeError: list indices must be integers or slices, not dict
 
 def colored_names(card):
      for el in keywords_names:
-          print(keywords_names[el])
-          if keywords_names[i]['Class'] == card['Class']:
-               colord_name = keywords_names[i]['pre'] + card['name'] + keywords_names[i]['post']
+          if el['Class'] == card['Class']:
+               colord_name = el['pre'] + card['name'] + el['post']
                card['name'] = colord_name
-     print(card['name'])
+     return card
 
-Automatic = {
-        'name': '.45 Automatic lvl0', 'Class': 'Guardian', 'traits': 'Item. Weapon. Firearm', 
-        'ammo': 4, 'add_skill': 1, 'result': 1}
-
-colored_names(Automatic)
-
-#colored_keywords('SEFSFSEFSFSE, Rouge SEFSEFSEF. combat +SEFSEFS. Guardian...Automatic', Automatic)
+#print(colored_names(Enemies.Ghoul_Minion)['name'])

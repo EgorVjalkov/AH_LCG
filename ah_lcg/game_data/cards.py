@@ -8,7 +8,7 @@ def Rolands_38_Special_lvl0_prefunc(fighter, enemy):
     if input('If any clues are at your location press \'y\' and \'enter\' ' ) == 'y': 
         add_skill = 3
     else: add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {'add_skill': add_skill, 'result': result}
 
 def Standart_postfunc(last_result):
@@ -20,7 +20,7 @@ def Rolands_38_Special_lvl0_skillfunc():
     return {'combat': 1, 'agility': 1, 'any': 1}
 
 Rolands_38_Special_lvl0 = {
-    'name': Back.WHITE +'Roland`s .38 Special lvl0'+Back.RESET, 'Class': 'Roland Banks', 
+    'name': 'Roland`s .38 Special lvl0', 'Class': 'Roland Banks', 
     'type': 'asset', 'lvl': 0, 'cost': 3, 
     'traits': 'Item. Weapon. Firearm', 'uses': 4, 
     'using': 'Spend 1 ammo: Fight. You get '+Fore.RED+'+1 combat'+Fore.RESET+''' for this attack 
@@ -38,7 +38,7 @@ Rolands_38_Special_lvl0 = {
 
 def Automatic_45_lvl0_prefunc(fighter, enemy):
     add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': '.45 Automatic lvl0', 'Class': 'Roland Banks', 'traits': 'Item. Weapon. Firearm', 
         'ammo': 4, 'add_skill': add_skill, 'result': result}
@@ -56,7 +56,7 @@ Automatic_45_lvl0 = {
 
 def Shotgun_lvl4_prefunc(fighter, enemy):
     add_skill = 3
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': Fore.BLUE+'Shotgun lvl4'+Fore.RESET, 'class': 'Item. Weapon. Firearm', 
         'ammo': 2, 'add_skill': add_skill, 'result': result}
@@ -79,7 +79,7 @@ Shotgun_lvl4 = {
 
 def Machete_lvl0_prefunc(fighter, enemy):
     add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': Fore.BLUE+'Machete lvl0'+Fore.RESET, 'class': 'Item. Weapon. Melee', 
         'add_skill': add_skill, 'result': result}
@@ -106,7 +106,7 @@ Machete_lvl0 = {
 
 def Switchblade_lvl0_prefunc(fighter, enemy):
     add_skill = 0
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': Fore.GREEN+'Switchblade lvl0'+Fore.RESET, 'class': 'Item. Weapon. Melee', 
         'add_skill': add_skill, 'result': result}
@@ -130,7 +130,7 @@ Switchblade_lvl0 = {
 
 def Derringer_41_lvl0_prefunc(fighter, enemy):
     add_skill = 2
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': Fore.GREEN+'.41 Derringer lvl0'+Fore.RESET, 'class': 'Item. Weapon. Firearm', 
         'ammo': 3, 'add_skill': add_skill, 'result': result}
@@ -156,7 +156,7 @@ Derringer_41_lvl0 = {
 def Backstab_lvl0_prefunc(fighter, enemy):
     fighter['combat'] = fighter['agility']
     add_skill = 0
-    result = fighter['combat'] + add_skill - enemy['combat']
+    result = fighter['combat'] + add_skill - enemy['fight']
     return {
         'name': Fore.GREEN+'Backstab lvl0'+Fore.RESET, 'class': 'Event. Tactic', 
         'add_skill': add_skill, 'result': result}
