@@ -1,20 +1,20 @@
 # похоже надо делать 3 сумки: одну с ключами, 2 для вероятности, 3 для функций
 #значения жетонов
+from investigators import Roland_Banks_Elder_Sign
 
-def skull_value(scenario):
-    if scenario == 'Night of the Zealot normal':
-        return int(input('Count of ghouls at your location: '))
 
-def skull_falure(scenario, enemy):
-    if scenario == 'Night of the Zealot normal':
-        if enemy['Class'] == 'Ghoul':
+def NoTZ_norm_skull_value():
+    return int(input('Count of ghouls at your location: '))
+
+def NoTZ_norm_skull_failure(enemy):
+    if enemy['Class'] == 'Ghoul':
             return 1 
 
 
 night_of_the_zealot_normal_bag = {
     '+1' : 1, '0': 0, '-1': -1, '-2': -2,
-    '-3': -3,'-4': -4, 'skull': skull_value('Night of the Zealot normal'), 
-    'cultist': -1, 'tablet': -2, 'Elder Sign': 1, 'auto-fail': -99}
+    '-3': -3,'-4': -4, 'skull': NoTZ_norm_skull_value, 
+    'cultist': -1, 'tablet': -2, 'Elder Sign': Roland_Banks_Elder_Sign, 'auto-fail': -99}
 
 night_of_the_zealot_normal_bag_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Elder Sign', 'auto-fail']
