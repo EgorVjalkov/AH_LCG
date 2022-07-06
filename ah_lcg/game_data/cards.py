@@ -1,11 +1,12 @@
 from colorama import Fore, Back, Style
-#добывляю карты оружия
+from game_data.colored_keywords import colored_keywords as CKW, colored_names as CN
+#добывляю карты оружия, мудильня с импортом продолжается!!!
 #coreset weapon cards
 
 #Rolands_38_Special_lvl0
 
 def Rolands_38_Special_lvl0_prefunc(fighter, enemy):
-    if input('If any clues are at your location press \'y\' and \'enter\' ' ) == 'y': 
+    if input(CKW('Press \'y\' and \'enter\', if there are 1 or more clues on your location, ' )) == 'y': 
         add_skill = 3
     else: add_skill = 1
     result = fighter['combat'] + add_skill - enemy['fight']
@@ -23,16 +24,14 @@ Rolands_38_Special_lvl0 = {
     'name': 'Roland`s .38 Special lvl0', 'Class': 'Roland Banks', 
     'type': 'asset', 'lvl': 0, 'cost': 3, 
     'traits': 'Item. Weapon. Firearm', 'uses': 4, 
-    'using': 'Spend 1 ammo: Fight. You get '+Fore.RED+'+1 combat'+Fore.RESET+''' for this attack 
-    (if there are 1 or more clues on your location, you get '''+Fore.RED+'+3 combat'+Fore.RESET+''', instead). 
-    This attack deals +1 damage.''',
+    'using': CKW('''Spend 1 ammo: Fight. You get +1 combat for this attack 
+    (if there are 1 or more clues on your location, you get +3 combat, instead). 
+    This attack deals +1 damage.'''),
     'prefunc': Rolands_38_Special_lvl0_prefunc, 
     'postfunc': Standart_postfunc,
     'skillfunc': Rolands_38_Special_lvl0_skillfunc
     }
-
 #print(Rolands_38_Special_lvl0['using'])
-
 #Gardian_weapon_cards
 #Automatic_45_lvl0 расчеты
 
