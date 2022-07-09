@@ -64,5 +64,5 @@ def colored_names(card):
 #      if __name__ == '__main__':
 #           main()
 
-print(colored_keywords('clues'))
-print(colored_keywords(' '.join(keywords.keys())))
+#print(colored_keywords('clues'))
+#print(colored_keywords(' '.join(keywords.keys())))

@@ -58,7 +58,6 @@ Token_symbol_value = {
     'skull': skull_value, 'cultist': cultist_value, 'tablet': tablet_value, 
      'Elder Sign': 'Elder_Sign_value'}
 
-#нада доделать. спроси у чела как там что
 #Elder Thing
 def Elder_Thing_value(scenario):
     if scenario == 'The Devourer Below normal': 
