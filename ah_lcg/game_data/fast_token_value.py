@@ -1,24 +1,28 @@
 from colored_keywords import colored_keywords as CKW
+#from game_data.colored_keywords import colored_keywords as CKW
 from random import choice
 #ключи к сумкам
 
 The_gathering_normal_keys = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
-    'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign'] #убрал пока значок древних
+    'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
 
-The_Devouver_Below_normal_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
-    'skull', 'skull', 'cultist', 'tablet', 'ElderThing', 'Elder Sign', 'Autofail']
+The_Devouver_Below_normal_keys = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
+    'skull', 'skull', 'cultist', 'tablet', 'Elder Thing', 'Auto-fail', 'Elder Sign']
 
-keys = {'The Gathering normal': The_gathering_normal_keys, 
-'The Devouver Below normal': The_Devouver_Below_normal_keys}
+keys = {'The Gathering normal': The_gathering_normal_keys,
+'The Midnight Masks normal': The_gathering_normal_keys,
+'The Devourer Below normal': The_Devouver_Below_normal_keys}
 
-players = ('Roland Banks')
+players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')
 
 
 #Символы
 
+#Auto-fail
 def Auto_fail(scenario=0, player=0):
     return -99
 
+#skull
 def skull_value(scenario, player=0):
     while True:
         if scenario == 'The Gathering normal':
@@ -52,7 +56,7 @@ def tablet_value(scenario, player=0):
     elif scenario == 'The Devourer Below normal': 
         return -3
 
-# Elder Sign ПОЧЕМУТО НОНЕ!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Elder_Sign for Core Set investigators
 def Elder_Sign_value(scenario, player):
     investigators_in_str = ', '.join(players)
     while True: # проверка ввода
@@ -62,13 +66,31 @@ def Elder_Sign_value(scenario, player):
         player = input('Player is ')
     if player == 'Roland Banks':
         while True: # проверка ввода
-            Elder_Sign = input(CKW('does any clue at your location? Press a \'num\' and \'enter\' '))
+            Elder_Sign = input(CKW('How many clues are at your location? Press a \'num\' and \'enter\' '))
             if Elder_Sign.isdigit(): 
                 break
             print('Input Error')
-        return int(Elder_Sign)
+    if player == '"Skids" O`Toole':
+        Elder_Sign = 2
+    if player == 'Daisy Walker':
+        Elder_Sign = 0
+    if player == 'Agnes Baker':
+        while True: # проверка ввода
+            Elder_Sign = input(CKW('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' '))
+            if Elder_Sign.isdigit(): 
+                break
+            print('Input Error')
+    if player == 'Wendy Adams':
+        while True: # проверка ввода
+            Elder_Sign = input(CKW('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" '))
+            if Elder_Sign == 'y' or Elder_Sign == 'n': 
+                break
+            print('Input Error')
+        if Elder_Sign == 'y': Elder_Sign = 99
+        else: Elder_Sign = 0
+    return int(Elder_Sign)
 
-print(Elder_Sign_value('The Gathering normal', 'Roland Bank'))
+#print(Elder_Sign_value('The Gathering normal', 'Wendy Adams'))
 
 #Elder Thing
 def Elder_Thing_value(scenario, player=0):
@@ -94,17 +116,28 @@ token_symbol_value = {
     'skull': skull_value, 'cultist': cultist_value, 'tablet': tablet_value, 
     'Elder Thing': Elder_Thing_value, 'Elder Sign': Elder_Sign_value, 'Auto-fail': Auto_fail}
 
-def create_a_chaos_bag(scenario, player):
+def chaos_bag_values(scenario, player):
     scenario_keys = keys[scenario]
     scenario_values = []
-    for i in scenario_keys:
-        if type(i) == int:
-            scenario_values.append(i)
+    i = 0
+    while i < len(scenario_keys):
+        el = scenario_keys[i]
+        if type(el) == int:
+            scenario_values.append(el)
+            i += 1
         else:
-            value = token_symbol_value[i](scenario, player)
-            scenario_values.append(value)   
+            if el == 'Elder Thing': i += 1
+            else:
+                value = token_symbol_value[el](scenario, player)
+                values = [value] * scenario_keys.count(el)
+                scenario_values.extend(values)
+                i += scenario_keys.count(el)
+    if 'Elder Thing' in scenario_keys:
+        Elder_Thing = [i-5 for i in scenario_values]
+        scenario_values.append(Elder_Thing)
     return scenario_values
 
+#нужно разобраться со значком старцев, т.к. не понятно когда его вызывать, и куда деть вероятность, \
+# как ее считать по закону вероятностей (сложение вероятностей или типа того)
 
-
-#print(create_a_chaos_bag('The Gathering normal', 'Roland Bank'))
+print(chaos_bag_values('The Devourer Below normal', 'Roland Banks'))

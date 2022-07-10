@@ -1,4 +1,7 @@
-from game_data.fast_token_value import 
+from game_data.fast_token_value import chaos_bag_values
+
+
+print(chaos_bag_values('The Gathering normal', 'Roland Banks'))
 
 
 def short_probability(result, chaos_bag, chaos_bag_keys):
