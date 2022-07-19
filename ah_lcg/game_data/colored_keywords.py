@@ -33,7 +33,30 @@ def colored_keywords(print_text):
                print_text = print_text.replace(key,keywords[key])
      return(print_text)
 
+names = {'blue_back': ('Guardian', 'Roland Banks')}
+color = {'blue_back': Back.BLUE+Style.BRIGHT}
 
+def names_in_color(print_text):
+     for key in names:
+          for i in names[key]:
+               if i in print_text:
+                    print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
+     return print_text
+
+print(names_in_color('Roland Banks dgdgdgd'))
+
+
+
+
+
+
+
+
+
+
+
+
+#КЛЮЧЕВЫЕ ИМЕНА
 keywords_names = [
      {'Class': 'Roland Banks', 'pre': Back.WHITE+Style.BRIGHT, 'post': Style.RESET_ALL},
      {'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET}, 
