@@ -1,12 +1,25 @@
-from game_data.fast_token_value import chaos_bag_values
+from game_data.fast_token_value import chaos_bag_values_dict, keys, players
+from game_data.input_checking import input_checking as ICh
 
-
-print(chaos_bag_values('The Gathering normal', 'Roland Banks'))
-
-
-def short_probability(result, chaos_bag, chaos_bag_keys):
-    count_of_tokens  = len(chaos_bag_keys)
-    tokens_value = [chaos_bag[i] for i in chaos_bag_keys]
+def short_probability(scenario, player):
+    investigators_in_str = ', '.join(players)
+    scenarios_in_str = ', '.join(chaos_bag_values_dict.keys())
+    while True: # input check
+        if player in players:
+            break 
+        else: player = input(f'Incorrect investigator. Investigators are {investigators_in_str}\n:')
+    while True: # input check
+        if scenario in chaos_bag_values_dict:
+            break
+        else: scenario = input(f'Incorrect scenario. Scenarios are {scenarios_in_str}\n:')
+    q = 'What`s the difficulty of a skill test? Press "num" and "enter" '
+    skill_test = -ICh(q, 'num') # with check
+    q1 = f'What points of the skill does {player} have? Press "num" and "enter" '
+    skill = ICh(q1, 'num') # with check
+    result = skill + skill_test
+    print(f'result is {result}')
+    count_of_tokens  = len(chaos_bag)
+    tokens_value = [chaos_bag[i] for i in chaos_bag]
 #    print(tokens_value)
     done = [i for i in tokens_value if i+result >= 0]
     success = len(done)
@@ -27,7 +40,10 @@ def short_probability(result, chaos_bag, chaos_bag_keys):
                 if new_done_percent >= round((count_of_tokens-1) / count_of_tokens * 100):
                     break
 
-short_probability(skill, check, chaos_bag)
+scenario = 'The Gatheing normal'
+player = 'Roland anks'
+
+short_probability(scenario, player)
 
 
 
