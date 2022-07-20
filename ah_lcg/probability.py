@@ -1,5 +1,6 @@
 from game_data.fast_token_value import chaos_bag_values_dict, keys, players
 from game_data.input_checking import input_checking as ICh
+from game_data.colored_keywords import names_in_color as N_in_C
 
 def short_probability(scenario, player):
     investigators_in_str = ', '.join(players)
@@ -7,7 +8,7 @@ def short_probability(scenario, player):
     while True: # input check
         if player in players:
             break 
-        else: player = input(f'Incorrect investigator. Investigators are {investigators_in_str}\n:')
+        else: player = input(N_in_C(f'Incorrect investigator. Investigators are {investigators_in_str}\n:'))
     while True: # input check
         if scenario in chaos_bag_values_dict:
             break

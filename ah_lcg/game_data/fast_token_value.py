@@ -1,27 +1,23 @@
 #from input_checking import input_checking as ICh
 #from colored_keywords import colored_keywords as CKW 
 from game_data.input_checking import input_checking as ICh # like a module
-from game_data.colored_keywords import colored_keywords as CKW # like a module
-from random import choice
-
-#Сыщики
-players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')
+from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 
 #Elder_Sign for Core Set investigators
 def Elder_Sign(player):
-    if player == 'Roland Banks': # with input check
-        q =CKW('How many clues are at your location? Press a \'num\' and \'enter\' ')
-        Elder_Sign = ICh(q, 'num')
+    if player == 'Roland Banks': 
+        q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
+        Elder_Sign = ICh(q, 'num') # with input check
     if player == '"Skids" O`Toole':
         Elder_Sign = 2
     if player == 'Daisy Walker':
         Elder_Sign = 0
     if player == 'Agnes Baker':
-        q = CKW('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
+        q = N_in_C('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
         Elder_Sign = ICh(q, 'num') # with input check
     if player == 'Wendy Adams':
-        q = CKW('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" ')
+        q = N_in_C('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" ')
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = 99
         else: Elder_Sign = 0
@@ -33,7 +29,7 @@ def Elder_Sign(player):
 #CORE-SET SCENARIO CHAOS TOKEN VALUES
 
 def The_Gathering_normal_values(player):
-    q = CKW('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
+    q = N_in_C('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -1
     tablet_value = -2
@@ -44,7 +40,7 @@ def The_Gathering_normal_values(player):
     return chaos_bag
 
 def The_Midnight_Masks_values(player):
-    q = CKW('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
+    q = N_in_C('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -2
     tablet_value = -3
@@ -55,7 +51,7 @@ def The_Midnight_Masks_values(player):
     return chaos_bag
 
 def The_Devouver_Below_normal_values(player):
-    q = CKW('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
+    q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -2
     tablet_value = -3
@@ -63,7 +59,7 @@ def The_Devouver_Below_normal_values(player):
     Elder_Sign_value = Elder_Sign(player)
     chaos_bag = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
     tablet_value, Auto_fail_value, Elder_Sign_value]
-    q2 = CKW('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
+    q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
     Elder_Thing = ICh(q2) # with input check
     if Elder_Thing == 'y': Elder_Thing_value = [i-5 for i in chaos_bag]
     else: Elder_Thing_value = -5
@@ -71,6 +67,8 @@ def The_Devouver_Below_normal_values(player):
     return chaos_bag
     
 #print(The_Devouver_Below_normal_values('Agnes Baker'))
+
+#значение сумок
 
 chaos_bag_values_dict = {
     'The Gathering normal': The_Gathering_normal_values, 
@@ -89,7 +87,8 @@ keys = {'The Gathering normal': The_gathering_normal_keys,
 'The Midnight Masks normal': The_gathering_normal_keys,
 'The Devourer Below normal': The_Devouver_Below_normal_keys}
 
-
+#Сыщики
+players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')
 
 # #Elder Thing
 # def Elder_Thing_value(scenario, player=0):

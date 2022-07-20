@@ -2,58 +2,43 @@ from colorama import Fore, Back, Style
 #import Enemies
 
 
-keywords = {
-     'Guardian': Back.BLUE+Style.BRIGHT+'Guardian'+Style.RESET_ALL,
-     'Rouge': Back.GREEN+Style.BRIGHT+'Rouge'+Style.RESET_ALL,
-     'Seeker': Back.YELLOW+Style.BRIGHT+'Seeker'+Style.RESET_ALL,
-     'Mystic': Back.MAGENTA+Style.BRIGHT+'Mystic'+Style.RESET_ALL,
-     'Survivor': Back.RED+Style.BRIGHT+'Survivor'+Style.RESET_ALL,
-     'damage': Fore.RED+Style.BRIGHT+'damage'+Style.RESET_ALL,
-     'doom': Fore.RED+Style.DIM+'doom'+Style.RESET_ALL,
-     'horror': Fore.BLUE+Style.BRIGHT+'horror'+Style.RESET_ALL,
-     'clue': Fore.GREEN+Style.BRIGHT+'clue'+Style.RESET_ALL,
-     'Elder Sign': Fore.CYAN+'Elder Sign'+Fore.RESET,
-     'Auto-fail': Fore.RED+'Auto-fail'+Fore.RESET,
-     'skull': Fore.YELLOW+'skull'+Fore.RESET,
-     'cultist': Fore.YELLOW+'cultist'+Fore.RESET,
-     'tablet': Fore.YELLOW+'tablet'+Fore.RESET,
-     'Elder Thing': Fore.YELLOW+'Elder Thing'+Fore.RESET,
-     'willpower': Fore.MAGENTA+'willpower'+Fore.RESET,
-     'combat': Fore.RED+'combat'+Fore.RESET,
-     'intellect': Fore.YELLOW+Style.DIM+'intellect'+Style.RESET_ALL,
-     'agility': Fore.GREEN+'agility'+Fore.RESET,
-     'Ghoul': Fore.RED+'Ghoul'+Fore.RESET,
-     'Cultist': Fore.RED+'Cultist'+Fore.RESET,
-     'Monster': Fore.RED+'Monster'+Fore.RESET,
-     'Ancient One': Back.RED+Style.BRIGHT+'Ancient One'+Style.RESET_ALL}
+keywords2 = {
+     'blue_back': ('Guardian', 'Roland Banks'), 
+     'green_back': ('Rouge', '"Skids" O`Toole'),
+     'yellow_back': ('Seeker', 'Daisy Walker'),
+     'magenta_back': ('Mystic', 'Agnes Baker'),
+     'red_back':('Survivor', 'Wendy Adams'),
+     'red_back_with_fat': ('Ancient One', ),
+     'grey_back': ('Wendy`s Amulet', ),
+     'red': ('damage', 'Ghoul', 'Cultist', 'Monster', 'Auto-fail', 'combat'),
+     'dim_red': ('doom', ), 
+     'blue':('horror', ), 
+     'green': ('clue', 'agility'),
+     'yellow': ('intellect', 'skull', 'cultist', 'tablet', 'Elder Thing'),
+     'magenta': ('willpower', ),
+     'cyan': ('Elder Sign', )
+     }
 
-def colored_keywords(print_text):
-     for key in keywords:
-          if key in print_text:
-               print_text = print_text.replace(key,keywords[key])
-     return(print_text)
-
-names = {'blue_back': ('Guardian', 'Roland Banks')}
-color = {'blue_back': Back.BLUE+Style.BRIGHT}
+color = {
+     'blue_back': Back.LIGHTBLUE_EX, 'green_back': Back.GREEN, 'yellow_back': Back.YELLOW, 
+     'magenta_back': Back.LIGHTMAGENTA_EX, 'red_back': Back.LIGHTRED_EX, 
+     'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 'grey_back': Back.LIGHTWHITE_EX, 'red': Fore.RED, 'dim_red': Fore.RED+Style.DIM, 
+     'blue': Fore.BLUE, 'green': Fore.GREEN, 'yellow': Fore.YELLOW, 'magenta': Fore.MAGENTA, 'cyan': Fore.CYAN
+     }
 
 def names_in_color(print_text):
-     for key in names:
-          for i in names[key]:
+     for key in keywords2:
+          for i in keywords2[key]:
                if i in print_text:
                     print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
      return print_text
 
-print(names_in_color('Roland Banks dgdgdgd'))
+# проверка словаря
+string = ''
+for i in keywords2.values():
+    string += ' '.join(i) + ' '
 
-
-
-
-
-
-
-
-
-
+#print(names_in_color(string))
 
 
 #КЛЮЧЕВЫЕ ИМЕНА
@@ -86,6 +71,3 @@ def colored_names(card):
 # def main():
 #      if __name__ == '__main__':
 #           main()
-
-#print(colored_keywords('clues'))
-#print(colored_keywords(' '.join(keywords.keys())))
