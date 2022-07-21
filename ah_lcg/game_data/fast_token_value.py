@@ -1,5 +1,5 @@
 #from input_checking import input_checking as ICh
-#from colored_keywords import colored_keywords as CKW 
+#from colored_keywords import names_in_color as N_in_C
 from game_data.input_checking import input_checking as ICh # like a module
 from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
@@ -28,7 +28,7 @@ def Elder_Sign(player):
 
 #CORE-SET SCENARIO CHAOS TOKEN VALUES
 
-def The_Gathering_normal_values(player):
+def The_Gathering_standard_values(player):
     q = N_in_C('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -1
@@ -39,7 +39,7 @@ def The_Gathering_normal_values(player):
     tablet_value, Auto_fail_value, Elder_Sign_value]
     return chaos_bag
 
-def The_Midnight_Masks_values(player):
+def The_Midnight_Masks_standard_values(player):
     q = N_in_C('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -2
@@ -50,7 +50,7 @@ def The_Midnight_Masks_values(player):
     tablet_value, Auto_fail_value, Elder_Sign_value]
     return chaos_bag
 
-def The_Devouver_Below_normal_values(player):
+def The_Devouver_Below_standard_values(player):
     q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
     skull_value = -ICh(q, 'num') # with input check
     cultist_value = -2
@@ -66,26 +66,26 @@ def The_Devouver_Below_normal_values(player):
     chaos_bag.append(Elder_Thing_value)
     return chaos_bag
     
-#print(The_Devouver_Below_normal_values('Agnes Baker'))
+#print(The_Devouver_Below_standard_values('Agnes Baker'))
 
 #значение сумок
 
 chaos_bag_values_dict = {
-    'The Gathering normal': The_Gathering_normal_values, 
-    'The Midnight Masks normal': The_Midnight_Masks_values, 
-    'The Devourer Below normal': The_Devouver_Below_normal_values}
+    'The Gathering standard': The_Gathering_standard_values, 
+    'The Midnight Masks standard': The_Midnight_Masks_standard_values, 
+    'The Devourer Below standard': The_Devouver_Below_standard_values}
 
 #ключи к сумкам
 
-The_gathering_normal_keys = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
+The_gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
 
-The_Devouver_Below_normal_keys = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
-    'skull', 'skull', 'cultist', 'tablet', 'Elder Thing', 'Auto-fail', 'Elder Sign']
+The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
+    'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign', 'Elder Thing']
 
-keys = {'The Gathering normal': The_gathering_normal_keys,
-'The Midnight Masks normal': The_gathering_normal_keys,
-'The Devourer Below normal': The_Devouver_Below_normal_keys}
+keys = {'The Gathering normal': The_gathering_standard_keys,
+'The Midnight Masks normal': The_gathering_standard_keys,
+'The Devourer Below normal': The_Devouver_Below_standard_keys}
 
 #Сыщики
 players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')

@@ -1,10 +1,11 @@
 from game_data.fast_token_value import chaos_bag_values_dict, keys, players
 from game_data.input_checking import input_checking as ICh
-from game_data.colored_keywords import names_in_color as N_in_C
+from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points
 
 def short_probability(scenario, player):
     investigators_in_str = ', '.join(players)
-    scenarios_in_str = ', '.join(chaos_bag_values_dict.keys())
+    colored_scenario_list = [colored_scenario(i)for i in chaos_bag_values_dict.keys()]
+    scenarios_in_str = ', '.join(colored_scenario_list)
     while True: # input check
         if player in players:
             break 
@@ -13,24 +14,23 @@ def short_probability(scenario, player):
         if scenario in chaos_bag_values_dict:
             break
         else: scenario = input(f'Incorrect scenario. Scenarios are {scenarios_in_str}\n:')
-    q = 'What`s the difficulty of a skill test? Press "num" and "enter" '
+    q = N_in_C('What`s the difficulty of a skill test? Press "num" and "enter" ')
     skill_test = -ICh(q, 'num') # with check
-    q1 = f'What points of the skill does {player} have? Press "num" and "enter" '
+    q1 = N_in_C(f'What points of the skill does {player} have? Press "num" and "enter" ')
     skill = ICh(q1, 'num') # with check
     result = skill + skill_test
-    print(f'result is {result}')
-    count_of_tokens  = len(chaos_bag)
-    tokens_value = [chaos_bag[i] for i in chaos_bag]
-#    print(tokens_value)
-    done = [i for i in tokens_value if i+result >= 0]
+    chaos_bag_values = chaos_bag_values_dict[scenario](player)
+    count_of_tokens  = len(chaos_bag_values)
+    done = [i+result for i in chaos_bag_values if i+result >= 0]
     success = len(done)
     done_procent = round((success/count_of_tokens) * 100)
-    if done_procent >= round((count_of_tokens-1) / count_of_tokens * 100):
-        print(f'done_procent is {done_procent}%! You not need any points!')
-    else: 
-        print(f'done_procent is {done_procent}%')
-        #adding points
-        if input('Press \'y\' and \'enter\' if you want to add any point(s). ') == 'y':
+    result_in_color = colored_points(result, done_procent) 
+    print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}')
+#adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс 
+#    while True: # dialog interface
+        print(N_in_C(f'Does {player} need to\n'))
+        q2 = 'Press \'y\' or "n" and \'enter\' '
+        if input() == 'y':
             for add in range (1, 20):
                 new_result = result + add
                 new_done = [i+new_result for i in tokens_value if i+new_result >= 0]
@@ -41,8 +41,8 @@ def short_probability(scenario, player):
                 if new_done_percent >= round((count_of_tokens-1) / count_of_tokens * 100):
                     break
 
-scenario = 'The Gatheing normal'
-player = 'Roland anks'
+scenario = 'The Gathering standard'
+player = 'Roland Banks'
 
 short_probability(scenario, player)
 
