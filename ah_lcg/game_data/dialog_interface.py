@@ -29,7 +29,7 @@ def dialog_interface():
 general_menu = {
     '1': 'to add skill point(s) and pull a token', 
     '2': 'to pull a token', 
-    '3': 'to succeed or fail a skill test by "?" and recalculate a probability'}
+    '3': 'to recalculate a probability (to succeed or fail a skill test by "?")'}
     
     
     

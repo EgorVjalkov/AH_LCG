@@ -2,6 +2,7 @@ from game_data.fast_token_value import chaos_bag_values_dict, keys, players
 from game_data.input_checking import input_checking as ICh
 from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points
 from game_data.dialog_interface import dialog_interface, general_menu
+from game_data.prob_funcs import done_percent as dp, counting_points_cycle as CPcy
 
 
 def short_probability(scenario, player):
@@ -20,25 +21,17 @@ def short_probability(scenario, player):
     skill_test = -ICh(q, 'num') # with check
     q1 = N_in_C(f'What points of the skill does {player} have? Press "num" and "enter" ')
     skill = ICh(q1, 'num') # with check
+    print('')
     result = skill + skill_test
     chaos_bag_values = chaos_bag_values_dict[scenario](player)
-    count_of_tokens  = len(chaos_bag_values)
     while True: #dialog cycle
-        done = [i+result for i in chaos_bag_values if i+result >= 0]
-        success = len(done)
-        done_procent = round((success/count_of_tokens) * 100)
-        result_in_color = colored_points(result, done_procent)
-        print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}\n')
-        for add in range (1, 20): #counting points cycle
-            new_result = result + add
-            new_done = [i+new_result for i in chaos_bag_values if i+new_result >= 0]
-            new_success = len(new_done)
-            new_done_percent = round((new_success/count_of_tokens) * 100)
-            if new_done_percent > 0: # сделай цветные проценты
-                print(f'If you add {add} point(s), done_procent is {new_done_percent}%')
-            if new_done_percent >= round((count_of_tokens-1) / count_of_tokens * 100):
-                print('\n')
-                break
+        result_in_color = colored_points(result, dp(result, chaos_bag_values))
+        print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n') #первичный 
+        points_to_percent_list = CPcy(result, chaos_bag_values)
+        for tup in points_to_percent_list:
+            colored_tup = colored_points(tup[0], tup[1])
+            print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
+        print(N_in_C(f'\nWhat does {player} need to do?'))
         for key in general_menu:
             print(N_in_C(f'press "{key}" and "enter" - {general_menu[key]}'))
         q_GM = ': ' # input check
@@ -46,16 +39,13 @@ def short_probability(scenario, player):
         if answer == '2':
             break
         if answer == '1': 
-            q_adding = N_in_C(f'How many points does {player} add\n: ')
+            q_adding = N_in_C(f'How many points does {player} add? ')
             result += ICh(q_adding, 'num')
-            done = [i+result for i in chaos_bag_values if i+result >= 0]
-            success = len(done)
-            done_procent = round((success/count_of_tokens) * 100)
-            result_in_color = colored_points(result, done_procent)
-            print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}')
-            break
+            result_in_color = colored_points(result, dp(result, chaos_bag_values))
+            print(f'result is {result_in_color[0]} success percent is {result_in_color[1]}\n') #вторичный
+            break 
     print(result)
-# #adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс 
+# #adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс для 3 ог этапа
 # #    while True: # dialog interface
 #         print(N_in_C(f'Does {player} need to\n'))
 #         q2 = 'Press \'y\' or "n" and \'enter\' '
