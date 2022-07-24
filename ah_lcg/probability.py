@@ -1,6 +1,8 @@
 from game_data.fast_token_value import chaos_bag_values_dict, keys, players
 from game_data.input_checking import input_checking as ICh
 from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points
+from game_data.dialog_interface import dialog_interface, general_menu
+
 
 def short_probability(scenario, player):
     investigators_in_str = ', '.join(players)
@@ -21,25 +23,44 @@ def short_probability(scenario, player):
     result = skill + skill_test
     chaos_bag_values = chaos_bag_values_dict[scenario](player)
     count_of_tokens  = len(chaos_bag_values)
-    done = [i+result for i in chaos_bag_values if i+result >= 0]
-    success = len(done)
-    done_procent = round((success/count_of_tokens) * 100)
-    result_in_color = colored_points(result, done_procent) 
-    print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}')
-#adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс 
-#    while True: # dialog interface
-        print(N_in_C(f'Does {player} need to\n'))
-        q2 = 'Press \'y\' or "n" and \'enter\' '
-        if input() == 'y':
-            for add in range (1, 20):
-                new_result = result + add
-                new_done = [i+new_result for i in tokens_value if i+new_result >= 0]
-                new_success = len(new_done)
-                new_done_percent = round((new_success/count_of_tokens) * 100)
-                if new_done_percent > 0:
-                    print(f'If you add {add} point(s), done_procent is {new_done_percent}%')
-                if new_done_percent >= round((count_of_tokens-1) / count_of_tokens * 100):
-                    break
+    while True: #dialog cycle
+        done = [i+result for i in chaos_bag_values if i+result >= 0]
+        success = len(done)
+        done_procent = round((success/count_of_tokens) * 100)
+        result_in_color = colored_points(result, done_procent)
+        print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}\n')
+        for add in range (1, 20): #counting points cycle
+            new_result = result + add
+            new_done = [i+new_result for i in chaos_bag_values if i+new_result >= 0]
+            new_success = len(new_done)
+            new_done_percent = round((new_success/count_of_tokens) * 100)
+            if new_done_percent > 0: # сделай цветные проценты
+                print(f'If you add {add} point(s), done_procent is {new_done_percent}%')
+            if new_done_percent >= round((count_of_tokens-1) / count_of_tokens * 100):
+                print('\n')
+                break
+        for key in general_menu:
+            print(N_in_C(f'press "{key}" and "enter" - {general_menu[key]}'))
+        q_GM = ': ' # input check
+        answer = ICh(q_GM, ('1','2','3')) # input check
+        if answer == '2':
+            break
+        if answer == '1': 
+            q_adding = N_in_C(f'How many points does {player} add\n: ')
+            result += ICh(q_adding, 'num')
+            done = [i+result for i in chaos_bag_values if i+result >= 0]
+            success = len(done)
+            done_procent = round((success/count_of_tokens) * 100)
+            result_in_color = colored_points(result, done_procent)
+            print(f'result is {result_in_color[0]} done_procent is {result_in_color[1]}')
+            break
+    print(result)
+# #adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс 
+# #    while True: # dialog interface
+#         print(N_in_C(f'Does {player} need to\n'))
+#         q2 = 'Press \'y\' or "n" and \'enter\' '
+#         if input() == 'y':
+            
 
 scenario = 'The Gathering standard'
 player = 'Roland Banks'
