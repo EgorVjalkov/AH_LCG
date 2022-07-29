@@ -1,7 +1,7 @@
-#from input_checking import input_checking as ICh
-#from colored_keywords import names_in_color as N_in_C
-from game_data.input_checking import input_checking as ICh # like a module
-from game_data.colored_keywords import names_in_color as N_in_C # like a module
+from input_checking import input_checking as ICh
+from colored_keywords import names_in_color as N_in_C
+#from game_data.input_checking import input_checking as ICh # like a module
+#from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 
 #Elder_Sign for Core Set investigators
@@ -12,7 +12,10 @@ def Elder_Sign(player):
     if player == '"Skids" O`Toole':
         Elder_Sign = 2
     if player == 'Daisy Walker':
-        Elder_Sign = 0
+        q = N_in_C('Does The Necronomicon. John Dee Translation in play?. Press "y" or "n" and "enter" ')
+        Elder_Sign = ICh(q) # with input check
+        if Elder_Sign == 'y': Elder_Sign = -99
+        else: Elder_Sign = 0
     if player == 'Agnes Baker':
         q = N_in_C('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
         Elder_Sign = ICh(q, 'num') # with input check
@@ -23,7 +26,9 @@ def Elder_Sign(player):
         else: Elder_Sign = 0
     return int(Elder_Sign)
 
-#print(Elder_Sign('Roland Banks')) CORE-SET DONE!
+print(Elder_Sign('Daisy Walker')) 
+
+#CORE-SET DONE!
 
 
 #CORE-SET SCENARIO CHAOS TOKEN VALUES

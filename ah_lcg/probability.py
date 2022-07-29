@@ -82,7 +82,7 @@ if GENERAL_MENU_FLAG == True:
                 else: 
 
 
-print(result,)
+    #print(result,)
 # #adding points!!!!!!!!! необходимо сделать диалоговфый  интерфейс для 3 ог этапа
 # #    while True: # dialog interface
 #         print(N_in_C(f'Does {player} need to\n'))
