@@ -8,7 +8,7 @@ keywords2 = {
      'magenta_back': ('Mystic', 'Agnes Baker'),
      'red_back':('Survivor', 'Wendy Adams'),
      'red_back_with_fat': ('Ancient One', ),
-     'grey_back': ('Wendy`s Amulet', ),
+     'grey_back': ('Wendy`s Amulet', 'The Necronomicon. John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', 'Auto-fail', 'combat', 'fail'),
      'dim_red': ('doom', ), 
      'blue':('horror', ), 
