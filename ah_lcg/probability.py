@@ -2,7 +2,7 @@ from game_data.fast_token_value import chaos_bag_values_dict, keys, players
 from game_data.input_checking import input_checking as ICh
 from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points
 from game_data.dialog_interface import side_menu, general_menu
-from game_data.prob_funcs import done_percent as dp, counting_points_cycle as CPcy
+from game_data.prob_funcs import done_percent as dp, success_counting_points_cycle as S_CP_cy
 
 #исходные данные
 scenario = 'The Gathering standard'
@@ -42,7 +42,7 @@ result_in_color = colored_points(result, dp(result, chaos_bag_values))
 print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
 
 #первичный "если ты добавишь столько - процент будет столько" 
-points_to_percent_list = CPcy(result, chaos_bag_values)
+points_to_percent_list = S_CP_cy(result, chaos_bag_values)
 for tup in points_to_percent_list:
     colored_tup = colored_points(tup[0], tup[1])
     print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
@@ -70,14 +70,16 @@ if GENERAL_MENU_FLAG == True:
     if answer == '3':
         SIDE_MENU_FLAG = True # переход в побочное меню
         while SIDE_MENU_FLAG == True:
-            num_of_suc_or_fail = side_menu()
+            num_of_suc_or_fail = side_menu() # вернет int или tup
             if num_of_suc_or_fail == 'exit':
                 SIDE_MENU_FLAG = False
             else:
-                points_to_percent_list = CPcy(result, chaos_bag_values, num_of_suc_or_fail)
-                for tup in points_to_percent_list:
-                    colored_tup = colored_points(tup[0], tup[1])
-                    print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
+                if type(num_of_suc_or_fail) == int:
+                    points_to_percent_list = S_CP_cy(result, chaos_bag_values, num_of_suc_or_fail)
+                    for tup in points_to_percent_list:
+                        colored_tup = colored_points(tup[0], tup[1])
+                        print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
+                else: 
 
 
 print(result,)
