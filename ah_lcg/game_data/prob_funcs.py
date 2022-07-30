@@ -57,4 +57,8 @@ def counting_points_cycle(result, chaos_bag_values, num=0):
     return add_points_list
 
 
+<<<<<<< HEAD
 print(counting_points_cycle(0, list_, (-2, 'fail more')))
+=======
+print(counting_points_cycle(-4, list_, (-2, 'fail more')))
+>>>>>>> 342b2b4f4fe7aabe05a458a0004b1addaff82608
