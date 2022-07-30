@@ -8,7 +8,7 @@ dialog_interface_dict = {
         'to succeed a skill test by 2 or more': 2,
         'to succeed a skill test by 3 or more': 3,
         'to succeed a skill test by 4 or more': 4,
-        'to succeed a skill test or fail a skill test by 2 or less': (2, 'fail less'),
+        'to succeed a skill test or fail a skill test by 2 or less': (2, 'fail by or less'),
         'to exit in general menu': 'exit'
         }
 

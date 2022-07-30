@@ -79,7 +79,7 @@ if GENERAL_MENU_FLAG == True:
                     for tup in points_to_percent_list:
                         colored_tup = colored_points(tup[0], tup[1])
                         print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
-                else: 
+                else: pass
 
 
     #print(result,)
@@ -89,49 +89,7 @@ if GENERAL_MENU_FLAG == True:
 #         q2 = 'Press \'y\' or "n" and \'enter\' '
 #         if input() == 'y':
 
-
-
-
-
-
-
-
-
-
-# # Outdo 2 points percent
-#     if input('Press \'y\' and \'enter\' if you want to count 2 points passed percent. ') == 'y':
-#         increase_2 = [i for i in tokens_value if i+result >= 2]
-#         success2 = len(increase_2)
-#         increase_2_percent = round(success2/count_of_tokens * 100)
-#         print(f'2 points passed percent is {increase_2_percent}%')
-#     # adding point(s)        
-#         if input('Press \'y\' and \'enter\' if you want to add any point(s). ') == 'y':
-#             for add in range (1, 20):
-#                 new_result = result + add
-#                 new_done = [i+new_result for i in tokens_value if i+new_result >= 2]
-#                 new_success = len(new_done)
-#                 new_done_percent = round((new_success/count_of_tokens) * 100)
-#                 if new_done_percent > 0:
-#                     print(f'if you add {add} point(s), 2 points passed percent is {new_done_percent}%')
-#                 if new_done_percent >= round(((count_of_tokens-1) / count_of_tokens) * 100):
-#                     break
-# # Outdo 4 points percent
-#     if input('Press \'y\' and \'enter\' if you want to count 4 points passed percent. ') == 'y':
-#         increase_4 = [i for i in tokens_value if i+result >= 4]
-#         success4 = len(increase_4)
-#         increase_4_percent = round(success4/count_of_tokens * 100)
-#         print(f'4 points passed percent is {increase_4_percent}%')
-#     # adding point(s)        
-#         if input('Press \'y\' and \'enter\' if you want to add any point(s). ') == 'y':
-#             for add in range (1, 20):
-#                 new_result = result + add
-#                 new_done = [i+new_result for i in tokens_value if i+new_result >= 4]
-#                 new_success = len(new_done)
-#                 new_done_percent = round((new_success/count_of_tokens) * 100)
-#                 if new_done_percent > 0:
-#                     print(f'if you add {add} point(s), 4 points passed percent is {new_done_percent}%')
-#                 if new_done_percent >= round(((count_of_tokens-1) / count_of_tokens) * 100):
-#                     break                
+        
 # # for crystal_pendulum
 #     if input('Press \'y\' and \'enter\' if you try to use the crystal pendulum. ') == 'y':
 #         add_point = input('Add any point(s) if you want to correct your skill ' )

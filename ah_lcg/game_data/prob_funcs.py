@@ -5,28 +5,26 @@ list_ = [-1, -2, [-3, -1], -4, -5, [0, 0, -1], -5, 1, -2, [-99, -1, -3, -5], -6,
 list_2 = [1, 1, 0, 0, -1, -1, -1, -2, -2, -3, -3, -1, -1, -2, -3, 3, -99]
 
 def success_done_percent(result, chaos_bag_values, num=0):
-    done = [1 for i in chaos_bag_values if i+result >= num]
-    count_of_tokens = len(chaos_bag_values)
-    success = sum(done)
-    done_percent = success/count_of_tokens
+    done = lambda i: 1 if i+result >= num else 0
+    success = sum([done(i) for i in chaos_bag_values])
+    done_percent = success/len(chaos_bag_values)
     return done_percent
 
-def fail_done_percent(result, chaos_bag_values, num=(-2, 'fail less')):
-    if 'fail less' in num: 
-        fail = [1 for i in chaos_bag_values if i+result < 0 and i+result >= num[0]]
-    elif 'fail more' in num:
-        fail = [1 for i in chaos_bag_values if i+result <= num[0]]
-    count_of_tokens = len(chaos_bag_values)
-    success = sum(fail)
-    fail_percent = success/count_of_tokens
+
+def fail_done_percent(result, chaos_bag_values, num=(-2, 'fail by or less')):
+    if 'fail by or less' in num:
+        done = lambda i: 1 if i+result < 0 and i+result >= num[0] else 0
+    else: done = lambda i: 1 if i+result <= num[0] else 0
+    fail = sum([done(i) for i in chaos_bag_values])
+    fail_percent = fail/len(chaos_bag_values)
     return fail_percent
 
-#print(success_done_percent(0, list_2, 0))
+args = (0, list_2, (-2, 'fail by or more'))
+print(fail_done_percent(*args))
 
 
-def counting_points_cycle(result, chaos_bag_values, num=0):
+def counting_points_cycle(result, chaos_bag_values, num=0, add_points=1):
     if type(num) == tuple and 'fail' in num[1]: #переключатель функции
-#        print(1)
         percent_func = fail_done_percent
     else: percent_func = success_done_percent
     add_points_list = []
@@ -40,7 +38,7 @@ def counting_points_cycle(result, chaos_bag_values, num=0):
             chaos_bag_values.append(-99) #заглушка для удаленного списка 
             num_of_list += 1
     dict_of_tokens['bag'] = chaos_bag_values
-    for add in range (20): #counting points cycle
+    for add in range (add_points+1): #counting points cycle
         new_result = result + add
         probability = 0
         for key in dict_of_tokens:
@@ -56,13 +54,5 @@ def counting_points_cycle(result, chaos_bag_values, num=0):
             max_of_percent = probability #проверка на максимум. чтобы вовремя остановиться
     return add_points_list
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-print(counting_points_cycle(0, list_, (-2, 'fail more')))
-=======
-print(counting_points_cycle(-4, list_, (-2, 'fail more')))
->>>>>>> 342b2b4f4fe7aabe05a458a0004b1addaff82608
-=======
-print(counting_points_cycle(-4, list_, (-2, 'fail more')))
->>>>>>> 342b2b4f4fe7aabe05a458a0004b1addaff82608
+args = (0, list_, 0)
+print(counting_points_cycle(0, list_, 0, 3))
