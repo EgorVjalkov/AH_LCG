@@ -16,7 +16,7 @@ keywords2 = {
      'yellow': ('intellect', 'skull', 'cultist', 'tablet', 'Elder Thing'),
      'magenta': ('willpower', ),
      'cyan': ('Elder Sign', ),
-     'fat': ('skill', 'skill_test', 'token')} # не прокрашивает слово тест. надо корректировать!
+     'fat': ('skill', 'skill_test', 'token', 'cards', 'abilities')} # не прокрашивает слово тест. надо корректировать!
 
 color = {
      'blue_back': Back.LIGHTBLUE_EX, 'green_back': Back.GREEN, 'yellow_back': Back.YELLOW, 
@@ -32,6 +32,12 @@ def names_in_color(print_text):
                if i in print_text:
                     print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
      return print_text
+
+def text_in_color(text, text_format):
+     color_func = color[text_format]
+     colored_text = color_func + text + Style.RESET_ALL
+     return colored_text
+
 
 # проверка словаря
 string = ''

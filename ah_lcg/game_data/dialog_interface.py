@@ -1,16 +1,61 @@
-#from input_checking import input_checking as ICh
-#from colored_keywords import names_in_color as N_in_C
-from game_data.input_checking import input_checking as ICh
-from game_data.colored_keywords import names_in_color as N_in_C
+if __name__ == '__main__':
+    from input_checking import input_checking as ICh
+    from colored_keywords import names_in_color as N_in_C, text_in_color as T_in_C
+else:    
+    from game_data.input_checking import input_checking as ICh # like a module
+    from game_data.colored_keywords import names_in_color as N_in_C, text_in_color as T_in_C # like a module
 
 
-dialog_interface_dict = {
-        'to succeed a skill test by 2 or more': 2,
-        'to succeed a skill test by 3 or more': 3,
-        'to succeed a skill test by 4 or more': 4,
-        'to succeed a skill test or fail a skill test by 2 or less': (2, 'fail by or less'),
-        'to exit in general menu': 'exit'
-        }
+#функция меню
+def menu(menu_dict, player):
+    menu = {}
+    for num, el in enumerate(list(menu_dict.keys())[1:]):
+        print(N_in_C(f'press "{num+1}" and "enter" - {el}'))
+        menu[str(num+1)] = el
+    q = menu_dict['description'](player)
+    limit_of_answer = tuple(str(i) for i in range(1, len(menu.keys())+1))
+    answer = ICh(q, limit_of_answer)
+    return menu_dict[menu[answer]]
+
+#меню с применением карт
+card_using_menu_dict = {
+    'description': lambda player: N_in_C(player) + T_in_C(' reads a discription of a card, is there one of expressions in? ', 'fat'),
+    'succeed a skill test by 1 or more': (1, 'succeed by 1 or more'),
+    'succeed a skill test by 2 or more': (2, 'succeed by 2 or more'),
+    'succeed a skill test by 3 or more': (3,'succeed by 3 or more'),
+    'succeed a skill test by 4 or more': (4, 'succeed by 4 or more'),
+    'fail a skill test by 2 or less': (2, 'fail by 2 or less'),
+    'fail a skill test by 2 or more': (2, 'fail by 2 or more'),
+    'no expressions': 'exit'
+}
+
+# #меню с жетонами
+# pull_token_menu_dict = {
+#     'pull another token': 
+
+# }
+
+dict_of_cards_or_abilities = {}
+
+#основное меню
+general_menu = {
+    'description': lambda player: T_in_C('What does ', 'fat') + N_in_C(player) + T_in_C(' try to do? ', 'fat'),
+    'to pull a token': 'exit', 
+    'to add skill point(s) and pull a token': lambda player: ICh('How many points does ' + N_in_C(player) + ' try to add? ', 'num'),
+    'to recalculate a probability (if use some cards or abilities)': lambda player: menu(card_using_menu_dict, player),
+    'to view a list of cards and abilities (whitch would be able to use for a skill test)': None
+}
+    
+#main_func
+def main():
+    if __name__ == '__main__':
+        answer = menu(general_menu, 'Wendy Adams')
+        if type(answer) != str:
+            print(answer('Wendy Adams'))
+        else: print(answer)
+
+main()
+
 
 # Lucky!(если провал +2), Sure Gamble (Switch + on -), Daring Maneuver (если успех еще +2)
 # Ritual Candles (+1 symbol), Crystal Pendulum (enter a number), Dark Prophecy (5 tokens), 
@@ -18,32 +63,6 @@ dialog_interface_dict = {
 # 21 or Bust (игра в очко. интересная механика), Money Talks (че-то там с ресурсами), 
 # Snipe(symbols is 0), Nkosi Mabati: Enigmatic Warlock (sigil), Divination (succeed by 0), 
 #"Hit me!" (+1 token), Precious Memento: From a Former Life (+2 -2)
-def side_menu():
-    menu = {}
-    for num, el in enumerate(dialog_interface_dict.keys()):
-        print(N_in_C(f'press "{num+1}" and "enter" - {el}'))
-        menu[str(num+1)] = el
-    q = ': ' # input check
-    answer = ICh(q, ('1','2','3','4', '5')) # input check
-    return dialog_interface_dict[menu[answer]]
-
-general_menu = {
-    '1': 'to add skill point(s) and pull a token', 
-    '2': 'to pull a token', 
-    '3': 'to recalculate a probability (to succeed or fail a skill test by "?")'}
-    
-    
-    
-    
-    
-    # for num, el in enumerate(dialog_interface_dict.keys()):
-    #     menu_point = num, el
-    #     menu.append(num,el)
-    #     print(N_in_C(f'press "{num+1}" and "enter" - {el}'))
-
-
-
     
 
 
-#print(dialog_interface(5, 'Egorok'))

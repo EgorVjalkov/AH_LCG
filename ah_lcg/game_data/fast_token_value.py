@@ -1,7 +1,9 @@
-from input_checking import input_checking as ICh
-from colored_keywords import names_in_color as N_in_C
-#from game_data.input_checking import input_checking as ICh # like a module
-#from game_data.colored_keywords import names_in_color as N_in_C # like a module
+if __name__ == '__main__':
+    from input_checking import input_checking as ICh
+    from colored_keywords import names_in_color as N_in_C
+else:    
+    from game_data.input_checking import input_checking as ICh # like a module
+    from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 
 #Elder_Sign for Core Set investigators
@@ -26,7 +28,6 @@ def Elder_Sign(player):
         else: Elder_Sign = 0
     return int(Elder_Sign)
 
-#print(Elder_Sign('Wendy Adams')) 
 
 #CORE-SET DONE!
 
@@ -42,9 +43,9 @@ The_gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3
 The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign', 'Elder Thing']
 
-keys = {'The Gathering normal': The_gathering_standard_keys,
-'The Midnight Masks normal': The_gathering_standard_keys,
-'The Devourer Below normal': The_Devouver_Below_standard_keys}
+keys = {'The Gathering standard': The_gathering_standard_keys,
+'The Midnight Masks standard': The_gathering_standard_keys,
+'The Devourer Below standard': The_Devouver_Below_standard_keys}
 
 
 def The_Gathering_standard_values(player):
@@ -56,8 +57,7 @@ def The_Gathering_standard_values(player):
     Elder_Sign_value = Elder_Sign(player)
     chaos_bag_values = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
     tablet_value, Auto_fail_value, Elder_Sign_value]
-    chaos_bag = zip(keys['The Gathering normal'], chaos_bag_values)
-    return chaos_bag
+    return chaos_bag_values
 
 def The_Midnight_Masks_standard_values(player):
     q = N_in_C('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
@@ -68,8 +68,7 @@ def The_Midnight_Masks_standard_values(player):
     Elder_Sign_value = Elder_Sign(player)
     chaos_bag_values = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
     tablet_value, Auto_fail_value, Elder_Sign_value]
-    chaos_bag = zip(keys['The Midnight Masks normal'], chaos_bag_values)
-    return chaos_bag
+    return chaos_bag_values
 
 def The_Devouver_Below_standard_values(player):
     q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
@@ -85,10 +84,8 @@ def The_Devouver_Below_standard_values(player):
     if Elder_Thing == 'y': Elder_Thing_value = [i-5 for i in chaos_bag_values]
     else: Elder_Thing_value = -5
     chaos_bag_values.append(Elder_Thing_value)
-    chaos_bag = zip(keys['The Devourer Below normal'], chaos_bag_values)
-    return chaos_bag
+    return chaos_bag_values
 
-print(list(The_Devouver_Below_standard_values('Agnes Baker'))) ##!!!! zipнул все в кортежи. однако значек древниего пока список
 
 #значение сумок
 
@@ -100,6 +97,16 @@ chaos_bag_values_dict = {
 
 #Сыщики
 players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')
+
+
+#main_func
+def main():
+    if __name__ == '__main__':
+        print(The_Devouver_Below_standard_values('Agnes Baker'))
+        print(Elder_Sign('Wendy Adams')) 
+
+main()
+
 
 # #Elder Thing
 # def Elder_Thing_value(scenario, player=0):

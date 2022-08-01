@@ -12,4 +12,8 @@ def input_checking(question, checking=('y', 'n')):
 #        print(question)
     return value
 
-#print(input_checking('enter a num ', 'num'))
+def main():
+    if __name__ == '__main__':
+        print(input_checking('enter a num ', (1,2,3,4,5)))
+
+main()
