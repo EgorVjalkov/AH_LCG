@@ -1,3 +1,6 @@
+from pickletools import string1
+
+
 if __name__ == '__main__':
     from input_checking import input_checking as ICh
     from colored_keywords import names_in_color as N_in_C, text_in_color as T_in_C
@@ -15,6 +18,9 @@ def menu(menu_dict, player):
     q = menu_dict['description'](player)
     limit_of_answer = tuple(str(i) for i in range(1, len(menu.keys())+1))
     answer = ICh(q, limit_of_answer)
+    menu_answer_in_menu_dict = ''.join([menu[answer]])
+    print('') # отступ
+    print(N_in_C(f'{player} try to {menu_answer_in_menu_dict}'))
     return menu_dict[menu[answer]]
 
 #меню с применением карт
@@ -40,10 +46,10 @@ dict_of_cards_or_abilities = {}
 #основное меню
 general_menu = {
     'description': lambda player: T_in_C('What does ', 'fat') + N_in_C(player) + T_in_C(' try to do? ', 'fat'),
-    'to pull a token': 'exit', 
-    'to add skill point(s) and pull a token': lambda player: ICh('How many points does ' + N_in_C(player) + ' try to add? ', 'num'),
-    'to recalculate a probability (if use some cards or abilities)': lambda player: menu(card_using_menu_dict, player),
-    'to view a list of cards and abilities (whitch would be able to use for a skill test)': None
+    'pull a token': 'exit', 
+    'add skill point(s) and pull a token': lambda player: int(ICh('How many points does ' + N_in_C(player) + ' try to add? ', 'num')),
+    'recalculate a probability (if use some cards or abilities)': lambda player: menu(card_using_menu_dict, player),
+    'view a list of cards and abilities (whitch would be able to use for a skill test)': None
 }
     
 #main_func

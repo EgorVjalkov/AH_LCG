@@ -3,7 +3,6 @@ def input_checking(question, checking=('y', 'n')):
         value = input(question)
         if checking == 'num':
             if value.isdigit():
-                value = int(value)
                 break
         if type(checking) == tuple:
             if value in checking:

@@ -26,10 +26,10 @@ while True:
 
 #ввод данных проверки и уровня навыка    
 q = N_in_C('What`s the difficulty of a skill test? Press "num" and "enter" ')
-skill_test = -ICh(q, 'num') # with check
+skill_test = -int(ICh(q, 'num')) # with check
 
 q1 = N_in_C(f'What points of the skill does {player} have? Press "num" and "enter" ')
-skill = ICh(q1, 'num') # with check
+skill = int(ICh(q1, 'num')) # with check
 print('')
 
 
@@ -43,52 +43,42 @@ chaos_bag_keys_with_tokens = zip(keys[scenario],chaos_bag_values)
 result_in_color = colored_points(result, CP_Cy(result, chaos_bag_values)[0][1])
 print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
 
-#подстчет вероятностей по имеющимся нвыкам 
+
+#блок переменных для нулевой проверки
+num = (0, 'succeed')
 q_how_many = N_in_C(f'How many points can {player} add? ')
-add_points = ICh(q_how_many, 'num')
-points_to_percent_list = CP_Cy(result, chaos_bag_values, (0, 'succeed'), add_points)
-for tup in points_to_percent_list:
-    noncolor_points = tup[0]
-    colored_tup = colored_points(tup[0], tup[1])
-    print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
-if noncolor_points < add_points:
-    print(N_in_C(player) + text_in_color(' needn`t add more points!', 'green'))
-    
+add_points = int(ICh(q_how_many, 'num'))
+
 
 #диалоговый интерфейс
-# GENERAL_MENU_FLAG = True
+GENERAL_MENU_FLAG = True
+while GENERAL_MENU_FLAG == True: #основное меню
+    
+    #подстчет вероятностей при добавлении всех возможных очков
+    if num != 'exit':
+        points_to_percent_list = CP_Cy(result, chaos_bag_values, num, add_points)
+        for tup in points_to_percent_list:
+            noncolor_points = tup[0]
+            colored_tup = colored_points(tup[0], tup[1])
+            print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
+        if noncolor_points < add_points:
+            print(N_in_C(player) + text_in_color(' needn`t add more points!', 'green'))
+        print('')
 
-# if GENERAL_MENU_FLAG == True:
-# #основное меню    
-#     print(N_in_C(f'\nWhat does {player} need to do?'))
-#     for key in general_menu:
-#         print(N_in_C(f'press "{key}" and "enter" - {general_menu[key]}'))
-#     q_GM = ': ' # input check
-#     answer = ICh(q_GM, ('1', '2' , '3', '4')) # input check
-# #выбор варианта ответа
-#     if answer == '2':
-#         GENERAL_MENU_FLAG = False # переход к жетонам
-#     if answer == '1': 
-#         q_adding = N_in_C(f'How many points does {player} add? ')
-#         result += ICh(q_adding, 'num')
-#         result_in_color = colored_points(result, dp(result, chaos_bag_values))
-#         print(f'result is {result_in_color[0]} success percent is {result_in_color[1]}\n')
-#         GENERAL_MENU_FLAG = False # переход к жетонам
-#     if answer == '3':
-#         SIDE_MENU_FLAG = True # переход в побочное меню
-#         while SIDE_MENU_FLAG == True:
-#             num_of_suc_or_fail = side_menu() # вернет int или tup
-#             if num_of_suc_or_fail == 'exit':
-#                 SIDE_MENU_FLAG = False
-#             else:
-#                 if type(num_of_suc_or_fail) == int:
-#                     points_to_percent_list = S_CP_cy(result, chaos_bag_values, num_of_suc_or_fail)
-#                     for tup in points_to_percent_list:
-#                         colored_tup = colored_points(tup[0], tup[1])
-#                         print(f'if you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
-#                 else: pass
+    # первичный результат получен, далее ответ от игрока
+    answer = menu(general_menu, player)
+    if answer == 'exit': GENERAL_MENU_FLAG = False #все устроило, переход к жетонам
+    elif type(answer) == int:
+        result += answer
+        result_in_color = colored_points(result, CP_Cy(result, chaos_bag_values)[0][1])
+        print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
+        GENERAL_MENU_FLAG = False # добавлены очки навыка, переход к жетонам
+    else:
+        num = answer(player) # побочное меню
 
+ 
 #тянем жетоны
+print('') 
 chaos_bag_keys_with_tokens = list(chaos_bag_keys_with_tokens)
 token = choice(chaos_bag_keys_with_tokens)
 if type(token[1]) == list:
@@ -99,9 +89,6 @@ if type(token[1]) == list:
 print(N_in_C(f'{token[0]} is pulled. Value is {token[1]}'))
 
 
-
-
- 
 # # for crystal_pendulum
 #     if input('Press \'y\' and \'enter\' if you try to use the crystal pendulum. ') == 'y':
 #         add_point = input('Add any point(s) if you want to correct your skill ' )

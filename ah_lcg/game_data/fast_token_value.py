@@ -10,7 +10,7 @@ else:
 def Elder_Sign(player):
     if player == 'Roland Banks': 
         q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
-        Elder_Sign = ICh(q, 'num') # with input check
+        Elder_Sign = int(ICh(q, 'num')) # with input check
     if player == '"Skids" O`Toole':
         Elder_Sign = 2
     if player == 'Daisy Walker':
@@ -20,7 +20,7 @@ def Elder_Sign(player):
         else: Elder_Sign = 0
     if player == 'Agnes Baker':
         q = N_in_C('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
-        Elder_Sign = ICh(q, 'num') # with input check
+        Elder_Sign = int(ICh(q, 'num')) # with input check
     if player == 'Wendy Adams':
         q = N_in_C('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
         Elder_Sign = ICh(q) # with input check
@@ -50,7 +50,7 @@ keys = {'The Gathering standard': The_gathering_standard_keys,
 
 def The_Gathering_standard_values(player):
     q = N_in_C('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
-    skull_value = -ICh(q, 'num') # with input check
+    skull_value = -int(ICh(q, 'num')) # with input check
     cultist_value = -1
     tablet_value = -2
     Auto_fail_value = -99
@@ -61,7 +61,7 @@ def The_Gathering_standard_values(player):
 
 def The_Midnight_Masks_standard_values(player):
     q = N_in_C('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
-    skull_value = -ICh(q, 'num') # with input check
+    skull_value = -int(ICh(q, 'num')) # with input check
     cultist_value = -2
     tablet_value = -3
     Auto_fail_value = -99
@@ -72,7 +72,7 @@ def The_Midnight_Masks_standard_values(player):
 
 def The_Devouver_Below_standard_values(player):
     q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
-    skull_value = -ICh(q, 'num') # with input check
+    skull_value = -int(ICh(q, 'num')) # with input check
     cultist_value = -2
     tablet_value = -3
     Auto_fail_value = -99
