@@ -5,13 +5,38 @@ from game_data.dialog_interface import menu, general_menu, card_using_menu_dict
 from game_data.prob_funcs import counting_points_cycle as CP_Cy
 from random import choice
 
-#исходные данные
+# сценарий
 scenario = 'The Gathering standard'
-player = 'Roland Banks'
+players_list = ('Winifred Habbamock', 'Harvey Walters')
+
+# приветствие
+print(text_in_color('\nHi! Welcome to a Probability Utility!\n', 'fat'))
+
+# # поиск игрока по первым буквам
+# while True ###########
+#     start_of_name = input('Input a few first letters of investigator`s name and press "enter" ')
+#     filtred_players = [i for i in players if start_of_name in i[:len(start_of_name)]]
+#     if len(filtred_players) > 1:
+#         q_name = N_in_C(f'Who you mean? Press "num" and "enter" ')
+#         player = ICh(q_name, 'num')
+#         print(player)
+#     filtred_players_in_str = N_in_C(' or '.join(filtred_players))
+
+# Выбор игрока из кортежа играющих
+if len(players_list) > 1:
+    players_dict = dict(enumerate(players_list, 1))
+    for key in players_dict:
+        print(N_in_C(f'press "{key}" and "enter" - {players_dict[key]}'))
+    limit_of_answer = tuple(str(i) for i in range(1, len(players_list)+1))
+    q_change_player = text_in_color(f'Who passes a skill test? ', 'fat')
+    answer = int(ICh(q_change_player, limit_of_answer))
+    player = players_dict[answer]
+else: player = players_list[0]
+print(N_in_C(f'\n{player} passes a skill test\n'))
 
 
-#проверка исходных данных
-investigators_in_str = ', '.join(players)
+# проверка исходных данных
+investigators_in_str = '\n'.join(players)
 colored_scenario_list = [colored_scenario(i)for i in chaos_bag_values_dict.keys()]
 scenarios_in_str = ', '.join(colored_scenario_list)
 while True: 

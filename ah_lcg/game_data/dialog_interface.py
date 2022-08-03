@@ -1,6 +1,3 @@
-from pickletools import string1
-
-
 if __name__ == '__main__':
     from input_checking import input_checking as ICh
     from colored_keywords import names_in_color as N_in_C, text_in_color as T_in_C

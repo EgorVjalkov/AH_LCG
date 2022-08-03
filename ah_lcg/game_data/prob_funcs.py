@@ -8,7 +8,7 @@ list_2 = [1, 1, 0, 0, -1, -1, -1, -2, -2, -3, -3, -1, -1, -2, -3, 3, -99]
 def probability_of_list(result, chaos_bag_values, num=(0,'succeed')):
     if 'fail' in num[1]: #переключатель функции
         if 'fail by or less' in num:
-            filter_func = lambda i: i+result < 0 and i+result >= num[0]
+            filter_func = lambda i: i+result < 0 and i+result >= num[0]# ato-fail!!!!!!!!!!!!!!!!
         else: filter_func = lambda i: i+result <= num[0]
     else:
         filter_func = lambda i: i+result >= num[0]

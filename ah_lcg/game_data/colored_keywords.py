@@ -2,11 +2,11 @@ from colorama import Fore, Back, Style
 #import Enemies
 
 keywords2 = {
-     'blue_back': ('Guardian', 'Roland Banks'), 
-     'green_back': ('Rouge', '"Skids" O`Toole'),
-     'yellow_back': ('Seeker', 'Daisy Walker'),
-     'magenta_back': ('Mystic', 'Agnes Baker'),
-     'red_back':('Survivor', 'Wendy Adams'),
+     'blue_fat': ('Guardian', 'Roland Banks', 'Nathaniel Cho', 'Daniela Reyes',), 
+     'green_fat': ('Rouge', '"Skids" O`Toole', 'Winifred Habbamock', 'Monterey Jack',),
+     'yellow_fat': ('Seeker', 'Daisy Walker', 'Harvey Walters', 'Norman Withers',),
+     'magenta_fat': ('Mystic', 'Agnes Baker', 'Jacqueline Fine', 'Lily Chen',),
+     'red_fat':('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
      'red_back_with_fat': ('Ancient One', ),
      'grey_back': ('Wendy`s amulet', 'The Necronomicon. John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', 'Auto-fail', 'combat', 'fail'),
@@ -19,10 +19,20 @@ keywords2 = {
      'fat': ('skill', 'skill_test', 'token', 'cards', 'abilities')} # не прокрашивает слово тест. надо корректировать!
 
 color = {
-     'blue_back': Back.LIGHTBLUE_EX, 'green_back': Back.GREEN, 'yellow_back': Back.YELLOW, 
-     'magenta_back': Back.LIGHTMAGENTA_EX, 'red_back': Back.LIGHTRED_EX, 
-     'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 'grey_back': Back.LIGHTWHITE_EX, 'red': Fore.RED, 'dim_red': Fore.RED+Style.DIM, 
-     'blue': Fore.BLUE, 'green': Fore.GREEN, 'yellow': Fore.YELLOW, 'magenta': Fore.MAGENTA, 'cyan': Fore.CYAN,
+     'blue_fat': Fore.LIGHTBLUE_EX + Style.BRIGHT, 
+     'green_fat': Fore.GREEN + Style.BRIGHT, 
+     'yellow_fat': Fore.YELLOW + Style.BRIGHT, 
+     'magenta_fat': Fore.LIGHTMAGENTA_EX + Style.BRIGHT,
+     'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT, 
+     'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 
+     'grey_back': Back.LIGHTWHITE_EX, 
+     'red': Fore.RED, 
+     'dim_red': Fore.RED+Style.DIM, 
+     'blue': Fore.BLUE, 
+     'green': Fore.GREEN, 
+     'yellow': Fore.YELLOW, 
+     'magenta': Fore.MAGENTA, 
+     'cyan': Fore.CYAN,
      'fat': Style.BRIGHT
      }
 

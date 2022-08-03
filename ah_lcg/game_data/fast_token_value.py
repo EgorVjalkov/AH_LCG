@@ -5,28 +5,49 @@ else:
     from game_data.input_checking import input_checking as ICh # like a module
     from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
+#Сыщики
+players = (
+    'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', #CORE-SET
+    'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark', # investigator expansions
+    'Daniela Reyes', 'Norman Withers', 'Monterey Jack', 'Lily Chen', 'Bob Jenkins', # Edge of The Earth
+)
+
 
 #Elder_Sign for Core Set investigators
 def Elder_Sign(player):
     if player == 'Roland Banks': 
         q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
-        Elder_Sign = int(ICh(q, 'num')) # with input check
-    if player == '"Skids" O`Toole':
-        Elder_Sign = 2
+        Elder_Sign = int(ICh(q, 'num'))
+    
     if player == 'Daisy Walker':
         q = N_in_C('Does The Necronomicon. John Dee Translation in play?. Press "y" or "n" and "enter" ')
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = -99
         else: Elder_Sign = 0
+
     if player == 'Agnes Baker':
         q = N_in_C('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
         Elder_Sign = int(ICh(q, 'num')) # with input check
+
     if player == 'Wendy Adams':
         q = N_in_C('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = 99
         else: Elder_Sign = 0
-    return int(Elder_Sign)
+
+    if player == 'Norman Withers':
+        q = N_in_C(f'What resourse cost of the top card of {player}`s deck. Press "num" and "enter" ')
+        Elder_Sign = int(ICh(q, 'num')) # with input check
+
+    if player in ('"Skids" O`Toole', 'Lily Chen'):
+        Elder_Sign = 2
+
+    if player in (
+        'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark',
+        'Daniela Reyes', 'Monterey Jack',  'Bob Jenkins'): 
+        Elder_Sign = 1
+
+    return Elder_Sign
 
 
 #CORE-SET DONE!
@@ -94,37 +115,10 @@ chaos_bag_values_dict = {
     'The Midnight Masks standard': The_Midnight_Masks_standard_values, 
     'The Devourer Below standard': The_Devouver_Below_standard_values}
 
-
-#Сыщики
-players = ('Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams')
-
-
 #main_func
 def main():
     if __name__ == '__main__':
-        print(The_Devouver_Below_standard_values('Agnes Baker'))
-        print(Elder_Sign('Wendy Adams')) 
+#        print(The_Devouver_Below_standard_values('Stella Clark'))
+        print(Elder_Sign('Nathaniel Cho')) 
 
 main()
-
-
-# #Elder Thing
-# def Elder_Thing_value(scenario, player=0):
-#     token_symbol_value_for_Elder_Thing = {
-#     'skull': skull_value, 'cultist': cultist_value, 'tablet': tablet_value, 
-#     'Elder Sign': Elder_Sign_value}
-#     if scenario == 'The Devourer Below normal': 
-#         if input(CKW('Press \'y\' and \'enter\', if there is an Ancient One enemy in play ')) == 'y':
-#             print('You must reveal another token')
-#             The_Devouver_Below_normal_keys.remove('Elder Thing')
-#             return [i-5 for i in The_Devouver_Below_normal_keys]
-#         else: return -5
-
-#print(Elder_Thing_value('The Devourer Below normal'))
-
-
-
-#нужно разобраться со значком старцев, т.к. не понятно когда его вызывать, и куда деть вероятность, \
-# как ее считать по закону вероятностей (сложение вероятностей или типа того)
-
-#print(chaos_bag_values('The Devourer Below normal', 'Roland Banks'))
