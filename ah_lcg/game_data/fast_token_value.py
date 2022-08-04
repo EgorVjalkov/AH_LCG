@@ -1,9 +1,12 @@
-if __name__ == '__main__':
-    from input_checking import input_checking as ICh
-    from colored_keywords import names_in_color as N_in_C
-else:    
-    from game_data.input_checking import input_checking as ICh # like a module
-    from game_data.colored_keywords import names_in_color as N_in_C # like a module
+from input_checking import input_checking as ICh
+from colored_keywords import names_in_color as N_in_C
+
+# if __name__ == '__main__':
+#     from input_checking import input_checking as ICh
+#     from colored_keywords import names_in_color as N_in_C
+# else:    
+#     from game_data.input_checking import input_checking as ICh # like a module
+#     from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 #Сыщики
 players = (
@@ -17,7 +20,7 @@ players = (
 def Elder_Sign(player):
     if player == 'Roland Banks': 
         q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
-        Elder_Sign = int(ICh(q, 'num'))
+        Elder_Sign = int(ICh(q, 'num')) # with input check
     
     if player == 'Daisy Walker':
         q = N_in_C('Does The Necronomicon. John Dee Translation in play?. Press "y" or "n" and "enter" ')
@@ -36,7 +39,7 @@ def Elder_Sign(player):
         else: Elder_Sign = 0
 
     if player == 'Norman Withers':
-        q = N_in_C(f'What resourse cost of the top card of {player}`s deck. Press "num" and "enter" ')
+        q = N_in_C(f'What is resourse cost of the top card of {player}`s deck. Press "num" and "enter" ')
         Elder_Sign = int(ICh(q, 'num')) # with input check
 
     if player in ('"Skids" O`Toole', 'Lily Chen'):
@@ -50,25 +53,38 @@ def Elder_Sign(player):
     return Elder_Sign
 
 
-#CORE-SET DONE!
+# SCENARIO CHAOS TOKEN KEYS
 
-
-#CORE-SET SCENARIO CHAOS TOKEN VALUES
-
-
-#ключи к сумкам
-
-The_gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
+# Core-set
+The_Gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
-
 The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign', 'Elder Thing']
 
-keys = {'The Gathering standard': The_gathering_standard_keys,
-'The Midnight Masks standard': The_gathering_standard_keys,
-'The Devourer Below standard': The_Devouver_Below_standard_keys}
+# Labirinths of Lunasy
+The_Labirinths_of_Lunasy_A_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+    'skull', 'skull', 'Elder Thing', 'Elder Thing', 'Auto-fail', 'Elder Sign']
+The_Labirinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+    'skull', 'skull', 'tablet', 'tablet', 'Auto-fail', 'Elder Sign']
+The_Labirinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+    'skull', 'skull', 'cultist', 'cultist', 'Auto-fail', 'Elder Sign']
+
+# для поиска по ключам
+keys = {
+    #CORE-SET
+    'The Gathering standard': The_Gathering_standard_keys,
+    'The Midnight Masks standard': The_Gathering_standard_keys,
+    'The Devourer Below standard': The_Devouver_Below_standard_keys,
+    #The Labirinths of Lunasy
+    'The Labirinths of Lunasy group A': The_Labirinths_of_Lunasy_A_standard_keys,
+    'The Labirinths of Lunasy group B': The_Labirinths_of_Lunasy_B_standard_keys,       
+    'The Labirinths of Lunasy group C': The_Labirinths_of_Lunasy_C_standard_keys
+}
 
 
+# SCENARIO CHAOS TOKEN VALUES
+
+#Core-set
 def The_Gathering_standard_values(player):
     q = N_in_C('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
     skull_value = -int(ICh(q, 'num')) # with input check
@@ -87,7 +103,7 @@ def The_Midnight_Masks_standard_values(player):
     tablet_value = -3
     Auto_fail_value = -99
     Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
+    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
     tablet_value, Auto_fail_value, Elder_Sign_value]
     return chaos_bag_values
 
@@ -98,7 +114,7 @@ def The_Devouver_Below_standard_values(player):
     tablet_value = -3
     Auto_fail_value = -99
     Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
+    chaos_bag_values = [1, 0, 0, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
     tablet_value, Auto_fail_value, Elder_Sign_value]
     q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
     Elder_Thing = ICh(q2) # with input check
@@ -108,17 +124,57 @@ def The_Devouver_Below_standard_values(player):
     return chaos_bag_values
 
 
-#значение сумок
+# Labirinths of Lunasy
+def The_Labirinths_of_Lunasy_A_standard_values(player):
+    Elder_Thing_value = -4
+    Auto_fail_value = -99
+    Elder_Sign_value = Elder_Sign(player)
+    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, Elder_Thing_value, Elder_Thing_value, Auto_fail_value, Elder_Sign_value]
+    skull_value = [i-1 for i in chaos_bag_values]
+    for i in range(2):
+        chaos_bag_values.insert(12, skull_value)
+    return chaos_bag_values
+
+def The_Labirinths_of_Lunasy_B_standard_values(player):
+    tablet_value = -4
+    Auto_fail_value = -99
+    Elder_Sign_value = Elder_Sign(player)
+    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, tablet_value, tablet_value, Auto_fail_value, Elder_Sign_value]
+    skull_value = [i-1 for i in chaos_bag_values]
+    for i in range(2):
+        chaos_bag_values.insert(12, skull_value)
+    return chaos_bag_values
+
+def The_Labirinths_of_Lunasy_C_standard_values(player):
+    cultist_value = -3
+    Auto_fail_value = -99
+    Elder_Sign_value = Elder_Sign(player)
+    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, cultist_value, cultist_value, Auto_fail_value, Elder_Sign_value]
+    skull_value = [i-1 for i in chaos_bag_values]
+    for i in range(2):
+        chaos_bag_values.insert(12, skull_value)
+    return chaos_bag_values
+
+
+# для поиска по ключам
 
 chaos_bag_values_dict = {
+    #CORE-SET
     'The Gathering standard': The_Gathering_standard_values, 
     'The Midnight Masks standard': The_Midnight_Masks_standard_values, 
-    'The Devourer Below standard': The_Devouver_Below_standard_values}
+    'The Devourer Below standard': The_Devouver_Below_standard_values,
+    #The Labirinths of Lunasy
+    'The Labirinths of Lunasy group A': The_Labirinths_of_Lunasy_A_standard_values,
+    'The Labirinths of Lunasy group B': The_Labirinths_of_Lunasy_B_standard_values,       
+    'The Labirinths of Lunasy group C': The_Labirinths_of_Lunasy_C_standard_values}
+
 
 #main_func
 def main():
     if __name__ == '__main__':
-#        print(The_Devouver_Below_standard_values('Stella Clark'))
-        print(Elder_Sign('Nathaniel Cho')) 
+        scenario = 'The Labirinths of Lunasy group C'
+        bag = zip(keys[scenario], chaos_bag_values_dict[scenario]('Daisy Walker'))
+        print(list(bag))
+#        print(Elder_Sign('Nathaniel Cho')) 
 
 main()
