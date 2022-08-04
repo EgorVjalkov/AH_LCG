@@ -27,8 +27,8 @@ card_using_menu_dict = {
     'succeed a skill test by 2 or more': (2, 'succeed by 2 or more'),
     'succeed a skill test by 3 or more': (3,'succeed by 3 or more'),
     'succeed a skill test by 4 or more': (4, 'succeed by 4 or more'),
-    'fail a skill test by 2 or less': (2, 'fail by 2 or less'),
-    'fail a skill test by 2 or more': (2, 'fail by 2 or more'),
+    'fail a skill test by 2 or less': (-2, 'fail by 2 or less'),
+    'fail a skill test by 2 or more': (-2, 'fail by 2 or more'),
     'no expressions': 'exit'
 }
 
@@ -53,9 +53,9 @@ general_menu = {
 def main():
     if __name__ == '__main__':
         answer = menu(general_menu, 'Wendy Adams')
-        if type(answer) != str:
-            print(answer('Wendy Adams'))
-        else: print(answer)
+        answer2 = answer('Wendy Adams')
+        if type(answer2) == int:
+            print(answer2)
 
 main()
 

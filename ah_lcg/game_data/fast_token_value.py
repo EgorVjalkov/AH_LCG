@@ -1,12 +1,11 @@
-from input_checking import input_checking as ICh
-from colored_keywords import names_in_color as N_in_C
-
-# if __name__ == '__main__':
-#     from input_checking import input_checking as ICh
-#     from colored_keywords import names_in_color as N_in_C
-# else:    
-#     from game_data.input_checking import input_checking as ICh # like a module
-#     from game_data.colored_keywords import names_in_color as N_in_C # like a module
+# #from input_checking import input_checking as ICh
+# #from colored_keywords import names_in_color as N_in_C
+if __name__ == '__main__':
+    from input_checking import input_checking as ICh
+    from colored_keywords import names_in_color as N_in_C
+else:    
+    from game_data.input_checking import input_checking as ICh # like a module
+    from game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 #Сыщики
 players = (
@@ -76,9 +75,9 @@ keys = {
     'The Midnight Masks standard': The_Gathering_standard_keys,
     'The Devourer Below standard': The_Devouver_Below_standard_keys,
     #The Labirinths of Lunasy
-    'The Labirinths of Lunasy group A': The_Labirinths_of_Lunasy_A_standard_keys,
-    'The Labirinths of Lunasy group B': The_Labirinths_of_Lunasy_B_standard_keys,       
-    'The Labirinths of Lunasy group C': The_Labirinths_of_Lunasy_C_standard_keys
+    'The Labirinths of Lunasy group A standard': The_Labirinths_of_Lunasy_A_standard_keys,
+    'The Labirinths of Lunasy group B standard': The_Labirinths_of_Lunasy_B_standard_keys,       
+    'The Labirinths of Lunasy group C standard': The_Labirinths_of_Lunasy_C_standard_keys
 }
 
 
@@ -164,9 +163,9 @@ chaos_bag_values_dict = {
     'The Midnight Masks standard': The_Midnight_Masks_standard_values, 
     'The Devourer Below standard': The_Devouver_Below_standard_values,
     #The Labirinths of Lunasy
-    'The Labirinths of Lunasy group A': The_Labirinths_of_Lunasy_A_standard_values,
-    'The Labirinths of Lunasy group B': The_Labirinths_of_Lunasy_B_standard_values,       
-    'The Labirinths of Lunasy group C': The_Labirinths_of_Lunasy_C_standard_values}
+    'The Labirinths of Lunasy group A standard': The_Labirinths_of_Lunasy_A_standard_values,
+    'The Labirinths of Lunasy group B standard': The_Labirinths_of_Lunasy_B_standard_values,       
+    'The Labirinths of Lunasy group C standard': The_Labirinths_of_Lunasy_C_standard_values}
 
 
 #main_func

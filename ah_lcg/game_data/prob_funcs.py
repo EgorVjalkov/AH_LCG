@@ -1,6 +1,3 @@
-from fast_token_value import chaos_bag_values_dict
-
-
 def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skill_test=0):
     mutated = list(map(lambda i: i + result, choas_bag_for_mutations)) # мутирование
     if 'fail' in num[1]: #переключатель функции
@@ -57,6 +54,7 @@ def counting_points_cycle(result, chaos_bag_values, num=(0,'succeed'), add_point
 #main func
 def main():
     if __name__ == '__main__':
+        from fast_token_value import chaos_bag_values_dict
         scenario = 'The Labirinths of Lunasy group A'
         player = 'Roland Banks'
         chaos_bag = chaos_bag_values_dict[scenario](player)

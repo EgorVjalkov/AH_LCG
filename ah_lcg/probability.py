@@ -4,10 +4,10 @@ from game_data.colored_keywords import names_in_color as N_in_C, colored_scenari
 from game_data.dialog_interface import menu, general_menu, card_using_menu_dict
 from game_data.prob_funcs import counting_points_cycle as CP_Cy
 from random import choice
-
+#НЕОБХОДИМО!!!!! ПРИ ПЕЧАТИ РЕЗУЛЬТАТА УКАЗЫВАТЬ КАКОЙ ЭТО РЕЗУЛЬТАТ. дОБАВИТЬ СРАВНЕНИЕ, ЧТОБ ЗНАТЬ ФАЙЛ ИЛЬ СУКЦЕСС
 # сценарий
 scenario = 'The Gathering standard'
-players_list = ('Winifred Habbamock', 'Harvey Walters')
+players_list = ('Winifred Habbamock', 'Stella Clark')
 
 # приветствие
 print(text_in_color('\nHi! Welcome to a Probability Utility!\n', 'fat'))
@@ -51,7 +51,7 @@ while True:
 
 #ввод данных проверки и уровня навыка    
 q = N_in_C('What`s the difficulty of a skill test? Press "num" and "enter" ')
-skill_test = -int(ICh(q, 'num')) # with check
+skill_test = int(ICh(q, 'num')) # with check
 
 q1 = N_in_C(f'What points of the skill does {player} have? Press "num" and "enter" ')
 skill = int(ICh(q1, 'num')) # with check
@@ -59,7 +59,7 @@ print('')
 
 
 #расчет результата и коррекция значения жетонов(от сценария и сыщика)
-result = skill + skill_test
+result = skill - skill_test
 chaos_bag_values = chaos_bag_values_dict[scenario](player)
 chaos_bag_keys_with_tokens = zip(keys[scenario],chaos_bag_values)
 
@@ -81,7 +81,7 @@ while GENERAL_MENU_FLAG == True: #основное меню
     
     #подстчет вероятностей при добавлении всех возможных очков
     if num != 'exit':
-        points_to_percent_list = CP_Cy(result, chaos_bag_values, num, add_points)
+        points_to_percent_list = CP_Cy(result, chaos_bag_values, num, add_points, skill_test)
         for tup in points_to_percent_list:
             noncolor_points = tup[0]
             colored_tup = colored_points(tup[0], tup[1])
@@ -92,14 +92,16 @@ while GENERAL_MENU_FLAG == True: #основное меню
 
     # первичный результат получен, далее ответ от игрока
     answer = menu(general_menu, player)
-    if answer == 'exit': GENERAL_MENU_FLAG = False #все устроило, переход к жетонам
-    elif type(answer) == int:
-        result += answer
+    if answer == 'exit': 
+        break #все устроило, переход к жетонам
+    result_of_menu = answer(player)
+    if type(result_of_menu) == int:
+        result += result_of_menu
         result_in_color = colored_points(result, CP_Cy(result, chaos_bag_values)[0][1])
         print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
         GENERAL_MENU_FLAG = False # добавлены очки навыка, переход к жетонам
     else:
-        num = answer(player) # побочное меню
+        num = result_of_menu # побочное меню
 
  
 #тянем жетоны
