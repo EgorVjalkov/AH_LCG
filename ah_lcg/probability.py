@@ -113,7 +113,10 @@ if type(token[1]) == list:
     chaos_bag_keys_with_tokens.remove(token)
     another_token = choice(chaos_bag_keys_with_tokens)
     print(N_in_C(f'{another_token[0]} is pulled'))
-print(N_in_C(f'{token[0]} is pulled. Value is {token[1]}'))
+print(N_in_C(f'{token[0]} is pulled. Value is {token[1]}. Result is {result+token[1]}'))
+if (result+token[1]) >= 0:
+    print(N_in_C(player) + text_in_color(f' succeed the skill test by {result+token[1]}', 'green'))
+else: print(N_in_C(player) + text_in_color(f' failed the skill test by {result+token[1]}', 'red'))
 
 
 # # for crystal_pendulum

@@ -23,12 +23,12 @@ def menu(menu_dict, player):
 #меню с применением карт
 card_using_menu_dict = {
     'description': lambda player: N_in_C(player) + T_in_C(' reads a discription of a card, is there one of expressions in? ', 'fat'),
-    'succeed a skill test by 1 or more': (1, 'succeed by 1 or more'),
-    'succeed a skill test by 2 or more': (2, 'succeed by 2 or more'),
-    'succeed a skill test by 3 or more': (3,'succeed by 3 or more'),
-    'succeed a skill test by 4 or more': (4, 'succeed by 4 or more'),
-    'fail a skill test by 2 or less': (-2, 'fail by 2 or less'),
-    'fail a skill test by 2 or more': (-2, 'fail by 2 or more'),
+    'succeed a skill test by 1 or more': (1, 'succeed by or more'),
+    'succeed a skill test by 2 or more': (2, 'succeed by or more'),
+    'succeed a skill test by 3 or more': (3,'succeed by or more'),
+    'succeed a skill test by 4 or more': (4, 'succeed by or more'),
+    'fail a skill test by 2 or less': (-2, 'fail by or less'),
+    'fail a skill test by 2 or more': (-2, 'fail by or more'),
     'no expressions': 'exit'
 }
 
