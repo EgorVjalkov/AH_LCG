@@ -106,21 +106,117 @@ def The_Midnight_Masks_standard_values(player):
     tablet_value, Auto_fail_value, Elder_Sign_value]
     return chaos_bag_values
 
-def The_Devouver_Below_standard_values(player):
-    q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
-    skull_value = -int(ICh(q, 'num')) # with input check
+def skull(scenario):
+    if scenario == 'The Devourer Below standard':
+        q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
+        skull_value = -int(ICh(q, 'num')) # with input check
+        return skull_value
+
+def cultist(scenario):
+    if scenario == 'The Devourer Below standard':
+        value = -2
+    return value
+
+def tablet(scenario):
+    if scenario == 'The Devourer Below standard':
+        value = -3
+    return value
+
+def Elder_Thing(scenario):
+    if scenario == 'The Devourer Below standard':
+        q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
+        Elder_Thing = ICh(q2) # with input check
+        value = -5
+        if Elder_Thing == 'y':
+            value = (-5, 'reveal')
+        return value
+
+def Auto_fail(scenario):
+    return -99
+
+symbol_values = {'skull': skull, 'cultist': cultist, 'tablet': tablet, 'Elder Thing': Elder_Thing, 
+'Auto-fail': lambda x: -99, 'Elder Sign': Elder_Sign}
+keys2 = {'The Devourer Below standard': ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
+    'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign', 'Elder Thing']}
+
+
+def chaos_bag_for_pulling(keys, scenario, player):
+    chaos_bag_keys = keys[scenario]
+    token_like_tuple = []
+    el = 0
+    token_value = 0
+    while el < len(chaos_bag_keys):
+        token_name = chaos_bag_keys[el]
+        if token_name in symbol_values and token_name != 'Elder Sign':
+            token_value = symbol_values[token_name](scenario)
+        elif token_name == 'Elder Sign': 
+            token_value = symbol_values[token_name](player)
+        else:
+            token_value = int(token_name)
+        count_of_similar = chaos_bag_keys.count(token_name)
+        for i in range(count_of_similar):
+            token_like_tuple.append((token_name, token_value))
+        el += count_of_similar
+    return token_like_tuple
+
+def chaos_bag_for_probability(chaos_bag):
+    chaos_bag_for_dict = [i for i in chaos_bag]
+    dict_of_tokens = {}
+    reveal_tokens = list(filter(lambda x: type(x[1]) == tuple, chaos_bag))
+    for i in reveal_tokens:
+        chaos_bag_for_dict.remove(i)
+        sum_of_tokens_value = [i[1][0]+el[1] for el in chaos_bag_for_dict]
+        dict_of_tokens[i[0]] = sum_of_tokens_value
+    dict_of_tokens['bag'] = chaos_bag_for_dict
+    print(dict_of_tokens)
+
+bag = chaos_bag_for_pulling(keys2, 'The Devourer Below standard', 'Roland Banks')
+print(chaos_bag_for_probability(bag))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def The_Devouver_Below_standard_values(player, scenario):
+    bag_like_dict = {}
+    chaos_bag_keys = keys[scenario]
+#    for i in chaos_bag_keys:
+
+    skull_value = skull(scenario)
     cultist_value = -2
     tablet_value = -3
     Auto_fail_value = -99
     Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
-    tablet_value, Auto_fail_value, Elder_Sign_value]
+# основные жетотны определены
     q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
     Elder_Thing = ICh(q2) # with input check
-    if Elder_Thing == 'y': Elder_Thing_value = [i-5 for i in chaos_bag_values]
-    else: Elder_Thing_value = -5
-    chaos_bag_values.append(Elder_Thing_value)
-    return chaos_bag_values
+    if Elder_Thing == 'n':
+        Elder_Thing_value = -5
+        chaos_bag_values = [
+            1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
+            skull_value, skull_value, cultist_value, tablet_value, Elder_Thing_value, 
+            Auto_fail_value, Elder_Sign_value
+        ]
+        bag_like_tuple = tuple(zip(chaos_bag_keys, chaos_bag_values))
+        bag_like_dict['bag'] = chaos_bag_values
+    return bag_like_tuple, bag_like_dict
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # chaos_bag_values = [1, 0, 0, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
+    # tablet_value, Auto_fail_value, Elder_Sign_value]
+
+    # if Elder_Thing == 'y': Elder_Thing_value = [i-5 for i in chaos_bag_values]
+    # else: Elder_Thing_value = -5
+    # chaos_bag_values.append(Elder_Thing_value)
+    # return chaos_bag_values
 
 
 # Labirinths of Lunasy
@@ -170,10 +266,8 @@ chaos_bag_values_dict = {
 
 #main_func
 def main():
-    if __name__ == '__main__':
-        scenario = 'The Labirinths of Lunasy group C'
-        bag = zip(keys[scenario], chaos_bag_values_dict[scenario]('Daisy Walker'))
-        print(list(bag))
+    if __name__ == '__main__': pass
+#        print(The_Devouver_Below_standard_values('Lily Chen'))
 #        print(Elder_Sign('Nathaniel Cho')) 
 
 main()
