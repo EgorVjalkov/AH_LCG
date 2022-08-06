@@ -15,7 +15,7 @@ players = (
 )
 
 
-#Elder_Sign for Core Set investigators
+#Elder_Sign
 def Elder_Sign(player):
     if player == 'Roland Banks': 
         q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
@@ -52,34 +52,7 @@ def Elder_Sign(player):
     return Elder_Sign
 
 
-
-
-
-# SCENARIO CHAOS TOKEN VALUES
-
-#Core-set
-def The_Gathering_standard_values(player):
-    q = N_in_C('What is the number of Ghoul enemies at your location? Press a \'num\' and \'enter\' ')
-    skull_value = -int(ICh(q, 'num')) # with input check
-    cultist_value = -1
-    tablet_value = -2
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
-    tablet_value, Auto_fail_value, Elder_Sign_value]
-    return chaos_bag_values
-
-def The_Midnight_Masks_standard_values(player):
-    q = N_in_C('What is the highest number of doom on a Cultist enemy in play? Press a \'num\' and \'enter\' ')
-    skull_value = -int(ICh(q, 'num')) # with input check
-    cultist_value = -2
-    tablet_value = -3
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
-    tablet_value, Auto_fail_value, Elder_Sign_value]
-    return chaos_bag_values
-
+#skull
 def skull(scenario):
     value = {
         #CORE-SET
@@ -202,6 +175,7 @@ keys_dict = {
     'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys
 }
 
+#кортежи из имен и значений
 def chaos_bag_for_pulling(keys, scenario, player):
     chaos_bag_keys = keys[scenario]
     token_like_tuple = []
@@ -221,6 +195,8 @@ def chaos_bag_for_pulling(keys, scenario, player):
         el += count_of_similar
     return token_like_tuple
 
+
+#словарь из сумки и перетянутых жетонов
 def chaos_bag_for_probability(chaos_bag):
     dict_of_tokens = {}
     reveal_tokens = list(filter(lambda x: type(x[1]) == tuple, chaos_bag))
