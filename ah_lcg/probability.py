@@ -1,4 +1,4 @@
-from game_data.fast_token_value import chaos_bag_values_dict, keys, players
+from game_data.fast_token_value import  keys_dict, players, chaos_bag_for_probability, chaos_bag_for_pulling
 from game_data.input_checking import input_checking as ICh
 from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points, text_in_color
 from game_data.dialog_interface import menu, general_menu, card_using_menu_dict
@@ -35,18 +35,18 @@ else: player = players_list[0]
 print(N_in_C(f'\n{player} passes a skill test\n'))
 
 
-# проверка исходных данных
-investigators_in_str = '\n'.join(players)
-colored_scenario_list = [colored_scenario(i)for i in chaos_bag_values_dict.keys()]
-scenarios_in_str = ', '.join(colored_scenario_list)
-while True: 
-    if player in players:
-        break 
-    else: player = input(N_in_C(f'Incorrect investigator. Investigators are {investigators_in_str}\n:'))
-while True:
-    if scenario in chaos_bag_values_dict:
-        break
-    else: scenario = input(f'Incorrect scenario. Scenarios are {scenarios_in_str}\n:')
+# # проверка исходных данных
+# investigators_in_str = '\n'.join(players)
+# colored_scenario_list = [colored_scenario(i)for i in chaos_bag_values_dict.keys()]
+# scenarios_in_str = ', '.join(colored_scenario_list)
+# while True: 
+#     if player in players:
+#         break 
+#     else: player = input(N_in_C(f'Incorrect investigator. Investigators are {investigators_in_str}\n:'))
+# while True:
+#     if scenario in chaos_bag_values_dict:
+#         break
+#     else: scenario = input(f'Incorrect scenario. Scenarios are {scenarios_in_str}\n:')
     
 
 #ввод данных проверки и уровня навыка    
@@ -60,8 +60,8 @@ print('')
 
 #расчет результата и коррекция значения жетонов(от сценария и сыщика)
 result = skill - skill_test
-chaos_bag_values = chaos_bag_values_dict[scenario](player)
-chaos_bag_keys_with_tokens = zip(keys[scenario],chaos_bag_values)
+chaos_bag = chaos_bag_for_pulling(keys_dict, scenario, player)
+chaos_bag_values = chaos_bag_for_probability(chaos_bag)
 
 
 #первичный результат
@@ -106,8 +106,7 @@ while GENERAL_MENU_FLAG == True: #основное меню
  
 #тянем жетоны
 print('') 
-chaos_bag_keys_with_tokens = list(chaos_bag_keys_with_tokens)
-token = choice(chaos_bag_keys_with_tokens)
+token = choice(chaos_bag)
 if type(token[1]) == list:
     print(N_in_C(f'{token[0]} is pulled. Value is. You need to pull another token')) #ты остановился на переменной жетона!
     chaos_bag_keys_with_tokens.remove(token)

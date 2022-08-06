@@ -23,7 +23,7 @@ x = 1000
 
 for i in range(x):
 #    mod = choice(result)
-    mod = 200
+    mod = +200
     print(f'result {mod}')
     probability = probability_of_list(mod, bag)
     probability = probability/(divider/len(bag))

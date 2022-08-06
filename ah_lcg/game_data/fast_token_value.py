@@ -1,5 +1,5 @@
-# #from input_checking import input_checking as ICh
-# #from colored_keywords import names_in_color as N_in_C
+# from input_checking import input_checking as ICh
+# from colored_keywords import names_in_color as N_in_C
 if __name__ == '__main__':
     from input_checking import input_checking as ICh
     from colored_keywords import names_in_color as N_in_C
@@ -81,37 +81,92 @@ def The_Midnight_Masks_standard_values(player):
     return chaos_bag_values
 
 def skull(scenario):
-    if scenario == 'The Devourer Below standard':
-        q = N_in_C('What is the number of Monster enemies in play? Press a \'num\' and \'enter\' ')
-        value = -int(ICh(q, 'num')) # with input check
-    if 'The Labirinths of Lunasy standard' in scenario:
-        value = (-1, 'reveal')
-    return value
+    value = {
+        #CORE-SET
+        'The Gathering standard': 'What is the number of Ghoul enemies at your location? Press a "num" and "enter" ',
+        'The Midnight Masks standard': 'What is the highest number of doom on a Cultist enemy in play? Press a "num" and "enter" ',
+        'The Devourer Below standard': 'What is the number of Monster enemies in play? Press a "num" and "enter" ',
+        #Expansions
+        'The Labyrinths of Lunasy': (-1, 'reveal')
+    }
+    token_value = [value[key] for key in value if key in scenario]
+    if not token_value: 
+        print('unknown scenario!')
+        return None
+    if type(token_value[0]) == str:
+        if 'Press a "num" and "enter"' in token_value[0]:
+            answer = -int(ICh(N_in_C(token_value[0]), 'num'))
+        else: answer = (ICh(N_in_C(token_value[0])))
+        return answer
+    return token_value[0]
 
+#print(skull('The Gathering standard'))
+
+
+#cultist
 def cultist(scenario):
-    if scenario == 'The Devourer Below standard':
-        value = -2
-    if 'The Labirinths of Lunasy standard' in scenario:
-        value = -3
-    return value
+    value = {
+        #CORE-SET
+        'The Gathering standard': -1, 'The Midnight Masks standard': -2, 'The Devourer Below standard': -2,
+        #Expansions
+        'The Labyrinths of Lunasy': -3
+    }
+    token_value = [value[key] for key in value if key in scenario]
+    if not token_value: 
+        print('unknown scenario!')
+        return None
+    return token_value[0]
 
+
+#tablet
 def tablet(scenario):
-    if scenario == 'The Devourer Below standard':
-        value = -3
-    if 'The Labirinths of Lunasy standard' in scenario:
-        value = -4
-    return value
+    value = {
+        #CORE-SET
+        'The Gathering standard': -2, 'The Midnight Masks standard': -2, 'The Devourer Below standard': -3,
+        #Expansions
+        'The Labyrinths of Lunasy': -4
+    }
+    token_value = [value[key] for key in value if key in scenario]
+    if not token_value: 
+        print('unknown scenario!')
+        return None
+    return token_value[0]
+
+print(tablet('The Labyrinths of Lunasy'))
+
 
 def Elder_Thing(scenario):
-    if scenario == 'The Devourer Below standard':
-        q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
-        Elder_Thing = ICh(q2) # with input check
-        value = -5
-        if Elder_Thing == 'y':
-            value = (-5, 'reveal')
-    if 'The Labirinths of Lunasy standard' in scenario:
-        value = -4
-    return value
+    value = {
+        #CORE-SET
+        'The Devourer Below standard': 'Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ',
+        #Expansions
+        'The Labyrinths of Lunasy': -4
+    }
+    token_value = [value[key] for key in value if key in scenario]
+    if not token_value: 
+        print('unknown scenario!')
+        return None
+    if type(token_value[0]) == str:
+        if 'Press a "num" and "enter"' in token_value[0]:
+            print(1)
+            answer = -int(ICh(N_in_C(token_value[0]), 'num'))
+        else: answer = (ICh(N_in_C(token_value[0])))
+        token_value = (-5, 'reveal') if answer == 'y' else -5
+        return token_value
+    return token_value[0]
+
+print(Elder_Thing('The Devourer Below standard'))
+
+    # if scenario == 'The Devourer Below standard':
+    #     q2 = N_in_C()
+    #     Elder_Thing = ICh(q2) # with input check
+    #     value = -5
+    #     if Elder_Thing == 'y':
+    #         value = (-5, 'reveal')
+    
+    # if 'The Labyrinths of Lunasy standard' in scenario:
+    #     value = -4
+    # return value
 
 
 #констуктор жетонов
@@ -128,11 +183,11 @@ The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2'
     'skull', 'skull', 'cultist', 'tablet', 'Elder Thing', 'Auto-fail', 'Elder Sign']
 
 # Labirinths of Lunasy
-The_Labirinths_of_Lunasy_A_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+The_Labyrinths_of_Lunasy_A_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
     'skull', 'skull', 'Elder Thing', 'Elder Thing', 'Auto-fail', 'Elder Sign']
-The_Labirinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+The_Labyrinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
     'skull', 'skull', 'tablet', 'tablet', 'Auto-fail', 'Elder Sign']
-The_Labirinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+The_Labyrinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
     'skull', 'skull', 'cultist', 'cultist', 'Auto-fail', 'Elder Sign']
 
 # для поиска по ключам
@@ -142,9 +197,9 @@ keys_dict = {
     'The Midnight Masks standard': The_Gathering_standard_keys,
     'The Devourer Below standard': The_Devouver_Below_standard_keys,
     #The Labirinths of Lunasy
-    'The Labirinths of Lunasy standard group A': The_Labirinths_of_Lunasy_A_standard_keys,
-    'The Labirinths of Lunasy standard group B': The_Labirinths_of_Lunasy_B_standard_keys,       
-    'The Labirinths of Lunasy standard group C': The_Labirinths_of_Lunasy_C_standard_keys
+    'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
+    'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
+    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys
 }
 
 def chaos_bag_for_pulling(keys, scenario, player):
@@ -171,119 +226,21 @@ def chaos_bag_for_probability(chaos_bag):
     reveal_tokens = list(filter(lambda x: type(x[1]) == tuple, chaos_bag))
     chaos_bag_for_dict = list(filter(lambda x: type(x[1]) != tuple, chaos_bag))
     dict_of_tokens['bag'] = [token[1] for token in chaos_bag_for_dict]
-    divider = len(chaos_bag_for_dict) + len(reveal_tokens)
+    divider = len(chaos_bag)
     dict_of_tokens['bag divider'] = divider
     num = 1
     for i in reveal_tokens:
         token_name = i[0] + str(num)
         token_value = i[1][0]
         dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
-        divider_for_reveal_token = divider * len(chaos_bag_for_dict)
-        dict_of_tokens[f'{token_name}+ divider'] = divider_for_reveal_token
         num += 1
-        if len(reveal_tokens) == 2 and num == 2:
-            token_name = list(dict_of_tokens.keys())[2] + token_name
-            token_value =  + token_value
-            dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
-            divider_for_reveal_token *= divider
-            dict_of_tokens[f'{token_name}+ divider'] = divider_for_reveal_token
-    
-
-
-
-    print(dict_of_tokens)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def The_Devouver_Below_standard_values(player, scenario):
-    bag_like_dict = {}
-    chaos_bag_keys = keys[scenario]
-#    for i in chaos_bag_keys:
-
-    skull_value = skull(scenario)
-    cultist_value = -2
-    tablet_value = -3
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-# основные жетотны определены
-    q2 = N_in_C('Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ')
-    Elder_Thing = ICh(q2) # with input check
-    if Elder_Thing == 'n':
-        Elder_Thing_value = -5
-        chaos_bag_values = [
-            1, 0, 0, -1, -1, -1, -2, -2, -3, -4, 
-            skull_value, skull_value, cultist_value, tablet_value, Elder_Thing_value, 
-            Auto_fail_value, Elder_Sign_value
-        ]
-        bag_like_tuple = tuple(zip(chaos_bag_keys, chaos_bag_values))
-        bag_like_dict['bag'] = chaos_bag_values
-    return bag_like_tuple, bag_like_dict
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # chaos_bag_values = [1, 0, 0, -1, -1, -2, -2, -3, -4, skull_value, skull_value, cultist_value, 
-    # tablet_value, Auto_fail_value, Elder_Sign_value]
-
-    # if Elder_Thing == 'y': Elder_Thing_value = [i-5 for i in chaos_bag_values]
-    # else: Elder_Thing_value = -5
-    # chaos_bag_values.append(Elder_Thing_value)
-    # return chaos_bag_values
-
-
-# Labirinths of Lunasy
-def The_Labirinths_of_Lunasy_A_standard_values(player):
-    Elder_Thing_value = -4
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, Elder_Thing_value, Elder_Thing_value, Auto_fail_value, Elder_Sign_value]
-    skull_value = [i-1 for i in chaos_bag_values]
-    for i in range(2):
-        chaos_bag_values.insert(12, skull_value)
-    return chaos_bag_values
-
-def The_Labirinths_of_Lunasy_B_standard_values(player):
-    tablet_value = -4
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, tablet_value, tablet_value, Auto_fail_value, Elder_Sign_value]
-    skull_value = [i-1 for i in chaos_bag_values]
-    for i in range(2):
-        chaos_bag_values.insert(12, skull_value)
-    return chaos_bag_values
-
-def The_Labirinths_of_Lunasy_C_standard_values(player):
-    cultist_value = -3
-    Auto_fail_value = -99
-    Elder_Sign_value = Elder_Sign(player)
-    chaos_bag_values = [1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -4, -5, cultist_value, cultist_value, Auto_fail_value, Elder_Sign_value]
-    skull_value = [i-1 for i in chaos_bag_values]
-    for i in range(2):
-        chaos_bag_values.insert(12, skull_value)
-    return chaos_bag_values
-
-
-# для поиска по ключам
-
-chaos_bag_values_dict = {
-    #CORE-SET
-    'The Gathering standard': The_Gathering_standard_values, 
-    'The Midnight Masks standard': The_Midnight_Masks_standard_values, 
-    'The Devourer Below standard': The_Devouver_Below_standard_values,
-    #The Labirinths of Lunasy
-    'The Labirinths of Lunasy group A standard': The_Labirinths_of_Lunasy_A_standard_values,
-    'The Labirinths of Lunasy group B standard': The_Labirinths_of_Lunasy_B_standard_values,       
-    'The Labirinths of Lunasy group C standard': The_Labirinths_of_Lunasy_C_standard_values}
+        # if len(reveal_tokens) == 2 and num == 2:
+        #     token_name = list(dict_of_tokens.keys())[2] + token_name
+        #     token_value =  + token_value
+        #     dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
+        #     divider_for_reveal_token *= divider
+        #     dict_of_tokens[f'{token_name}+ divider'] = divider_for_reveal_token
+    return(dict_of_tokens)
 
 
 #main_func
@@ -291,8 +248,8 @@ def main():
     if __name__ == '__main__':
 #        print(The_Devouver_Below_standard_values('Lily Chen'))
 #        print(Elder_Sign('Nathaniel Cho'))
-        bag = chaos_bag_for_pulling(keys_dict, 'The Labirinths of Lunasy standard group A', 'Roland Banks')
+        bag = chaos_bag_for_pulling(keys_dict, 'The Labyrinths of Lunasy standard group C', 'Roland Banks')
         print(bag)
-        chaos_bag_for_probability(bag) 
+        print(chaos_bag_for_probability(bag) )
 
 main()
