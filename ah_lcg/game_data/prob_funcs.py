@@ -1,5 +1,5 @@
 def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skill_test=0):
-    print(num[0])
+#    print(num[0])
     mutated = list(map(lambda i: i + result, choas_bag_for_mutations)) # мутирование
     print(mutated)
     if 'fail' in num[1]: #переключатель функции
