@@ -16,7 +16,7 @@ keywords2 = {
      'yellow': ('intellect', 'skull', 'cultist', 'tablet', 'Elder Thing'),
      'magenta': ('willpower', ),
      'cyan': ('Elder Sign', ),
-     'fat': ('skill', 'skill_test', 'token', 'cards', 'abilities')} # не прокрашивает слово тест. надо корректировать!
+     'fat': ('skill', 'skill_test', 'token', 'cards', 'abilities', 'investigator')} # не прокрашивает слово тест. надо корректировать!
 
 color = {
      'blue_fat': Fore.LIGHTBLUE_EX + Style.BRIGHT, 
@@ -69,8 +69,9 @@ def colored_scenario(name):
           if key in name:
                colored_name = scenario_color[key]+name+Style.RESET_ALL
                return colored_name
+     else:
+          return name
 
-print(colored_scenario('The Labirinths of Lunasy group A standard'))
 
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
 
@@ -103,16 +104,9 @@ def colored_names(card):
                card['name'] = colored_name
      return card
 
-# Rolands_38_Special_lvl0 = {
-#     'name': 'Roland`s .38 Special lvl0', 'Class': 'Roland Banks', 
-#     'type': 'asset', 'lvl': 0, 'cost': 3, 
-#     'traits': 'Item. Weapon. Firearm', 'uses': 4, 
-#     'using': '''Spend 1 ammo: Fight. You get +1 combat for this attack 
-#     (if there are 1 or more clues on your location, you get +3 combat, instead). 
-#     This attack deals +1 damage.'''}
 
-#print(colored_names(Rolands_38_Special_lvl0)['name'])
-
-# def main():
-#      if __name__ == '__main__':
-#           main()
+def main():
+     if __name__ == '__main__':
+          print(colored_scenario('The Labirinths of Lunasy standard group A'))     
+          
+main()

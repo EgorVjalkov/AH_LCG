@@ -4,6 +4,9 @@ def input_checking(question, checking=('y', 'n')):
         if checking == 'num':
             if value.isdigit():
                 break
+        if checking == 'l':
+            if value.isalpha():
+                break
         if type(checking) == tuple:
             if value in checking:
                 break
@@ -13,6 +16,6 @@ def input_checking(question, checking=('y', 'n')):
 
 def main():
     if __name__ == '__main__':
-        print(input_checking('enter a num ', (1,2,3,4,5)))
+        print(input_checking('enter a letter ', 'l'))
 
 main()

@@ -73,7 +73,7 @@ def skull(scenario):
         return answer
     return token_value[0]
 
-#print(skull('The Gathering standard'))
+
 
 
 #cultist
@@ -105,7 +105,7 @@ def tablet(scenario):
         return None
     return token_value[0]
 
-print(tablet('The Labyrinths of Lunasy'))
+
 
 
 def Elder_Thing(scenario):
@@ -121,25 +121,11 @@ def Elder_Thing(scenario):
         return None
     if type(token_value[0]) == str:
         if 'Press a "num" and "enter"' in token_value[0]:
-            print(1)
             answer = -int(ICh(N_in_C(token_value[0]), 'num'))
         else: answer = (ICh(N_in_C(token_value[0])))
         token_value = (-5, 'reveal') if answer == 'y' else -5
         return token_value
     return token_value[0]
-
-print(Elder_Thing('The Devourer Below standard'))
-
-    # if scenario == 'The Devourer Below standard':
-    #     q2 = N_in_C()
-    #     Elder_Thing = ICh(q2) # with input check
-    #     value = -5
-    #     if Elder_Thing == 'y':
-    #         value = (-5, 'reveal')
-    
-    # if 'The Labyrinths of Lunasy standard' in scenario:
-    #     value = -4
-    # return value
 
 
 #констуктор жетонов
@@ -222,10 +208,10 @@ def chaos_bag_for_probability(chaos_bag):
 #main_func
 def main():
     if __name__ == '__main__':
-#        print(The_Devouver_Below_standard_values('Lily Chen'))
-#        print(Elder_Sign('Nathaniel Cho'))
+        print(tablet('The Labyrinths of Lunasy'))
+        print(skull('The Gathering standard'))
         bag = chaos_bag_for_pulling(keys_dict, 'The Labyrinths of Lunasy standard group C', 'Roland Banks')
         print(bag)
-        print(chaos_bag_for_probability(bag) )
+        print(chaos_bag_for_probability(bag))
 
 main()
