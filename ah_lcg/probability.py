@@ -4,10 +4,10 @@ from game_data.colored_keywords import names_in_color as N_in_C, colored_scenari
 from game_data.dialog_interface import menu, general_menu, card_using_menu_dict
 from game_data.prob_funcs import counting_points_cycle as CP_Cy
 from random import choice
-#НЕОБХОДИМО!!!!! ПРИ ПЕЧАТИ РЕЗУЛЬТАТА УКАЗЫВАТЬ КАКОЙ ЭТО РЕЗУЛЬТАТ. дОБАВИТЬ СРАВНЕНИЕ, ЧТОБ ЗНАТЬ ФАЙЛ ИЛЬ СУКЦЕСС
+# #НЕОБХОДИМО!!!!! ПРИ ПЕЧАТИ РЕЗУЛЬТАТА УКАЗЫВАТЬ КАКОЙ ЭТО РЕЗУЛЬТАТ. дОБАВИТЬ СРАВНЕНИЕ, ЧТОБ ЗНАТЬ ФАЙЛ ИЛЬ СУКЦЕСС
 # сценарий
-scenario = 'The Gathering standard'
-players_list = ('Winifred Habbamock', 'Stella Clark')
+scenario = 'The Labirinths of Lunasy group A standard'
+players_list = ('Winifred Habbamock', 'Harvey Walters')
 
 # приветствие
 print(text_in_color('\nHi! Welcome to a Probability Utility!\n', 'fat'))
@@ -106,17 +106,32 @@ while GENERAL_MENU_FLAG == True: #основное меню
  
 #тянем жетоны
 print('') 
+# player = 'Vasya'
+# result = 0
+# chaos_bag_keys_with_tokens = [('skull', (-1, 'reveal')), ('skull', (-1, 'reveal')), ('+1', 1)]
+
 chaos_bag_keys_with_tokens = list(chaos_bag_keys_with_tokens)
-token = choice(chaos_bag_keys_with_tokens)
-if type(token[1]) == list:
-    print(N_in_C(f'{token[0]} is pulled. Value is. You need to pull another token')) #ты остановился на переменной жетона!
-    chaos_bag_keys_with_tokens.remove(token)
-    another_token = choice(chaos_bag_keys_with_tokens)
-    print(N_in_C(f'{another_token[0]} is pulled'))
-print(N_in_C(f'{token[0]} is pulled. Value is {token[1]}. Result is {result+token[1]}'))
-if (result+token[1]) >= 0:
-    print(N_in_C(player) + text_in_color(f' succeed the skill test by {result+token[1]}', 'green'))
-else: print(N_in_C(player) + text_in_color(f' failed the skill test by {result+token[1]}', 'red'))
+
+reveal_flag = True
+token_value = 0
+tokens = ''
+while reveal_flag == True:
+    token = choice(chaos_bag_keys_with_tokens)
+    token_name = token[0]
+    pull_token_value = token[1] if type(token[1]) == int else token[1][0]
+    tokens += token_name + ' '
+    token_value += pull_token_value
+    if type(token[1]) != int:
+        chaos_bag_keys_with_tokens.remove(token)
+        reveal_flag = True
+        print(N_in_C(f'{token[0]} is pulled. Value is {token[1][0]}. You must reveal another token'))
+    else: 
+        reveal_flag = False
+print(N_in_C(f'{tokens}are pulled. Value is {token_value}. Result is {result+token_value}'))
+    
+if (result+token_value) >= 0:
+    print(N_in_C(player) + text_in_color(f' succeed the skill test by {result+token_value}', 'green'))
+else: print(N_in_C(player) + text_in_color(f' failed the skill test by {result+token_value}', 'red'))
 
 
 # # for crystal_pendulum

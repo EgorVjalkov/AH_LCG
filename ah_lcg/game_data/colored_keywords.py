@@ -70,7 +70,7 @@ def colored_scenario(name):
                colored_name = scenario_color[key]+name+Style.RESET_ALL
                return colored_name
 
-print(colored_scenario('The Labirinths of Lunasy group A standard'))
+#print(colored_scenario('The Labirinths of Lunasy group A standard'))
 
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
 

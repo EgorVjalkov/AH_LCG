@@ -1,7 +1,7 @@
 def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skill_test=0):
-    print(num[0])
+#    print(num[0])
     mutated = list(map(lambda i: i + result, choas_bag_for_mutations)) # мутирование
-    print(mutated)
+#    print(mutated)
     if 'fail' in num[1]: #переключатель функции
         mutated = list(map(lambda i: -skill_test if i < -80 else i, mutated)) # autofail corrrection
         if 'fail by or less' in num:
@@ -10,7 +10,7 @@ def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skil
     else:
         filter_func = lambda i: i >= num[0]
     filtered = list(filter(filter_func, mutated)) #фильтрация
-    print(filtered)
+#    print(filtered)
     probability = len(filtered)/len(choas_bag_for_mutations)
     return round(probability, 4)
 
@@ -30,7 +30,7 @@ def counting_points_cycle(result, chaos_bag_values, num=(0,'succeed'), add_point
             choas_bag_for_mutations.insert(index_of_list, -50) #заглушка для удаленного списка
             num_of_list += 1
     dict_of_tokens['bag'] = choas_bag_for_mutations
-    print(f'dict {dict_of_tokens}')
+#    print(f'dict {dict_of_tokens}')
     for add in range (add_points+1): #counting points cycle
         new_result = result + add
         probability = 0
@@ -40,10 +40,10 @@ def counting_points_cycle(result, chaos_bag_values, num=(0,'succeed'), add_point
             else: #считаем вероятность для сумки (на месте списков заглушки)
                 success = probability_of_list(new_result, dict_of_tokens[key], num, skill_test)
             success = round(success, 4) * 100
-            print(success, '\n')
+#            print(success, '\n')
             probability += success
-        print(probability)
-        print('\n')
+#        print(probability)
+#        print('\n')
         probability = round(probability) #нормализуем вероятности
         add_points_list.append((add, probability))
     return add_points_list
