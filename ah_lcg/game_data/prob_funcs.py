@@ -1,3 +1,4 @@
+# функция подсчета вероятности в списке
 def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skill_test=0):
 #    print(num[0])
     mutated = list(map(lambda i: i + result, choas_bag_for_mutations)) # мутирование
@@ -13,7 +14,7 @@ def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skil
     print(filtered)
     return len(filtered)
 
-
+# функция, которая готовит списки для probability_of_list из словаря. Гоняет их в цикле набора очков
 def counting_points_cycle(result, dict_of_tokens, add_points=0, num=(0,'succeed'), skill_test=0):
     add_points_list = []
     divider = dict_of_tokens['bag divider']
@@ -25,16 +26,16 @@ def counting_points_cycle(result, dict_of_tokens, add_points=0, num=(0,'succeed'
         for key in dict_of_tokens_for_mutation:
             if key != 'bag': #считаем вероятность для списков
                 success = probability_of_list(new_result, dict_of_tokens_for_mutation[key], num, skill_test) / pow(divider, 2)
-            else: #считаем вероятность для сумки (на месте списков заглушки)
+            else: #считаем вероятность для сумки
                 success = probability_of_list(new_result, dict_of_tokens_for_mutation[key], num, skill_test) / divider
             success = round(success, 4) * 100
-            print(success, '\n')
+#            print(success, '\n')
             probability += success
-        print(probability)
-        print('\n')
+#        print(probability)
         probability = round(probability) #нормализуем вероятности
         add_points_list.append((add, probability))
     return add_points_list
+
 
 #main func
 def main():

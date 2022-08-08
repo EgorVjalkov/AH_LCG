@@ -10,11 +10,11 @@ else:
 def menu(menu_dict, player):
     menu = {}
     for num, el in enumerate(list(menu_dict.keys())[1:]):
-        print(N_in_C(f'press "{num+1}" and "enter" - {el}'))
+        print(N_in_C(f'press "{num+1}" and "enter" - {el}')) # печать пунктов меню
         menu[str(num+1)] = el
     q = menu_dict['description'](player)
     limit_of_answer = tuple(str(i) for i in range(1, len(menu.keys())+1))
-    answer = ICh(q, limit_of_answer)
+    answer = ICh(q, limit_of_answer) # проверка ввода 
     menu_answer_in_menu_dict = ''.join([menu[answer]])
     print('') # отступ
     print(N_in_C(f'{player} try to {menu_answer_in_menu_dict}'))
@@ -32,12 +32,6 @@ card_using_menu_dict = {
     'no expressions': 'exit'
 }
 
-# #меню с жетонами
-# pull_token_menu_dict = {
-#     'pull another token': 
-
-# }
-
 dict_of_cards_or_abilities = {}
 
 #основное меню
@@ -46,7 +40,7 @@ general_menu = {
     'pull a token': 'exit', 
     'add skill point(s) and pull a token': lambda player: int(ICh('How many points does ' + N_in_C(player) + ' try to add? ', 'num')),
     'recalculate a probability (if use some cards or abilities)': lambda player: menu(card_using_menu_dict, player),
-    'view a list of cards and abilities (whitch would be able to use for a skill test)': None
+    #'view a list of cards and abilities (whitch would be able to use for a skill test)': None
 }
     
 #main_func

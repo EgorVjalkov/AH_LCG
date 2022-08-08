@@ -1,6 +1,7 @@
 from colorama import Fore, Back, Style
-#import Enemies
 
+
+# словарь ключеевых имен и цветов
 keywords2 = {
      'blue_fat': ('Guardian', 'Roland Banks', 'Nathaniel Cho', 'Daniela Reyes',), 
      'green_fat': ('Rouge', '"Skids" O`Toole', 'Winifred Habbamock', 'Monterey Jack',),
@@ -16,8 +17,9 @@ keywords2 = {
      'yellow': ('intellect', 'skull', 'cultist', 'tablet', 'Elder Thing'),
      'magenta': ('willpower', ),
      'cyan': ('Elder Sign', ),
-     'fat': ('skill', 'skill_test', 'token', 'cards', 'abilities', 'investigator')} # не прокрашивает слово тест. надо корректировать!
+     'fat': ('skill', 'skill test', 'token', 'cards', 'abilities', 'investigator')} # не прокрашивает слово тест. надо корректировать!
 
+# словарь цветов
 color = {
      'blue_fat': Fore.LIGHTBLUE_EX + Style.BRIGHT, 
      'green_fat': Fore.GREEN + Style.BRIGHT, 
@@ -36,6 +38,7 @@ color = {
      'fat': Style.BRIGHT
      }
 
+# принимает строку и красит каждое ее слово если находит его в словаре keywords2
 def names_in_color(print_text):
      for key in keywords2:
           for i in keywords2[key]:
@@ -43,17 +46,11 @@ def names_in_color(print_text):
                     print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
      return print_text
 
+# принимает строку и красит ee в соответствии с цветом text_format
 def text_in_color(text, text_format):
      color_func = color[text_format]
      colored_text = color_func + text + Style.RESET_ALL
      return colored_text
-
-
-# проверка словаря
-string = ''
-for i in keywords2.values():
-    string += ' '.join(i) + ' '
-#print(names_in_color(string))
 
 
 #Color for scenario names
@@ -64,6 +61,7 @@ scenario_color = {
      'expert': Fore.RED+Style.BRIGHT
 }
 
+# принимает имя сценария и красит его по словарю scenario_color
 def colored_scenario(name):
      for key in scenario_color:
           if key in name:
@@ -73,18 +71,16 @@ def colored_scenario(name):
           return name
 
 
+# словарь для окраски очков и процентов
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
 
+# функция для окраски очков и процентов
 def colored_points(points, percent):
      for key in colored_points_dict:
           if percent < colored_points_dict[key]:
                colored_percent = color[key] + (str(percent)+'%') + Style.RESET_ALL
                colored_points = color[key] + str(points) + Style.RESET_ALL
                return (colored_points, colored_percent)
-
-#print(colored_points(5, 99))
-
-
 
 
 #КЛЮЧЕВЫЕ ИМЕНА
@@ -96,7 +92,6 @@ keywords_names = [
      {'Class': 'Neutral', 'pre': Style.DIM, 'post': Style.RESET_ALL}
      ]
 
-
 def colored_names(card):
      for el in keywords_names:
           if el['Class'] == card['Class']:
@@ -104,9 +99,14 @@ def colored_names(card):
                card['name'] = colored_name
      return card
 
-
+#main
 def main():
      if __name__ == '__main__':
+          string = ''
+          for i in keywords2.values():
+               string += ' '.join(i) + ' '
+#          print(names_in_color(string))
           print(colored_scenario('The Labirinths of Lunasy standard group A'))     
+          #print(colored_points(5, 99))
           
 main()

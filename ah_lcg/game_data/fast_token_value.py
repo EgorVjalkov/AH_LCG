@@ -14,7 +14,7 @@ players = (
     'Daniela Reyes', 'Norman Withers', 'Monterey Jack', 'Lily Chen', 'Bob Jenkins', # Edge of The Earth
 )
 
-
+#ЖЕТОНЫ
 #Elder_Sign
 def Elder_Sign(player):
     if player == 'Roland Banks': 
@@ -51,7 +51,6 @@ def Elder_Sign(player):
 
     return Elder_Sign
 
-
 #skull
 def skull(scenario):
     value = {
@@ -73,9 +72,6 @@ def skull(scenario):
         return answer
     return token_value[0]
 
-
-
-
 #cultist
 def cultist(scenario):
     value = {
@@ -89,7 +85,6 @@ def cultist(scenario):
         print('unknown scenario!')
         return None
     return token_value[0]
-
 
 #tablet
 def tablet(scenario):
@@ -105,9 +100,7 @@ def tablet(scenario):
         return None
     return token_value[0]
 
-
-
-
+#Elder Thing
 def Elder_Thing(scenario):
     value = {
         #CORE-SET
@@ -129,9 +122,9 @@ def Elder_Thing(scenario):
 
 
 #констуктор жетонов
-
 symbol_values = {'skull': skull, 'cultist': cultist, 'tablet': tablet, 'Elder Thing': Elder_Thing, 
 'Auto-fail': lambda x: -99, 'Elder Sign': Elder_Sign}
+
 
 # SCENARIO CHAOS TOKEN KEYS
 
@@ -160,6 +153,7 @@ keys_dict = {
     'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
     'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys
 }
+
 
 #кортежи из имен и значений
 def chaos_bag_for_pulling(keys, scenario, player):
@@ -196,12 +190,6 @@ def chaos_bag_for_probability(chaos_bag):
         token_value = i[1][0]
         dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
         num += 1
-        # if len(reveal_tokens) == 2 and num == 2:
-        #     token_name = list(dict_of_tokens.keys())[2] + token_name
-        #     token_value =  + token_value
-        #     dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
-        #     divider_for_reveal_token *= divider
-        #     dict_of_tokens[f'{token_name}+ divider'] = divider_for_reveal_token
     return(dict_of_tokens)
 
 
