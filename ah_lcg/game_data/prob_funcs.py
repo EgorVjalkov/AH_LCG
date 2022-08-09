@@ -1,8 +1,8 @@
 # функция подсчета вероятности в списке
 def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skill_test=0):
-#    print(num[0])
+    #print(result)
     mutated = list(map(lambda i: i + result, choas_bag_for_mutations)) # мутирование
-    print(mutated)
+    #print(mutated)
     if 'fail' in num[1]: #переключатель функции
         mutated = list(map(lambda i: -skill_test if i < -80 else i, mutated)) # autofail corrrection
         if 'fail by or less' in num:
@@ -11,7 +11,7 @@ def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skil
     else:
         filter_func = lambda i: i >= num[0]
     filtered = list(filter(filter_func, mutated)) #фильтрация
-    print(filtered)
+    #print(filtered)
     return len(filtered)
 
 # функция, которая готовит списки для probability_of_list из словаря. Гоняет их в цикле набора очков
@@ -47,7 +47,7 @@ def main():
         next_bag = chaos_bag_for_probability(chaos_bag)
 #        print(next_bag) 
         args = (0, next_bag)
-        print(counting_points_cycle(*args))
+        #print(counting_points_cycle(*args))
 #        print(list_)
 #        args = (2, list_2, (-2, 'fail by or more'), 3) #для проверки функции вероятности
 #        print(probability_of_list(*args))
