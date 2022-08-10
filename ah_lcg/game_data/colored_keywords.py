@@ -35,7 +35,10 @@ color = {
      'yellow': Fore.YELLOW, 
      'magenta': Fore.MAGENTA, 
      'cyan': Fore.CYAN,
-     'fat': Style.BRIGHT
+     'fat': Style.BRIGHT,
+     'red_back': Back.LIGHTRED_EX,
+     'yellow_back': Back.LIGHTYELLOW_EX,
+     'green_back': Back.LIGHTGREEN_EX
      }
 
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2
@@ -73,14 +76,21 @@ def colored_scenario(name):
 
 # словарь для окраски очков и процентов
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
+result_points_dict = {'red_back': 25, 'yellow_back': 75, 'green_back': 100}
 
 # функция для окраски очков и процентов
-def colored_points(points, percent):
-     for key in colored_points_dict:
-          if percent < colored_points_dict[key]:
-               colored_percent = color[key] + (str(percent)+'%') + Style.RESET_ALL
-               colored_points = color[key] + str(points) + Style.RESET_ALL
-               return (colored_points, colored_percent)
+def colored_points(points, percent, result):
+     
+     if points != result:
+          color_key = tuple(key for key in colored_points_dict if colored_points_dict[key] > percent)[0]
+          colored_percent = color[color_key] + (str(percent)+'%') + Style.RESET_ALL
+          colored_points = color[color_key] + str(points) + Style.RESET_ALL
+     else:
+          color_key = tuple(key for key in result_points_dict if result_points_dict[key] > percent)[0]
+          colored_percent = color[color_key] + (str(percent)+'%') + Style.RESET_ALL
+          colored_points = color[color_key] + str(points) + Style.RESET_ALL
+     
+     return (colored_points, colored_percent)
 
 
 #КЛЮЧЕВЫЕ ИМЕНА
@@ -106,7 +116,7 @@ def main():
           for i in keywords2.values():
                string += ' '.join(i) + ' '
 #          print(names_in_color(string))
-          print(colored_scenario('The Labirinths of Lunasy standard group A'))     
-          #print(colored_points(5, 99))
+          print(colored_points(4, 15, 4)[0])
+
           
 main()

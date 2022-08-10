@@ -6,6 +6,7 @@ def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skil
     if 'fail' in num[1]: #переключатель функции
         mutated = list(map(lambda i: -skill_test if i < -80 else i, mutated)) # autofail corrrection
         if 'fail by or less' in num:
+            print(1)
             filter_func = lambda i: i < 0 and i >= num[0]
         else: filter_func = lambda i: i <= num[0] and i > -30
     else:
@@ -35,6 +36,27 @@ def counting_points_cycle(result, dict_of_tokens, add_points=0, num=(0,'succeed'
         probability = round(probability) #нормализуем вероятности
         add_points_list.append((add, probability))
     return add_points_list
+
+# функция, которая готовит списки для probability_of_list из словаря. Гоняет их в цикле results
+def result_cycle(results, dict_of_tokens, num=(0,'succeed by or more'), skill_test=0):
+    add_points_list = []
+    divider = dict_of_tokens['bag divider']
+    dict_of_tokens_for_mutation = {key: dict_of_tokens[key] for key in dict_of_tokens if key != 'bag divider'}
+#    print(dict_of_tokens_for_mutation)
+    for i in results: #counting points cycle
+        probability = 0
+        for key in dict_of_tokens_for_mutation:
+            if key != 'bag': #считаем вероятность для списков
+                success = probability_of_list(i, dict_of_tokens_for_mutation[key], num, skill_test) / pow(divider, 2)
+            else: #считаем вероятность для сумки
+                success = probability_of_list(i, dict_of_tokens_for_mutation[key], num, skill_test) / divider
+            success = round(success, 4) * 100
+#            print(success, '\n')
+            probability += success
+#        print(probability)
+        probability = str(round(probability)) #нормализуем вероятности
+        add_points_list.append((str(i), probability))
+    return add_points_list, num
 
 
 #main func
