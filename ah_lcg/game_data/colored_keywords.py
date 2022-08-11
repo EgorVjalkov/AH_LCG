@@ -64,43 +64,39 @@ scenario_color = {
      'expert': Fore.RED+Style.BRIGHT
 }
 
+
 # принимает имя сценария и красит его по словарю scenario_color
 def colored_scenario(name):
-     for key in scenario_color:
-          if key in name:
-               colored_name = scenario_color[key]+name+Style.RESET_ALL
-               return colored_name
-     else:
-          return name
+    for key in scenario_color:
+        if key in name:
+            colored_name = scenario_color[key]+name+Style.RESET_ALL
+            return colored_name
+    else:
+        return name
 
 
 # словарь для окраски очков и процентов
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
-result_points_dict = {'red_back': 25, 'yellow_back': 75, 'green_back': 100}
+result_points_dict = {'red_fat': 25, 'yellow_fat': 75, 'green_fat': 100}
 
 # функция для окраски очков и процентов
-def colored_points(points, percent, result):
-     
-     if points != result:
-          color_key = tuple(key for key in colored_points_dict if colored_points_dict[key] > percent)[0]
-          colored_percent = color[color_key] + (str(percent)+'%') + Style.RESET_ALL
-          colored_points = color[color_key] + str(points) + Style.RESET_ALL
-     else:
-          color_key = tuple(key for key in result_points_dict if result_points_dict[key] > percent)[0]
-          colored_percent = color[color_key] + (str(percent)+'%') + Style.RESET_ALL
-          colored_points = color[color_key] + str(points) + Style.RESET_ALL
-     
-     return (colored_points, colored_percent)
+
+
+def colored_points(points, percent):
+    color_key = tuple(key for key in result_points_dict if result_points_dict[key] > percent)[0]
+    colored_percent = color[color_key] + (str(percent)+'%') + Style.RESET_ALL
+    colored_points = color[color_key] + str(points) + Style.RESET_ALL
+    return colored_points, colored_percent
 
 
 #КЛЮЧЕВЫЕ ИМЕНА
 keywords_names = [
-     {'Class': 'Roland Banks', 'pre': Back.WHITE+Style.BRIGHT, 'post': Style.RESET_ALL},
-     {'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET}, 
-     {'Class': 'Rouge', 'pre': Fore.GREEN, 'post': Fore.RESET},
-     {'Class': 'Enemy', 'pre': Fore.RED, 'post': Fore.RESET},
-     {'Class': 'Neutral', 'pre': Style.DIM, 'post': Style.RESET_ALL}
-     ]
+    {'Class': 'Roland Banks', 'pre': Back.WHITE+Style.BRIGHT, 'post': Style.RESET_ALL},
+    {'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET},
+    {'Class': 'Rouge', 'pre': Fore.GREEN, 'post': Fore.RESET},
+    {'Class': 'Enemy', 'pre': Fore.RED, 'post': Fore.RESET},
+    {'Class': 'Neutral', 'pre': Style.DIM, 'post': Style.RESET_ALL}
+    ]
 
 def colored_names(card):
      for el in keywords_names:
@@ -110,13 +106,17 @@ def colored_names(card):
      return card
 
 #main
+
+
 def main():
-     if __name__ == '__main__':
-          string = ''
-          for i in keywords2.values():
-               string += ' '.join(i) + ' '
-#          print(names_in_color(string))
-          print(colored_points(4, 15, 4)[0])
+    if __name__ == '__main__':
+        string = ''
+        for i in keywords2.values():
+            string += ' '.join(i) + ' '
+#           print(names_in_color(string))
+        a = colored_points(4, 15)
+        print(len(a[0]))
+        print(a)
 
           
 main()
