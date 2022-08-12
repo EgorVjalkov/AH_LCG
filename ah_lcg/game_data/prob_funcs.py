@@ -5,8 +5,7 @@ def probability_of_list(result, choas_bag_for_mutations, num=(0,'succeed'), skil
     #print(mutated)
     if 'fail' in num[1]: #переключатель функции
         mutated = list(map(lambda i: -skill_test if i < -80 else i, mutated)) # autofail corrrection
-        if 'fail by or less' in num:
-            print(1)
+        if 'less' in num[1]:
             filter_func = lambda i: i < 0 and i >= num[0]
         else: filter_func = lambda i: i <= num[0] and i > -30
     else:

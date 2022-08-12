@@ -1,47 +1,46 @@
 from game_data.prob_funcs import probability_of_list, result_cycle
 from game_data.fast_token_value import keys_dict, players, chaos_bag_for_probability, chaos_bag_for_pulling
-from game_data.colored_keywords import text_in_color, colored_points_dict, color
-from colorama import Style
+from game_data.colored_keywords import text_in_color, colored_points_dict, result_points_dict, color
+from colorama import Fore, Style, Back
 
 
 # ячейка
 
 
 def colored_cell(points, percent, result):
-
-    for i in points, percent:
+    if points == result:
+        color_key = tuple(key for key in result_points_dict if result_points_dict[key] > percent)[0]
+        line_format = color[color_key] + '|' + Style.RESET_ALL
+    else:
         color_key = tuple(key for key in colored_points_dict if colored_points_dict[key] > percent)[0]
-        if len(i) == 1:
-            i = f'| {str(i)} |'
-        elif len(i) == 2:
-            i = f'| {str(i)}|'
+        line_format = Style.DIM + '|' + Style.RESET_ALL
+    colored_cell = []
+    for el in [str(points), str(percent)+'%']:
+        if len(el) == 1:
+            el = line_format + (color[color_key] + (' '+str(el)+' ') + Style.RESET_ALL) + line_format
+        elif len(el) == 2:
+            el = line_format + (color[color_key] + (str(el)+' ') + Style.RESET_ALL) + line_format
         else:
-            i = f'|{str(i)}|'
-
-    # color_key = tuple(key for key in colored_points_dict if result_points_dict[key] > percent)[0]
-    # colored_percent = color[color_key] + (str(percent) + '%') + Style.RESET_ALL
-    # colored_points = color[color_key] + str(points) + Style.RESET_ALL
-    print(points, percent, )
-# полностью меняем колоред пойнтс будем вшивать в фунецию ячейки
-
-print(colored_cell(4, 75, 4))
+            el = line_format + (color[color_key] + (str(el)) + Style.RESET_ALL) + line_format
+        colored_cell.append(el)
+    return colored_cell
 
 
 # печатает в терминале таблицу цветную
-def table(tupled_list):
+def table(tupled_list, result=0):
     for el in tupled_list:
         list_of_probability = el[0]
         result_of_skill_test = el[1]
         for i in list_of_probability:
-            result_percent_in_color = [colored_points(int(i[0]), int(i[1])) for i in list_of_probability]
+            result_percent_in_color = [colored_cell(int(i[0]), int(i[1]), result) for i in list_of_probability]
         if 0 in result_of_skill_test:
-            head_list = [cell(i[0]) for i in result_percent_in_color]
+            head_list = [i[0] for i in result_percent_in_color]
             head = ''.join(head_list)
             print('-' * 90)
             head = text_in_color('result              ', 'fat') + head
             print(head)
             print('-' * 90)
-        cells_list = [cell(i[1]) for i in result_percent_in_color]
+        cells_list = [i[1] for i in result_percent_in_color]
         cells = ''.join(cells_list)
         if 'succeed' in result_of_skill_test[1]:
             column = text_in_color(result_of_skill_test[1], 'green')
@@ -66,10 +65,11 @@ succeed_or_fail_list.append((-2, 'fail by 2 or less'))
 succeed_or_fail_list.append((-2, 'fail by 2 or more'))
 # print(succeed_or_fail_list)
 
-
-skill = int(input('Skill? '))
-skill_test = int(input('Skill_test? '))
+#
+skill = int(input('Skill: '))
+skill_test = int(input('Skill test: '))
 result = skill - skill_test
+print(f'Result is {result}')
 chaos_bag = chaos_bag_for_pulling(keys_dict, scenario, player)
 chaos_bag_values = chaos_bag_for_probability(chaos_bag)
 # print(succeed_or_fail_list)
@@ -81,5 +81,5 @@ fail_result_percent_tuple_list = [
     ]
 succeed_or_fail_result_percent_tuple_list.extend(fail_result_percent_tuple_list)
 # print(succeed_or_fail_result_percent_tuple_list)
-table(succeed_or_fail_result_percent_tuple_list)
+table(succeed_or_fail_result_percent_tuple_list, result)
         

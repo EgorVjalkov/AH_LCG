@@ -36,9 +36,9 @@ color = {
      'magenta': Fore.MAGENTA, 
      'cyan': Fore.CYAN,
      'fat': Style.BRIGHT,
-     'red_back': Back.LIGHTRED_EX,
-     'yellow_back': Back.LIGHTYELLOW_EX,
-     'green_back': Back.LIGHTGREEN_EX
+     'red_back': Back.LIGHTRED_EX + Style.BRIGHT,
+     'yellow_back': Back.LIGHTYELLOW_EX + Style.BRIGHT,
+     'green_back': Back.LIGHTGREEN_EX + Style.BRIGHT
      }
 
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2
@@ -77,7 +77,7 @@ def colored_scenario(name):
 
 # словарь для окраски очков и процентов
 colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
-result_points_dict = {'red_fat': 25, 'yellow_fat': 75, 'green_fat': 100}
+result_points_dict = {'red_back': 25, 'yellow_back': 75, 'green_back': 100}
 
 # функция для окраски очков и процентов
 
@@ -117,6 +117,7 @@ def main():
         a = colored_points(4, 15)
         print(len(a[0]))
         print(a)
+        print(text_in_color('|a|', 'fat'))
 
-          
+
 main()
