@@ -4,6 +4,7 @@ from probability import change_a_player, find_a_player, find_a_scenario, input_s
 from tablica import succeed_or_fail_list, table
 from game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
 from game_data.prob_funcs import result_cycle
+from random import choice
 
 
 print(text_in_color('\nHi! Welcome to a Probability Utility!\n', 'fat'))
@@ -59,8 +60,39 @@ while game_flag == True:
     succeed_or_fail_result_percent_tuple_list.extend(fail_result_percent_tuple_list)
     table(succeed_or_fail_result_percent_tuple_list, result)
 
+   
+# блок тяни жетончик
+    print('')
+    q_pull_token = (N_in_C(f'Does {player} is ready to pull a chaos token? press "y" or "n" and "enter" '))
+    if ICh(q_pull_token) == 'y': # вход в блок
+        bag_for_reveal = []
+        bag_for_reveal.extend(chaos_bag)
+        reveal_flag = True
+        token_value = 0
+        tokens = []
+        while reveal_flag == True:
+            token = choice(bag_for_reveal)
+            token_name = f'"{token[0]}"'
+            pull_token_value = token[1] if type(token[1]) == int else token[1][0]
+            tokens.append(token_name)
+            token_value += pull_token_value
+            if type(token[1]) != int:
+                bag_for_reveal.remove(token)
+                print(N_in_C(f'{token[0]} is pulled. Value is {token[1][0]}. You must reveal another token'))
+            else: 
+                reveal_flag = False
+                tokens_in_str = ', '.join(tokens)
+                is_plural = 'are' if len(tokens) > 1 else 'is'
+                last_result = result + token_value
+        
+        print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
+        
+        if (last_result) >= 0:
+            print(N_in_C(player) + text_in_color(f' succeed the skill test by {last_result}', 'green'))
+        else: print(N_in_C(player) + text_in_color(f' failed the skill test by {last_result}', 'red'))
 
-# блок выбора инпута
+
+# блок возврата к началу
     q_input_flag = text_in_color('Do you want to change some values? ', 'fat')
     if ICh(q_input_flag) == 'y':
         changes_dict = dict(enumerate(change_a_flag, 1))

@@ -10,13 +10,13 @@ keywords2 = {
      'red_fat':('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
      'red_back_with_fat': ('Ancient One', ),
      'grey_back': ('Wendy`s amulet', 'The Necronomicon. John Dee Translation'),
-     'red': ('damage', 'Ghoul', 'Cultist', 'Monster', 'Auto-fail', 'combat', 'fail'),
+     'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
      'blue':('horror', ), 
      'green': ('clue', 'agility', 'succeed'),
-     'yellow': ('intellect', 'skull', 'cultist', 'tablet', 'Elder Thing'),
+     'yellow': ('intellect', '"skull"', '"cultist"', '"tablet"', '"Elder Thing"'),
      'magenta': ('willpower', ),
-     'cyan': ('Elder Sign', ),
+     'cyan': ('"Elder Sign"', ),
      'fat': ('skill', 'skill test', 'token', 'cards', 'abilities', 'investigator')} # не прокрашивает слово тест. надо корректировать!
 
 # словарь цветов
