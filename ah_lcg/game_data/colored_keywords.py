@@ -50,7 +50,7 @@ def names_in_color(print_text):
      return print_text
 
 # принимает строку и красит ee в соответствии с цветом text_format
-def text_in_color(text, text_format):
+def text_in_color(text, text_format='fat'):
      color_func = color[text_format]
      colored_text = color_func + text + Style.RESET_ALL
      return colored_text

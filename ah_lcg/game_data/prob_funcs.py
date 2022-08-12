@@ -37,12 +37,13 @@ def counting_points_cycle(result, dict_of_tokens, add_points=0, num=(0,'succeed'
     return add_points_list
 
 # функция, которая готовит списки для probability_of_list из словаря. Гоняет их в цикле results
-def result_cycle(results, dict_of_tokens, num=(0,'succeed by or more'), skill_test=0):
+def result_cycle( dict_of_tokens, num=(0,'succeed by or more'), skill_test=0):
     add_points_list = []
     divider = dict_of_tokens['bag divider']
     dict_of_tokens_for_mutation = {key: dict_of_tokens[key] for key in dict_of_tokens if key != 'bag divider'}
+    result_list = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 #    print(dict_of_tokens_for_mutation)
-    for i in results: #counting points cycle
+    for i in result_list: #counting points cycle
         probability = 0
         for key in dict_of_tokens_for_mutation:
             if key != 'bag': #считаем вероятность для списков

@@ -18,27 +18,27 @@ players = (
 #Elder_Sign
 def Elder_Sign(player):
     if player == 'Roland Banks': 
-        q =N_in_C('How many clues are at your location? Press a \'num\' and \'enter\' ')
+        q =N_in_C('Elder Sign: how many clues are at your location? Press a \'num\' and \'enter\' ')
         Elder_Sign = int(ICh(q, 'num')) # with input check
     
     if player == 'Daisy Walker':
-        q = N_in_C('Does The Necronomicon. John Dee Translation in play?. Press "y" or "n" and "enter" ')
+        q = N_in_C('Elder Sign: does The Necronomicon, John Dee Translation in play?. Press "y" or "n" and "enter" ')
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = -99
         else: Elder_Sign = 0
 
     if player == 'Agnes Baker':
-        q = N_in_C('How many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
+        q = N_in_C('Elder Sign: how many horror are on Agnes Baker? Press a \'num\' and \'enter\' ')
         Elder_Sign = int(ICh(q, 'num')) # with input check
 
     if player == 'Wendy Adams':
-        q = N_in_C('Does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
+        q = N_in_C('Elder Sign: does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = 99
         else: Elder_Sign = 0
 
     if player == 'Norman Withers':
-        q = N_in_C(f'What is resourse cost of the top card of {player}`s deck. Press "num" and "enter" ')
+        q = N_in_C(f'Elder Sign: what is resourse cost of the top card of {player}`s deck. Press "num" and "enter" ')
         Elder_Sign = int(ICh(q, 'num')) # with input check
 
     if player in ('"Skids" O`Toole', 'Lily Chen'):
@@ -55,9 +55,9 @@ def Elder_Sign(player):
 def skull(scenario):
     value = {
         #CORE-SET
-        'The Gathering standard': 'What is the number of Ghoul enemies at your location? Press a "num" and "enter" ',
-        'The Midnight Masks standard': 'What is the highest number of doom on a Cultist enemy in play? Press a "num" and "enter" ',
-        'The Devourer Below standard': 'What is the number of Monster enemies in play? Press a "num" and "enter" ',
+        'The Gathering standard': 'skull: what is the number of Ghoul enemies at your location? Press a "num" and "enter" ',
+        'The Midnight Masks standard': 'skull: what is the highest number of doom on a Cultist enemy in play? Press a "num" and "enter" ',
+        'The Devourer Below standard': 'skull: what is the number of Monster enemies in play? Press a "num" and "enter" ',
         #Expansions
         'The Labyrinths of Lunasy': (-1, 'reveal')
     }
@@ -104,7 +104,7 @@ def tablet(scenario):
 def Elder_Thing(scenario):
     value = {
         #CORE-SET
-        'The Devourer Below standard': 'Is there an Ancient One enemy in play? Press "y" or "n" and "enter" ',
+        'The Devourer Below standard': 'Elder Thing: is there an Ancient One enemy in play? Press "y" or "n" and "enter" ',
         #Expansions
         'The Labyrinths of Lunasy': -4
     }
