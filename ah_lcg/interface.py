@@ -1,6 +1,6 @@
 from game_data.colored_keywords import text_in_color, names_in_color as N_in_C
 from game_data.input_checking import input_checking as ICh
-from probability import change_a_player, find_a_player, find_a_scenario, input_skill_test, input_skill
+from funcs_for_input import change_a_player, find_a_player, find_a_scenario, input_skill_test, input_skill
 from tablica import succeed_or_fail_list, table
 from game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
 from game_data.prob_funcs import result_cycle
@@ -81,7 +81,7 @@ while game_flag == True:
                 print(N_in_C(f'{token[0]} is pulled. Value is {token[1][0]}. You must reveal another token'))
             else: 
                 reveal_flag = False
-                tokens_in_str = ', '.join(tokens)
+                tokens_in_str = '=>'.join(tokens)
                 is_plural = 'are' if len(tokens) > 1 else 'is'
                 last_result = result + token_value
         
