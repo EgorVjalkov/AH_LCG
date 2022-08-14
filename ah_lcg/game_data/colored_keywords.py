@@ -9,7 +9,7 @@ keywords2 = {
      'magenta_fat': ('Mystic', 'Agnes Baker', 'Jacqueline Fine', 'Lily Chen',),
      'red_fat':('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
      'red_back_with_fat': ('Ancient One', ),
-     'grey_back': ('Wendy`s amulet', 'The Necronomicon. John Dee Translation'),
+     'grey_back': ('Wendy`s amulet', 'The Necronomicon, John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
      'blue':('horror', ), 
@@ -27,7 +27,7 @@ color = {
      'magenta_fat': Fore.LIGHTMAGENTA_EX + Style.BRIGHT,
      'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT, 
      'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 
-     'grey_back': Back.LIGHTWHITE_EX, 
+     'grey_back': Back.WHITE + Fore.BLACK,
      'red': Fore.RED, 
      'dim_red': Fore.RED+Style.DIM, 
      'blue': Fore.BLUE, 
@@ -36,9 +36,9 @@ color = {
      'magenta': Fore.MAGENTA, 
      'cyan': Fore.CYAN,
      'fat': Style.BRIGHT,
-     'red_back': Back.LIGHTRED_EX + Style.BRIGHT,
-     'yellow_back': Back.LIGHTYELLOW_EX + Style.BRIGHT,
-     'green_back': Back.LIGHTGREEN_EX + Style.BRIGHT
+     'red_back': Back.RED + Fore.BLACK,
+     'yellow_back': Back.YELLOW + Fore.BLACK,
+     'green_back': Back.GREEN + Fore.BLACK
      }
 
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2

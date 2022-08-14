@@ -9,8 +9,8 @@ else:
 
 #Сыщики
 players = (
-    'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', #CORE-SET
-    'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark', # investigator expansions
+    'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', # CORE-SET
+    'Nathaniel Cho', 'Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark', # investigator expansions
     'Daniela Reyes', 'Norman Withers', 'Monterey Jack', 'Lily Chen', 'Bob Jenkins', # Edge of The Earth
 )
 
@@ -32,7 +32,7 @@ def Elder_Sign(player):
         Elder_Sign = int(ICh(q, 'num')) # with input check
 
     if player == 'Wendy Adams':
-        q = N_in_C('"Elder Sign": does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
+        q = N_in_C('"Elder Sign": does Wendy`s amulet in play?. Press "y" or "n" and "enter" ')
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = 99
         else: Elder_Sign = 0
@@ -45,7 +45,7 @@ def Elder_Sign(player):
         Elder_Sign = 2
 
     if player in (
-        'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark',
+        'Nathaniel Cho', 'Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark',
         'Daniela Reyes', 'Monterey Jack',  'Bob Jenkins'): 
         Elder_Sign = 1
 
