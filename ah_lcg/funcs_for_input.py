@@ -1,6 +1,6 @@
-from game_data.fast_token_value import keys_dict, players
-from game_data.input_checking import input_checking as ICh
-from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, text_in_color
+from ah_lcg.game_data.fast_token_value import keys_dict, players
+from ah_lcg.game_data.input_checking import input_checking as ICh
+from ah_lcg.game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, text_in_color
 
 
 # поиск игроков по имени

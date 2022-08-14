@@ -8,6 +8,10 @@ authors = ["EgorVjalkov <e.vjalkov@yandex.ru>"]
 python = "^3.8"
 colorama = "^0.4.5"
 
+[tool.poetry.scripts]
+PU = "ah_lcg.interface:main"
+logs = "ah_lcg.print_logs:main"
+
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 

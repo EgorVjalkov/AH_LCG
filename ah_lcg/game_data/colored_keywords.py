@@ -1,18 +1,23 @@
 from colorama import Fore, Back, Style
 
 
+# МЕЛОЧИ НУЖНО ПОПРАВИТЬ: SKILL И SKILL TEST. FAIL И AUTO-FAIL!!!!
+
+
 # словарь ключеевых имен и цветов
+
+
 keywords2 = {
      'blue_fat': ('Guardian', 'Roland Banks', 'Nathaniel Cho', 'Daniela Reyes',), 
      'green_fat': ('Rouge', '"Skids" O`Toole', 'Winifred Habbamock', 'Monterey Jack',),
      'yellow_fat': ('Seeker', 'Daisy Walker', 'Harvey Walters', 'Norman Withers',),
      'magenta_fat': ('Mystic', 'Agnes Baker', 'Jacqueline Fine', 'Lily Chen',),
-     'red_fat':('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
+     'red_fat': ('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
      'red_back_with_fat': ('Ancient One', ),
      'grey_back': ('Wendy`s amulet', 'The Necronomicon, John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
-     'blue':('horror', ), 
+     'blue': ('horror', ),
      'green': ('clue', 'agility', 'succeed'),
      'yellow': ('intellect', '"skull"', '"cultist"', '"tablet"', '"Elder Thing"'),
      'magenta': ('willpower', ),
@@ -43,11 +48,11 @@ color = {
 
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2
 def names_in_color(print_text):
-     for key in keywords2:
-          for i in keywords2[key]:
-               if i in print_text:
-                    print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
-     return print_text
+    for key in keywords2:
+        for i in keywords2[key]:
+            if i in print_text:
+                print_text = print_text.replace(i, color[key]+i+Style.RESET_ALL)
+    return print_text
 
 # принимает строку и красит ee в соответствии с цветом text_format
 def text_in_color(text, text_format='fat'):
@@ -118,6 +123,7 @@ def main():
         print(len(a[0]))
         print(a)
         print(text_in_color('|a|', 'fat'))
+        print(names_in_color('"Auto-fail", "Auto-fail'))
 
 
 main()

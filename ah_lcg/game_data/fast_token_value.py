@@ -1,11 +1,5 @@
-# from input_checking import input_checking as ICh
-# from colored_keywords import names_in_color as N_in_C
-if __name__ == '__main__':
-    from input_checking import input_checking as ICh
-    from colored_keywords import names_in_color as N_in_C
-else:    
-    from game_data.input_checking import input_checking as ICh # like a module
-    from game_data.colored_keywords import names_in_color as N_in_C # like a module
+from ah_lcg.game_data.input_checking import input_checking as ICh # like a module
+from ah_lcg.game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 #Сыщики
 players = (

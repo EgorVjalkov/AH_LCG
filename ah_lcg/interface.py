@@ -1,9 +1,9 @@
-from game_data.colored_keywords import text_in_color, names_in_color as N_in_C
-from game_data.input_checking import input_checking as ICh
-from funcs_for_input import change_a_player, find_a_player, find_a_scenario, input_skill_test, input_skill
-from tablica import succeed_or_fail_list, table
-from game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
-from game_data.prob_funcs import result_cycle
+from ah_lcg.game_data.colored_keywords import text_in_color, names_in_color as N_in_C
+from ah_lcg.game_data.input_checking import input_checking as ICh
+from ah_lcg.funcs_for_input import change_a_player, find_a_player, find_a_scenario, input_skill_test, input_skill
+from ah_lcg.tablica import succeed_or_fail_list, table
+from ah_lcg.game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
+from ah_lcg.game_data.prob_funcs import result_cycle
 from random import choice
 from datetime import datetime
 
@@ -32,9 +32,10 @@ else:
 
 
 # запись в логах!
-logs = open('logs/logs.txt', 'w')
+logs = open('ah_lcg/logs/logs.txt', 'w')
 logs.write(
-    f'''{date_normalize}
+    f'''
+{date_normalize}
      
 {time_normalize} New game is started 
       Lead investigator is {Investigators[0]}.
@@ -102,7 +103,7 @@ while game_flag:
     succeed_by_0 = [i[1] for i in result_cycle(chaos_bag_values, succeed_or_fail_list[0])[0] if i[0] == str(result)]
 
     # запись в логах
-    logs = open('logs/logs.txt', 'a')
+    logs = open('ah_lcg/logs/logs.txt', 'a')
     logs.write(
         f'''{time_of_checking} {player} has a skill test. {skill} vs {skill_test} (skill vs skill test). 
       Result is {result}. Probability of success is {succeed_by_0[0]}%
@@ -149,7 +150,7 @@ while game_flag:
         time_of_pulling = time_of_pulling.strftime('%H:%M')
 
         # запись в логах
-        logs = open('logs/logs.txt', 'a')
+        logs = open('ah_lcg/logs/logs.txt', 'a')
         logs.write(
             f'''{time_of_pulling} {tokens_in_str} {is_plural} pulled. 
       Value is {token_value}. Result is {last_result}
