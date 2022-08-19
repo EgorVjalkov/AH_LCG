@@ -116,10 +116,46 @@ def input_skill_test():
     skill_test = int(ICh(q, 'num'))  # with check
     return skill_test
 
+
 def input_skill(player):
     q1 = N_in_C(f'How many points of the skill does {player} have? Press "num" and "enter" ')
     skill = int(ICh(q1, 'num'))  # with check
     return skill
+
+
+def add_points(player):
+    q_add = N_in_C(f'How many skill points {player} try to add? Press "num" and "enter" ')
+    add = int(ICh(q_add, 'num'))
+    return add
+
+
+def use_cards(player):
+    print('There are not any cards now')
+
+
+def dialog_interface(flag_dict, questions_dict):
+    questions_dict_enumerate = dict(enumerate(questions_dict, 1))
+    limit_of_answer = tuple(str(i) for i in range(1, len(questions_dict) + 1))
+    while True:
+        for key in questions_dict_enumerate:
+            print(f'press "{key}" and "enter" - {questions_dict_enumerate[key]}')
+        q_change_answer = text_in_color('What do you change? ', 'fat')
+        answer = int(ICh(q_change_answer, limit_of_answer))
+        questions_dict_key = questions_dict_enumerate[answer]
+        questions_dict_value = questions_dict[questions_dict_key]
+        if questions_dict_value == 'exit':
+            return flag_dict
+        else:
+            flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
+
+
+def func_from_key_and_switch_flag(flag_dict, func_dict, args):
+    results_dict = {}
+    for key in flag_dict:
+        if flag_dict[key]:
+            results_dict[key] = func_dict[key](*args)
+            flag_dict[key] = not flag_dict[key]
+    return results_dict
 
 
 # # for crystal_pendulum
@@ -145,7 +181,19 @@ def input_skill(player):
 
 def main():
     if __name__ == '__main__':
-        print(1)
+        flags = {'add points': False, 'use cards': False}
+        questions = {
+            'add some skill points': 'add points',
+            'use some cards and/or abilities': 'use cards',
+            'pull a token': 'exit'
+        }
+        funcs = {'add points': add_points, 'use cards': use_cards}
+
+        flags = dialog_interface(flags, questions)
+        func_results = func_from_key_and_switch_flag(flags, funcs, ("player",))
+        print(func_results)
+
+        print(flags)
 
 
 main()

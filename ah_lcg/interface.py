@@ -1,20 +1,33 @@
+from random import choice
+from datetime import datetime
 from ah_lcg.game_data.colored_keywords import text_in_color, names_in_color as N_in_C
 from ah_lcg.game_data.input_checking import input_checking as ICh
-from ah_lcg.funcs_for_input import change_a_player, find_a_player, find_a_scenario, input_skill_test, input_skill
 from ah_lcg.tablica import succeed_or_fail_list, table
 from ah_lcg.game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
 from ah_lcg.game_data.prob_funcs import result_cycle
-from random import choice
-from datetime import datetime
+from ah_lcg.funcs_for_input import (change_a_player,
+                                    find_a_player,
+                                    find_a_scenario,
+                                    input_skill_test,
+                                    input_skill,
+                                    add_points,
+                                    use_cards,
+                                    dialog_interface,
+                                    func_from_key_and_switch_flag)
+from game_data.func_for_writing_logs import write_a_log
 
 
-print(text_in_color('\nHi! Welcome to a Probability Utility!\n', 'fat'))
+# НЕ ЗАБУДЬ СДЕЛАТЬ СЛОВАРЬ С ИСЧЕЗАЮЩИМ АЙТЕМОМ ПРИ ВЫБОРЕ КЛЮЧА
+# НАСТРОЙ ИСКЛЮЧЕНИЕ АУТ ОФ РАНЖЕ
+# ПРОТЕСТРУЙ С СУМКОЙ ПОЛНОЙ ФАЙЛОВ ИЛИ УСПЕХОВ
+# ЧТЕНИЕ ЛОГОВ ИЗ csv
 
-date = datetime.today()
-date_normalize = date.strftime('%d.%m.%Y')
-time = datetime.now()
-time_normalize = time.strftime('%H:%M')
 
+# приветствие
+print(text_in_color('\nHi! Welcome to Probability Utility for Arkham Horror LCG!\n', 'fat'))
+
+
+# новая игра: ввод сыщиклв и сценария
 q_start = text_in_color('How many players are? ', 'fat')
 count_of_players = int(ICh(q_start, 'num'))
 
@@ -23,29 +36,12 @@ print('')
 scenario = find_a_scenario()
 print('')
 
-# для записи в логах
-if len(Investigators) > 1:
-    other_investigators_in_str = ', '.join(Investigators[1:])
-    coop_game = f'Other investigator(s) is(are) {other_investigators_in_str}'
-else:
-    coop_game = 'Solo game'
+
+# запись в логах
+write_a_log['start game'](scenario, Investigators)
 
 
-# запись в логах!
-logs = open('ah_lcg/logs/logs.txt', 'w')
-logs.write(
-    f'''
-{date_normalize}
-     
-{time_normalize} New game is started 
-      Lead investigator is {Investigators[0]}.
-      {coop_game}
-      Scenario is {scenario}
-          
-''')
-logs.close()
-
-
+# переключатели на введение данных
 flags = {
     'input player': True, 'input skill': True, 'input skill test': True, 'input chaos bag': True
     }
@@ -58,10 +54,12 @@ change_a_flag = {
     'change all': 'all',
     'no changes': 'exit'
     }
+
 if len(Investigators) < 2:
     del change_a_flag['change the investigator']
 
-# блок инпута
+
+# блок первичного инпута
 game_flag = True
 
 while game_flag:
@@ -96,26 +94,57 @@ while game_flag:
     # print(succeed_or_fail_result_percent_tuple_list[0][0][1])
 
 
-
-    # для записи в логах
-    time_of_checking = time.now()
-    time_of_checking = time_of_checking.strftime('%H:%M')
+# запись в логах
     succeed_by_0 = [i[1] for i in result_cycle(chaos_bag_values, succeed_or_fail_list[0])[0] if i[0] == str(result)]
+    write_a_log['checking'](player, skill, skill_test, succeed_by_0)
+
+
+# флаги для побочного меню
+    re_input_flag = True
+    pull_token_flag = True
+
+
+# вход в побочное меню
+    print(N_in_C(f'What does {player} try to do now?'))
+
+
+# переключатели в меню
+    flags_before_token = {'add points': False, 'use cards': False}
+    questions_before_token = {
+        'add some skill points': 'add points',
+        'use some cards and/or abilities (not ready)': 'use cards',
+        'exit menu and pull a token': 'exit'
+    }
+
+
+# диалоговый интерфэйс
+    flags_before_token = dialog_interface(flags_before_token, questions_before_token)
+
+
+    # добавь очков
+    if flags_before_token['add points']:
+        add = add_points(player)
 
     # запись в логах
-    logs = open('ah_lcg/logs/logs.txt', 'a')
-    logs.write(
-        f'''{time_of_checking} {player} has a skill test. {skill} vs {skill_test} (skill vs skill test). 
-      Result is {result}. Probability of success is {succeed_by_0[0]}%
-      
-''')
-    logs.close()
+        write_a_log['adding'](player, add)
 
-   
-# блок тяни жетончик
+        skill += add
+        flags_before_token['add points'] = False
+        pull_token_flag = False
+        re_input_flag = False
+
+
+    # добавь карт
+    if flags_before_token['use cards']:
+        pass
+        flags_before_token['use cards'] = False
+        pull_token_flag = False
+        re_input_flag = False
+
     print('')
-    q_pull_token = (N_in_C(f'Does {player} is ready to pull a chaos token? press "y" or "n" and "enter" '))
-    if ICh(q_pull_token) == 'y': # вход в блок
+
+    # блок тяни жетончик
+    if pull_token_flag:
         bag_for_reveal = []
         bag_for_reveal.extend(chaos_bag)
         reveal_flag = True
@@ -129,55 +158,52 @@ while game_flag:
             token_value += pull_token_value
             if type(token[1]) != int:
                 bag_for_reveal.remove(token)
-                print(N_in_C(f'{token[0]} is pulled. Value is {token[1][0]}. You must reveal another token'))
+                print(N_in_C(f'{token_name} is pulled. Value is {token[1][0]}. You must reveal another token'))
             else:
                 reveal_flag = False
                 tokens_in_str = ', '.join(tokens)
                 is_plural = 'are' if len(tokens) > 1 else 'is'
                 last_result = result + token_value
-        
-        print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
-        
+
+        # по отдельным жетонам
+        if "Auto-fail" in tokens_in_str:
+            last_result = -skill_test
+            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. {player}`s skill is 0. Result is {last_result}'))
+        elif "Elder Sign" in tokens_in_str and token_value > 50:
+            last_result = skill
+            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. skill test is 0. Result is {last_result}'))
+        else:
+            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
+
+        # интерпретация результата
         if last_result >= 0:
             total = f' succeed the skill test by {last_result}'
             print(N_in_C(player) + text_in_color(total, 'green'))
         else:
-            total = f' fail the skill test by {last_result}'
+            total = f' fail the skill test by {abs(last_result)}'
             print(N_in_C(player) + text_in_color(total, 'red'))
 
-        # для записи в логах
-        time_of_pulling = time.now()
-        time_of_pulling = time_of_pulling.strftime('%H:%M')
 
         # запись в логах
-        logs = open('ah_lcg/logs/logs.txt', 'a')
-        logs.write(
-            f'''{time_of_pulling} {tokens_in_str} {is_plural} pulled. 
-      Value is {token_value}. Result is {last_result}
-      {player}{total}
-      
-''')
-        logs.close()
+        write_a_log['revealing'](player, tokens_in_str, token_value, last_result, total)
 
 
-# блок возврата к началу
+    # блок возврата к вводу параметров
     print('')
-    q_input_flag = text_in_color('Do you want to change some values? ', 'fat')
-    if ICh(q_input_flag) == 'y':
-        changes_dict = dict(enumerate(change_a_flag, 1))
-        limit_of_answer = tuple(str(i) for i in range(1, len(changes_dict) + 1))
-        while True:
-            for key in changes_dict:
-                print(f'press "{key}" and "enter" - {changes_dict[key]}')
-            q_change_player = text_in_color('What do you change? ', 'fat')
-            answer = int(ICh(q_change_player, limit_of_answer))
-            if change_a_flag[changes_dict[answer]] == 'exit':
-                break
-            elif change_a_flag[changes_dict[answer]] == 'all':
-                flags = {key: True for key in flags}
-                break
-            else:
-                flags[change_a_flag[changes_dict[answer]]] = True
-            
-#        print(flags)
-
+    if re_input_flag:
+        q_re_input_flag = text_in_color('Do you want to change some values? ', 'fat')
+        if ICh(q_re_input_flag) == 'y':
+            changes_dict = dict(enumerate(change_a_flag, 1))
+            limit_of_answer = tuple(str(i) for i in range(1, len(changes_dict) + 1))
+            while True:
+                for key in changes_dict:
+                    print(f'press "{key}" and "enter" - {changes_dict[key]}')
+                q_change_player = text_in_color('What do you change? ', 'fat')
+                answer = int(ICh(q_change_player, limit_of_answer))
+                if change_a_flag[changes_dict[answer]] == 'exit':
+                    break
+                elif change_a_flag[changes_dict[answer]] == 'all':
+                    flags = {key: True for key in flags}
+                    break
+                else:
+                    flags[change_a_flag[changes_dict[answer]]] = True

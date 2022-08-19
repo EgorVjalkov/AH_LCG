@@ -13,7 +13,7 @@ keywords2 = {
      'yellow_fat': ('Seeker', 'Daisy Walker', 'Harvey Walters', 'Norman Withers',),
      'magenta_fat': ('Mystic', 'Agnes Baker', 'Jacqueline Fine', 'Lily Chen',),
      'red_fat': ('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
-     'red_back_with_fat': ('Ancient One', ),
+     'red_back': ('Ancient One', ),
      'grey_back': ('Wendy`s amulet', 'The Necronomicon, John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
@@ -30,8 +30,7 @@ color = {
      'green_fat': Fore.GREEN + Style.BRIGHT, 
      'yellow_fat': Fore.YELLOW + Style.BRIGHT, 
      'magenta_fat': Fore.LIGHTMAGENTA_EX + Style.BRIGHT,
-     'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT, 
-     'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 
+     'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT,
      'grey_back': Back.WHITE + Fore.BLACK,
      'red': Fore.RED, 
      'dim_red': Fore.RED+Style.DIM, 
@@ -81,8 +80,8 @@ def colored_scenario(name):
 
 
 # словарь для окраски очков и процентов
-colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
-result_points_dict = {'red_back': 25, 'yellow_back': 75, 'green_back': 100}
+colored_points_dict = {'red': 30, 'yellow': 70, 'green': 100}
+result_points_dict = {'red_back': 30, 'yellow_back': 70, 'green_back': 100}
 
 # функция для окраски очков и процентов
 
