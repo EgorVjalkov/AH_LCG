@@ -17,7 +17,7 @@ def colored_cell(points, percent, result):
         if len(el) == 1:
             el = line_format + (color[color_key] + (' '+str(el)+' ') + Style.RESET_ALL) + line_format
         elif len(el) == 2:
-            el = line_format + (color[color_key] + (str(el)+' ') + Style.RESET_ALL) + line_format
+            el = line_format + (color[color_key] + (' '+str(el)) + Style.RESET_ALL) + line_format
         elif len(el) == 3:
             el = line_format + (color[color_key] + (str(el)) + Style.RESET_ALL) + line_format
         else:

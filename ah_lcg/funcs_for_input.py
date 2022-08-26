@@ -106,7 +106,7 @@ def change_a_player(players_list):
         player = players_dict[answer]
     else:
         player = players_list[0]
-    print(N_in_C(f'\n{player} passes a skill test\n'))
+    print(N_in_C(f'{player} passes a skill test'))
     return player
 
 
@@ -135,18 +135,22 @@ def use_cards(player):
 
 def dialog_interface(flag_dict, questions_dict):
     questions_dict_enumerate = dict(enumerate(questions_dict, 1))
-    limit_of_answer = tuple(str(i) for i in range(1, len(questions_dict) + 1))
     while True:
         for key in questions_dict_enumerate:
             print(f'press "{key}" and "enter" - {questions_dict_enumerate[key]}')
+
         q_change_answer = text_in_color('What do you change? ', 'fat')
+        limit_of_answer = tuple(str(i) for i in range(1, len(questions_dict_enumerate) + 1))
         answer = int(ICh(q_change_answer, limit_of_answer))
+
         questions_dict_key = questions_dict_enumerate[answer]
         questions_dict_value = questions_dict[questions_dict_key]
+
         if questions_dict_value == 'exit':
             return flag_dict
         else:
             flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
+            return flag_dict
 
 
 def func_from_key_and_switch_flag(flag_dict, func_dict, args):
@@ -178,6 +182,7 @@ def func_from_key_and_switch_flag(flag_dict, func_dict, args):
 #                 num = i[0]
 #         probe = round(max/len(chaos_bag), 2) * 100
 #         print(f'number for crystal pendulum = {num}, probability is {probe}%')
+
 
 def main():
     if __name__ == '__main__':

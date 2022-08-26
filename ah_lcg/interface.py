@@ -1,5 +1,4 @@
 from random import choice
-from datetime import datetime
 from ah_lcg.game_data.colored_keywords import text_in_color, names_in_color as N_in_C
 from ah_lcg.game_data.input_checking import input_checking as ICh
 from ah_lcg.tablica import succeed_or_fail_list, table
@@ -18,10 +17,9 @@ from game_data.func_for_writing_logs import write_a_log
 
 
 # НЕ ЗАБУДЬ СДЕЛАТЬ СЛОВАРЬ С ИСЧЕЗАЮЩИМ АЙТЕМОМ ПРИ ВЫБОРЕ КЛЮЧА
-# НАСТРОЙ ИСКЛЮЧЕНИЕ АУТ ОФ РАНЖЕ
 # ПРОТЕСТРУЙ С СУМКОЙ ПОЛНОЙ ФАЙЛОВ ИЛИ УСПЕХОВ
 # ЧТЕНИЕ ЛОГОВ ИЗ csv
-
+# ЗАМУТ С ФЛАГАМИ В ПОБОЧНОМ МЕНЮ
 
 # приветствие
 print(text_in_color('\nHi! Welcome to Probability Utility for Arkham Horror LCG!\n', 'fat'))
@@ -66,6 +64,7 @@ while game_flag:
     while flags['input player']:
         player = change_a_player(Investigators)
         flags['input player'] = False
+        print('')
     while flags['input skill']:
         skill = input_skill(player)
         flags['input skill'] = False
@@ -77,69 +76,67 @@ while game_flag:
         flags['input chaos bag'] = False
 
 
-# блок подсчета вероятности
-    result = skill - skill_test
-    print('')
-    print(N_in_C(player))
-    print(text_in_color(f'Skill is {skill} points. \nSkill test is {skill_test}. \nResult is {result}'))
-    chaos_bag_values = chaos_bag_for_probability(chaos_bag)
-    succeed_or_fail_result_percent_tuple_list = [
-        result_cycle(chaos_bag_values, i) for i in succeed_or_fail_list if 'succeed' in i[1]
-            ]
-    fail_result_percent_tuple_list = [
-        result_cycle(chaos_bag_values, i, skill_test) for i in succeed_or_fail_list if 'fail' in i[1]
-            ]
-    succeed_or_fail_result_percent_tuple_list.extend(fail_result_percent_tuple_list)
-    table(succeed_or_fail_result_percent_tuple_list, result)
-    # print(succeed_or_fail_result_percent_tuple_list[0][0][1])
+# переключатели
 
+    recalculate_flags = {'result': True, 'bag': True}
 
-# запись в логах
-    succeed_by_0 = [i[1] for i in result_cycle(chaos_bag_values, succeed_or_fail_list[0])[0] if i[0] == str(result)]
-    write_a_log['checking'](player, skill, skill_test, succeed_by_0)
-
-
-# флаги для побочного меню
-    re_input_flag = True
     pull_token_flag = True
+    re_input_flag = True
 
 
-# вход в побочное меню
-    print(N_in_C(f'What does {player} try to do now?'))
+# блок подсчета вероятности
+    while recalculate_flags['result']:
+        result = skill - skill_test
 
+    while recalculate_flags['bag']:
+        chaos_bag_values = chaos_bag_for_probability(chaos_bag)
 
-# переключатели в меню
-    flags_before_token = {'add points': False, 'use cards': False}
-    questions_before_token = {
-        'add some skill points': 'add points',
-        'use some cards and/or abilities (not ready)': 'use cards',
-        'exit menu and pull a token': 'exit'
-    }
+        f_succeed = lambda i: result_cycle(result, chaos_bag_values, i)
+        list_for_table = [f_succeed(i) for i in succeed_or_fail_list if 'succeed' in i[1]]
 
+        f_fail = lambda i: result_cycle(result, chaos_bag_values, i, skill_test)
+        fail_list = [f_fail(i) for i in succeed_or_fail_list if 'fail' in i[1]]
 
-# диалоговый интерфэйс
-    flags_before_token = dialog_interface(flags_before_token, questions_before_token)
+        list_for_table.extend(fail_list)
 
+    # вывод результатов на экран
+        print('')
+        print(N_in_C(player))
+        print(text_in_color(f'Skill is {skill} points. \nSkill test is {skill_test}. \nResult is {result}'))
+        table(list_for_table, result)
 
-    # добавь очков
-    if flags_before_token['add points']:
-        add = add_points(player)
 
     # запись в логах
-        write_a_log['adding'](player, add)
+        list_by_0 = result_cycle(result, chaos_bag_values, (0, 'succeed by 0'))[0]
+        succeed_by_0 = [i[1] for i in list_by_0 if i[0] == str(result)]
+        write_a_log['checking'](player, skill, skill_test, succeed_by_0)
 
-        skill += add
-        flags_before_token['add points'] = False
-        pull_token_flag = False
-        re_input_flag = False
+    # вход в побочное меню
+        print(N_in_C(f'What does {player} try to do now?'))
 
 
-    # добавь карт
-    if flags_before_token['use cards']:
-        pass
-        flags_before_token['use cards'] = False
-        pull_token_flag = False
-        re_input_flag = False
+    # переключатели в меню
+        flags_before_token = {'add points': False}
+        questions_before_token = {
+            'add some skill points': 'add points',
+            'pull a token': 'exit',
+        }
+
+    # диалоговый интерфэйс
+        flags_before_token = dialog_interface(flags_before_token, questions_before_token)
+
+
+        # добавь очков
+        if flags_before_token['add points']:
+            add = add_points(player)
+
+        # запись в логах
+            write_a_log['adding'](player, add)
+
+            skill += add
+            flags_before_token['add points'] = False
+            pull_token_flag = False
+            re_input_flag = False
 
     print('')
 

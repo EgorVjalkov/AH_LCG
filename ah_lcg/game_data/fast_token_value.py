@@ -136,6 +136,8 @@ The_Labyrinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1
 The_Labyrinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
     'skull', 'skull', 'cultist', 'cultist', 'Auto-fail', 'Elder Sign']
 
+Testing_Auto_fail_hard = ['Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail']
+Testing_Elder_Sign_easy = ['Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign']
 # для поиска по ключам
 keys_dict = {
     #CORE-SET
@@ -145,7 +147,9 @@ keys_dict = {
     #The Labirinths of Lunasy
     'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
     'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
-    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys
+    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys,
+    'Auto-fail bag hard' : Testing_Auto_fail_hard,
+    'Elder Sign bag easy' : Testing_Elder_Sign_easy
 }
 
 
