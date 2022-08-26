@@ -1,19 +1,17 @@
 from random import choice
-from ah_lcg.game_data.colored_keywords import text_in_color, names_in_color as N_in_C
-from ah_lcg.game_data.input_checking import input_checking as ICh
-from ah_lcg.tablica import succeed_or_fail_list, table
+from ah_lcg.funcs.colored_keywords import text_in_color, names_in_color as N_in_C
+from ah_lcg.funcs.input_checking import input_checking as ICh
+from ah_lcg.funcs.tablica import succeed_or_fail_list, table
 from ah_lcg.game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
-from ah_lcg.game_data.prob_funcs import result_cycle
-from ah_lcg.funcs_for_input import (change_a_player,
-                                    find_a_player,
-                                    find_a_scenario,
-                                    input_skill_test,
-                                    input_skill,
-                                    add_points,
-                                    use_cards,
-                                    dialog_interface,
-                                    func_from_key_and_switch_flag)
-from game_data.func_for_writing_logs import write_a_log
+from ah_lcg.funcs.prob_funcs import result_cycle
+from ah_lcg.funcs.funcs_for_input import (change_a_player,
+                                          find_a_player,
+                                          find_a_scenario,
+                                          input_skill_test,
+                                          input_skill,
+                                          add_points,
+                                          dialog_interface)
+from ah_lcg.logs.func_for_writing_logs import write_a_log
 
 
 # НЕ ЗАБУДЬ СДЕЛАТЬ СЛОВАРЬ С ИСЧЕЗАЮЩИМ АЙТЕМОМ ПРИ ВЫБОРЕ КЛЮЧА

@@ -1,176 +1,50 @@
-from colorama import Fore, Back, Style
-from game_data.colored_keywords import colored_keywords as CKW, colored_names as CN
-#добывляю карты оружия, мудильня с импортом продолжается!!!
-#coreset weapon cards
+# Lucky!(если провал +2), Sure Gamble (Switch + on -), Daring Maneuver (если успех еще +2)
+# Ritual Candles (+1 symbol), Crystal Pendulum (enter a number), Dark Prophecy (5 tokens),
+# Defiance (nignore a token), Grotesque Statue (2 tokens instead 1), Grannie Orne (+1 or -1),
+# 21 or Bust (игра в очко. интересная механика), Money Talks (че-то там с ресурсами),
+# Snipe(symbols is 0), Nkosi Mabati: Enigmatic Warlock (sigil), Divination (succeed by 0),
+# "Hit me!" (+1 token), Precious Memento: From a Former Life (+2 -2)
 
-#Rolands_38_Special_lvl0
-
-def Rolands_38_Special_lvl0_prefunc(fighter, enemy):
-    if input(CKW('Press \'y\' and \'enter\', if there are 1 or more clues on your location, ' )) == 'y': 
-        add_skill = 3
-    else: add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {'add_skill': add_skill, 'result': result}
-
-def Standart_postfunc(last_result):
-    if last_result >= 0:
-        dmg = 2
-        return dmg
-
-def Rolands_38_Special_lvl0_skillfunc():
-    return {'combat': 1, 'agility': 1, 'any': 1}
-
-Rolands_38_Special_lvl0 = {
-    'name': 'Roland`s .38 Special lvl0', 'Class': 'Roland Banks', 
-    'type': 'asset', 'lvl': 0, 'cost': 3, 
-    'traits': 'Item. Weapon. Firearm', 'uses': 4, 
-    'using': CKW('''Spend 1 ammo: Fight. You get +1 combat for this attack 
-    (if there are 1 or more clues on your location, you get +3 combat, instead). 
-    This attack deals +1 damage.'''),
-    'prefunc': Rolands_38_Special_lvl0_prefunc, 
-    'postfunc': Standart_postfunc,
-    'skillfunc': Rolands_38_Special_lvl0_skillfunc
-    }
-#print(Rolands_38_Special_lvl0['using'])
-#Gardian_weapon_cards
-#Automatic_45_lvl0 расчеты
-
-def Automatic_45_lvl0_prefunc(fighter, enemy):
-    add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': '.45 Automatic lvl0', 'Class': 'Roland Banks', 'traits': 'Item. Weapon. Firearm', 
-        'ammo': 4, 'add_skill': add_skill, 'result': result}
-
-def Automatic_45_lvl0_skillfunc():
-    return {'agility': 1}
-
-Automatic_45_lvl0 = {
-    'prefunc': Automatic_45_lvl0_prefunc, 
-    'postfunc': Standart_postfunc,
-    'skillfunc': Automatic_45_lvl0_skillfunc}
+def crystal_pendulum_lvl0(result, tokens_value, chaos_bag, check):
+        add_point = input('Add any point(s) if you want to correct your skill  ')
+        if not add_point.isdigit():
+            add_point = 0
+        correction = int(add_point) + result
+        abs_chaos_bag = [abs(i+correction) for i in tokens_value]
+# auto-fail correction
+        abs_chaos_bag.remove(99-correction)
+        abs_chaos_bag.append(check)
+        print(abs_chaos_bag)
+        for_crystal_pendulum = {}
+        for i in abs_chaos_bag:
+            for_crystal_pendulum[i] = abs_chaos_bag.count(i)
+        max = 1
+        for i in for_crystal_pendulum.items():
+            if max < i[1]:
+                max = i[1]
+                num = i[0]
+        probe = round(max/len(chaos_bag), 2) * 100
+        print(f'number for crystal pendulum = {num}, probability is {probe}%')
 
 
-#Shotgun_lvl4 расчеты
+def Jacquilyne_Fine_special(pull_tokens):
+#    result = skill - check
+    pull_tokens = pull_tokens + 2
+#    print(pull_tokens)
+    tokens = []
+    for i in range(pull_tokens):
+        i = choice(chaos_bag)
+        chaos_bag.remove(i)
+        tokens.append(i)
+    if not 'auto_fail' in tokens:
+        for i in range(2):
+            print(f'Tokens are {tokens}.' )
+            cancelled = int(input(f'What token do you cancelled? press num from "1" to "{pull_tokens-i}": '))
+            tokens.remove(tokens[cancelled-1])
+        return tokens
+    else:
+        tokens = [i for i in tokens if not i == 'auto_fail']
+        tokens.remove('auto_fail')
+        return tokens
 
-def Shotgun_lvl4_prefunc(fighter, enemy):
-    add_skill = 3
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': Fore.BLUE+'Shotgun lvl4'+Fore.RESET, 'class': 'Item. Weapon. Firearm', 
-        'ammo': 2, 'add_skill': add_skill, 'result': result}
-
-def Shotgun_lvl4_postfunc(last_result):
-    if last_result >= 0:
-        dmg = last_result + 1
-        return dmg
-
-def Shotgun_lvl4_skillfunc():
-    return {'combat': 2}
-
-Shotgun_lvl4 = {
-    'prefunc': Shotgun_lvl4_prefunc, 
-   'postfunc': Shotgun_lvl4_postfunc,
-   'skillfunc': Shotgun_lvl4_skillfunc}
-
-
-#Machete_lvl0 расчеты
-
-def Machete_lvl0_prefunc(fighter, enemy):
-    add_skill = 1
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': Fore.BLUE+'Machete lvl0'+Fore.RESET, 'class': 'Item. Weapon. Melee', 
-        'add_skill': add_skill, 'result': result}
-
-def Machete_lvl0_postfunc(last_result):
-    dmg_mod = input('''If the attacked enemy is the only enemy engeged with you, 
-press \'y\' and \'enter\' ''')
-    if dmg_mod == 'y' and last_result >= 0:
-        dmg = 2
-    else: dmg = 1
-    return dmg
-
-def Machete_lvl0_skillfunc():
-    return {'combat': 1}
-
-Machete_lvl0 = {
-    'prefunc': Machete_lvl0_prefunc, 
-   'postfunc': Machete_lvl0_postfunc,
-   'skillfunc': Machete_lvl0_skillfunc}
-
-
-#Rouge_weapon_cards
-#Switchblade расчеты
-
-def Switchblade_lvl0_prefunc(fighter, enemy):
-    add_skill = 0
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': Fore.GREEN+'Switchblade lvl0'+Fore.RESET, 'class': 'Item. Weapon. Melee', 
-        'add_skill': add_skill, 'result': result}
-
-def Switchblade_lvl0_postfunc(last_result):
-    if last_result >= 2:
-        dmg = 2
-    else: dmg = 1
-    return dmg
-
-def Switchblade_lvl0_skillfunc():
-    return {'agility': 1}
-
-Switchblade_lvl0 = {
-    'prefunc': Switchblade_lvl0_prefunc, 
-   'postfunc': Switchblade_lvl0_postfunc,
-   'skillfunc': Switchblade_lvl0_skillfunc}
-
-
-#.41_Derringer_lvl0 расчеты
-
-def Derringer_41_lvl0_prefunc(fighter, enemy):
-    add_skill = 2
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': Fore.GREEN+'.41 Derringer lvl0'+Fore.RESET, 'class': 'Item. Weapon. Firearm', 
-        'ammo': 3, 'add_skill': add_skill, 'result': result}
-
-def Derringer_41_lvl0_postfunc(last_result):
-    if last_result >= 2:
-        dmg = 2
-    else: dmg = 1
-    return dmg
-    
-def Derringer_41_lvl0_skillfunc():
-    return {'combat': 1}
-
-Derringer_41_lvl0 = {
-    'prefunc': Derringer_41_lvl0_prefunc, 
-    'postfunc': Derringer_41_lvl0_postfunc,
-    'skillfunc': Derringer_41_lvl0_skillfunc}
-
-
-#Rouge combat events
-#Backstab_lvl0 расчеты
-
-def Backstab_lvl0_prefunc(fighter, enemy):
-    fighter['combat'] = fighter['agility']
-    add_skill = 0
-    result = fighter['combat'] + add_skill - enemy['fight']
-    return {
-        'name': Fore.GREEN+'Backstab lvl0'+Fore.RESET, 'class': 'Event. Tactic', 
-        'add_skill': add_skill, 'result': result}
-
-def Backstab_lvl0_postfunc(last_result):
-    return Standart_postfunc(last_result)+2
-
-def Backstab_lvl0_skillfunc():
-    return {'combat': 1, 'agility': 1}
-
-Backstab_lvl0 = {
-   'prefunc': Backstab_lvl0_prefunc, 
-   'postfunc': Backstab_lvl0_postfunc,
-   'skillfunc': Backstab_lvl0_skillfunc}
-    
-#print(Backstab_lvl0['prefunc']()['name'])
-
-
+print(Jacquilyne_Fine_special(5))

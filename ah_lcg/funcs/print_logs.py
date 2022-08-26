@@ -1,4 +1,4 @@
-from ah_lcg.game_data.colored_keywords import names_in_color
+from ah_lcg.funcs.colored_keywords import names_in_color
 
 
 # НЕОБХОДИМО СДЕЛАТЬ ПОИСК ПО ЛОГАМ (НЕ ПОНИМАЮ КАК КУРСОР ДВИГАТЬ)
@@ -7,7 +7,7 @@ from ah_lcg.game_data.colored_keywords import names_in_color
 try:
     logs = open('ah_lcg/logs/logs.txt')
 except FileNotFoundError:
-    logs = open('logs/logs.txt')
+    logs = open('../logs/logs.txt')
 
 
 def print_logs(count_of_last_logs=0):

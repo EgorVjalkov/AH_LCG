@@ -1,7 +1,8 @@
 .venv
 ah_lcg/__pycache__
 ah_lcg/game_data/__pycache__
-ah_lcg/logs
+ah_lcg/funcs/__pycache__
+ah_lcg/logs/logs.csv
 tests
 .idea
 

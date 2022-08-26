@@ -1,6 +1,6 @@
 from ah_lcg.game_data.fast_token_value import keys_dict, players
-from ah_lcg.game_data.input_checking import input_checking as ICh
-from ah_lcg.game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, text_in_color
+from ah_lcg.funcs.input_checking import input_checking as ICh
+from ah_lcg.funcs.colored_keywords import names_in_color as N_in_C, colored_scenario, text_in_color
 
 
 # поиск игроков по имени
@@ -160,28 +160,6 @@ def func_from_key_and_switch_flag(flag_dict, func_dict, args):
             results_dict[key] = func_dict[key](*args)
             flag_dict[key] = not flag_dict[key]
     return results_dict
-
-
-# # for crystal_pendulum
-#     if input('Press \'y\' and \'enter\' if you try to use the crystal pendulum. ') == 'y':
-#         add_point = input('Add any point(s) if you want to correct your skill ' )
-#         if not add_point.isdigit(): add_point = 0
-#         correction = int(add_point) + result
-#         abs_chaos_bag = [abs(i+correction) for i in tokens_value]
-#     #auto-fail correction
-#         abs_chaos_bag.remove(99-correction)
-#         abs_chaos_bag.append(check)
-#         print(abs_chaos_bag)
-#         for_crystal_pendulum = {}
-#         for i in abs_chaos_bag:
-#             for_crystal_pendulum[i] = abs_chaos_bag.count(i)
-#         max = 1
-#         for i in for_crystal_pendulum.items():
-#             if max < i[1]:
-#                 max = i[1]
-#                 num = i[0]
-#         probe = round(max/len(chaos_bag), 2) * 100
-#         print(f'number for crystal pendulum = {num}, probability is {probe}%')
 
 
 def main():

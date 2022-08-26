@@ -45,6 +45,7 @@ color = {
      'green_back': Back.GREEN + Fore.BLACK
      }
 
+
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2
 def names_in_color(print_text):
     for key in keywords2:
@@ -52,6 +53,7 @@ def names_in_color(print_text):
             if i in print_text:
                 print_text = print_text.replace(i, color[key]+i+Style.RESET_ALL)
     return print_text
+
 
 # принимает строку и красит ee в соответствии с цветом text_format
 def text_in_color(text, text_format='fat'):
@@ -83,6 +85,7 @@ def colored_scenario(name):
 colored_points_dict = {'red': 30, 'yellow': 70, 'green': 100}
 result_points_dict = {'red_back': 30, 'yellow_back': 70, 'green_back': 100}
 
+
 # функция для окраски очков и процентов
 
 
@@ -93,25 +96,7 @@ def colored_points(points, percent):
     return colored_points, colored_percent
 
 
-#КЛЮЧЕВЫЕ ИМЕНА
-keywords_names = [
-    {'Class': 'Roland Banks', 'pre': Back.WHITE+Style.BRIGHT, 'post': Style.RESET_ALL},
-    {'Class': 'Guardian', 'pre': Fore.BLUE, 'post': Fore.RESET},
-    {'Class': 'Rouge', 'pre': Fore.GREEN, 'post': Fore.RESET},
-    {'Class': 'Enemy', 'pre': Fore.RED, 'post': Fore.RESET},
-    {'Class': 'Neutral', 'pre': Style.DIM, 'post': Style.RESET_ALL}
-    ]
-
-def colored_names(card):
-     for el in keywords_names:
-          if el['Class'] == card['Class']:
-               colored_name = el['pre'] + card['name'] + el['post']
-               card['name'] = colored_name
-     return card
-
 #main
-
-
 def main():
     if __name__ == '__main__':
         string = ''

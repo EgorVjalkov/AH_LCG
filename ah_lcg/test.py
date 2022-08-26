@@ -1,6 +1,5 @@
 from game_data.fast_token_value import keys_dict, chaos_bag_for_pulling
-from game_data.prob_funcs import probability_of_list
-from random import choice
+from ah_lcg.funcs.prob_funcs import probability_of_list
 
 result = [-2, -1, -1, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4, 5]
 
