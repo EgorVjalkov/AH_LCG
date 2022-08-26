@@ -1,6 +1,6 @@
-from game_data.prob_funcs import probability_of_list, result_cycle
-from game_data.fast_token_value import keys_dict, chaos_bag_for_probability, chaos_bag_for_pulling
-from game_data.colored_keywords import text_in_color, colored_points_dict, result_points_dict, color
+from ah_lcg.game_data.prob_funcs import probability_of_list, result_cycle
+from ah_lcg.game_data.fast_token_value import keys_dict, chaos_bag_for_probability, chaos_bag_for_pulling
+from ah_lcg.game_data.colored_keywords import text_in_color, colored_points_dict, result_points_dict, color
 from colorama import Style
 
 
@@ -17,7 +17,7 @@ def colored_cell(points, percent, result):
         if len(el) == 1:
             el = line_format + (color[color_key] + (' '+str(el)+' ') + Style.RESET_ALL) + line_format
         elif len(el) == 2:
-            el = line_format + (color[color_key] + (str(el)+' ') + Style.RESET_ALL) + line_format
+            el = line_format + (color[color_key] + (' '+str(el)) + Style.RESET_ALL) + line_format
         elif len(el) == 3:
             el = line_format + (color[color_key] + (str(el)) + Style.RESET_ALL) + line_format
         else:

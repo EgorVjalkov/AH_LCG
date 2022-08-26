@@ -36,12 +36,21 @@ def counting_points_cycle(result, dict_of_tokens, add_points=0, num=(0,'succeed'
         add_points_list.append((add, probability))
     return add_points_list
 
+
+def result_normalize(result):
+    result_list = list(i for i in range(-3, 11))
+    if result not in result_list:
+        start = result - 1
+        result_list = list(i for i in range(start, start+14))
+    return result_list
+
+
 # функция, которая готовит списки для probability_of_list из словаря. Гоняет их в цикле results
-def result_cycle( dict_of_tokens, num=(0,'succeed by or more'), skill_test=0):
+def result_cycle(result, dict_of_tokens, num=(0, 'succeed by or more'), skill_test=0):
     add_points_list = []
     divider = dict_of_tokens['bag divider']
     dict_of_tokens_for_mutation = {key: dict_of_tokens[key] for key in dict_of_tokens if key != 'bag divider'}
-    result_list = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    result_list = result_normalize(result)
 #    print(dict_of_tokens_for_mutation)
     for i in result_list: #counting points cycle
         probability = 0
@@ -67,12 +76,6 @@ def main():
         player = 'Roland Banks'
         chaos_bag = chaos_bag_for_pulling(keys_dict, scenario, player)
         next_bag = chaos_bag_for_probability(chaos_bag)
-#        print(next_bag) 
-        args = (0, next_bag)
-        #print(counting_points_cycle(*args))
-#        print(list_)
-#        args = (2, list_2, (-2, 'fail by or more'), 3) #для проверки функции вероятности
-#        print(probability_of_list(*args))
-#        print(list_)
+        print(result_cycle(-6, next_bag))
 
 main()

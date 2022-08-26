@@ -1,15 +1,7 @@
-from game_data.fast_token_value import keys_dict, players, chaos_bag_for_probability, chaos_bag_for_pulling
-from game_data.input_checking import input_checking as ICh
-from game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, colored_points, text_in_color
-from game_data.dialog_interface import menu, general_menu, card_using_menu_dict
-from game_data.prob_funcs import counting_points_cycle as CP_Cy
-from random import choice
+from ah_lcg.game_data.fast_token_value import keys_dict, players
+from ah_lcg.game_data.input_checking import input_checking as ICh
+from ah_lcg.game_data.colored_keywords import names_in_color as N_in_C, colored_scenario, text_in_color
 
-
-# НЕОБХОДИМО!!!!! ПРИ ПЕЧАТИ РЕЗУЛЬТАТА УКАЗЫВАТЬ КАКОЙ ЭТО РЕЗУЛЬТАТ. дОБАВИТЬ СРАВНЕНИЕ, ЧТОБ ЗНАТЬ ФАЙЛ ИЛЬ СУКЦЕСС
-# сценарий
-
-# приветствие
 
 # поиск игроков по имени
 def find_a_player(count_of_players):
@@ -45,7 +37,6 @@ def find_a_player(count_of_players):
             elif len(filtred_players) > 1:
                 filtred_players.append('none of them')
                 menu_dict = dict(enumerate(filtred_players, 1))
-                print(menu_dict)
                 for key in menu_dict:
                     print(N_in_C(f'press "{key}" and "enter" - {menu_dict[key]}'))
                     limit_of_answer = tuple(str(i) for i in range(1, len(filtred_players) + 1))
@@ -63,6 +54,7 @@ def find_a_player(count_of_players):
     return Investigators
 
 
+# поиск сценария по имени
 def find_a_scenario():
     while True:
         q_start_of_name = text_in_color(
@@ -70,7 +62,6 @@ def find_a_scenario():
             'fat')
         start_of_name_scenario = ICh(q_start_of_name, 'l')
         # поиск для всех
-        print(start_of_name_scenario)
         if start_of_name_scenario == 'all':
             scenario_list = list(keys_dict.keys())
             # фильтрация
@@ -81,7 +72,7 @@ def find_a_scenario():
             scenario_list = [i for i in list(keys_dict.keys()) if start_of_name_scenario.lower() in i.lower()]
             # подтверждение для одного
         if len(scenario_list) == 1:
-            q = f'Do you meen {colored_scenario(scenario_list[0])}? '
+            q = f'Do you mean {colored_scenario(scenario_list[0])}? '
             start_of_name_scenario = ICh(q)
             if start_of_name_scenario == 'y':
                 scenario = scenario_list[0]
@@ -115,7 +106,7 @@ def change_a_player(players_list):
         player = players_dict[answer]
     else:
         player = players_list[0]
-    print(N_in_C(f'\n{player} passes a skill test\n'))
+    print(N_in_C(f'{player} passes a skill test'))
     return player
 
 
@@ -127,71 +118,48 @@ def input_skill_test():
 
 
 def input_skill(player):
-    q1 = N_in_C(f'What points of the skill does {player} have? Press "num" and "enter" ')
+    q1 = N_in_C(f'How many points of the skill does {player} have? Press "num" and "enter" ')
     skill = int(ICh(q1, 'num'))  # with check
     return skill
 
 
-# #расчет результата и коррекция значения жетонов(от сценария и сыщика)
-# result = skill - skill_test
-# chaos_bag = chaos_bag_for_pulling(keys_dict, scenario, player)
-# chaos_bag_values = chaos_bag_for_probability(chaos_bag)
+def add_points(player):
+    q_add = N_in_C(f'How many skill points {player} try to add? Press "num" and "enter" ')
+    add = int(ICh(q_add, 'num'))
+    return add
 
 
-# #первичный результат
-# result_in_color = colored_points(result, CP_Cy(result, chaos_bag_values)[0][1])
-# print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
+def use_cards(player):
+    print('There are not any cards now')
 
 
-# #блок переменных для нулевой проверки
-# num = (0, 'succeed')
-# q_how_many = N_in_C(f'How many points can {player} add? ')
-# add_points = int(ICh(q_how_many, 'num'))
+def dialog_interface(flag_dict, questions_dict):
+    questions_dict_enumerate = dict(enumerate(questions_dict, 1))
+    while True:
+        for key in questions_dict_enumerate:
+            print(f'press "{key}" and "enter" - {questions_dict_enumerate[key]}')
+
+        q_change_answer = text_in_color('What do you change? ', 'fat')
+        limit_of_answer = tuple(str(i) for i in range(1, len(questions_dict_enumerate) + 1))
+        answer = int(ICh(q_change_answer, limit_of_answer))
+
+        questions_dict_key = questions_dict_enumerate[answer]
+        questions_dict_value = questions_dict[questions_dict_key]
+
+        if questions_dict_value == 'exit':
+            return flag_dict
+        else:
+            flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
+            return flag_dict
 
 
-# #диалоговый интерфейс
-# GENERAL_MENU_FLAG = True
-# while GENERAL_MENU_FLAG == True: #основное меню
-
-#     #подстчет вероятностей при добавлении всех возможных очков
-#     if num != 'exit':
-#         points_to_percent_list = CP_Cy(result, chaos_bag_values, num, add_points, skill_test)
-#         for tup in points_to_percent_list:
-#             noncolor_points = tup[0]
-#             colored_tup = colored_points(tup[0], tup[1])
-#             print(f'If you add {colored_tup[0]} point(s), success percent is {colored_tup[1]}')
-#         if noncolor_points < add_points:
-#             print(N_in_C(player) + text_in_color(' needn`t add more points!', 'green'))
-#         print('')
-
-#     # первичный результат получен, далее ответ от игрока
-#     answer = menu(general_menu, player)
-#     if answer == 'exit': 
-#         break #все устроило, переход к жетонам
-#     result_of_menu = answer(player)
-#     if type(result_of_menu) == int:
-#         result += result_of_menu
-#         result_in_color = colored_points(result, CP_Cy(result, chaos_bag_values)[0][1])
-#         print(f'\nresult is {result_in_color[0]} success percent is {result_in_color[1]}\n')
-#         GENERAL_MENU_FLAG = False # добавлены очки навыка, переход к жетонам
-#     else:
-#         num = result_of_menu # побочное меню
-
-
-# #тянем жетоны
-# print('') 
-# token = choice(chaos_bag)
-# if type(token[1]) == list:
-#     print(
-#     N_in_C(f'{token[0]} is pulled. Value is. You need to pull another token')
-#     )
-#     chaos_bag_keys_with_tokens.remove(token)
-#     another_token = choice(chaos_bag_keys_with_tokens)
-#     print(N_in_C(f'{another_token[0]} is pulled'))
-# print(N_in_C(f'{token[0]} is pulled. Value is {token[1]}. Result is {result+token[1]}'))
-# if (result+token[1]) >= 0:
-#     print(N_in_C(player) + text_in_color(f' succeed the skill test by {result+token[1]}', 'green'))
-# else: print(N_in_C(player) + text_in_color(f' failed the skill test by {result+token[1]}', 'red'))
+def func_from_key_and_switch_flag(flag_dict, func_dict, args):
+    results_dict = {}
+    for key in flag_dict:
+        if flag_dict[key]:
+            results_dict[key] = func_dict[key](*args)
+            flag_dict[key] = not flag_dict[key]
+    return results_dict
 
 
 # # for crystal_pendulum
@@ -215,9 +183,22 @@ def input_skill(player):
 #         probe = round(max/len(chaos_bag), 2) * 100
 #         print(f'number for crystal pendulum = {num}, probability is {probe}%')
 
+
 def main():
     if __name__ == '__main__':
-        print(1)
+        flags = {'add points': False, 'use cards': False}
+        questions = {
+            'add some skill points': 'add points',
+            'use some cards and/or abilities': 'use cards',
+            'pull a token': 'exit'
+        }
+        funcs = {'add points': add_points, 'use cards': use_cards}
+
+        flags = dialog_interface(flags, questions)
+        func_results = func_from_key_and_switch_flag(flags, funcs, ("player",))
+        print(func_results)
+
+        print(flags)
 
 
 main()

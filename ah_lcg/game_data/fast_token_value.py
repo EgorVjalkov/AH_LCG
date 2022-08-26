@@ -1,16 +1,10 @@
-# from input_checking import input_checking as ICh
-# from colored_keywords import names_in_color as N_in_C
-if __name__ == '__main__':
-    from input_checking import input_checking as ICh
-    from colored_keywords import names_in_color as N_in_C
-else:    
-    from game_data.input_checking import input_checking as ICh # like a module
-    from game_data.colored_keywords import names_in_color as N_in_C # like a module
+from ah_lcg.game_data.input_checking import input_checking as ICh # like a module
+from ah_lcg.game_data.colored_keywords import names_in_color as N_in_C # like a module
 
 #Сыщики
 players = (
-    'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', #CORE-SET
-    'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark', # investigator expansions
+    'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', # CORE-SET
+    'Nathaniel Cho', 'Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark', # investigator expansions
     'Daniela Reyes', 'Norman Withers', 'Monterey Jack', 'Lily Chen', 'Bob Jenkins', # Edge of The Earth
 )
 
@@ -32,7 +26,7 @@ def Elder_Sign(player):
         Elder_Sign = int(ICh(q, 'num')) # with input check
 
     if player == 'Wendy Adams':
-        q = N_in_C('"Elder Sign": does Wendy`s amulet in play?. Press "y" or "n" and "enter" ') # !!!! не окрвсился
+        q = N_in_C('"Elder Sign": does Wendy`s amulet in play?. Press "y" or "n" and "enter" ')
         Elder_Sign = ICh(q) # with input check
         if Elder_Sign == 'y': Elder_Sign = 99
         else: Elder_Sign = 0
@@ -45,7 +39,7 @@ def Elder_Sign(player):
         Elder_Sign = 2
 
     if player in (
-        'Nathaniel Cho','Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark',
+        'Nathaniel Cho', 'Harvey Walters', 'Winifred Habbamock', 'Jacqueline Fine', 'Stella Clark',
         'Daniela Reyes', 'Monterey Jack',  'Bob Jenkins'): 
         Elder_Sign = 1
 
@@ -142,6 +136,8 @@ The_Labyrinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1
 The_Labyrinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
     'skull', 'skull', 'cultist', 'cultist', 'Auto-fail', 'Elder Sign']
 
+Testing_Auto_fail_hard = ['Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail']
+Testing_Elder_Sign_easy = ['Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign']
 # для поиска по ключам
 keys_dict = {
     #CORE-SET
@@ -151,7 +147,9 @@ keys_dict = {
     #The Labirinths of Lunasy
     'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
     'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
-    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys
+    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys,
+    'Auto-fail bag hard' : Testing_Auto_fail_hard,
+    'Elder Sign bag easy' : Testing_Elder_Sign_easy
 }
 
 

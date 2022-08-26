@@ -1,18 +1,23 @@
 from colorama import Fore, Back, Style
 
 
+# МЕЛОЧИ НУЖНО ПОПРАВИТЬ: SKILL И SKILL TEST. FAIL И AUTO-FAIL!!!!
+
+
 # словарь ключеевых имен и цветов
+
+
 keywords2 = {
      'blue_fat': ('Guardian', 'Roland Banks', 'Nathaniel Cho', 'Daniela Reyes',), 
      'green_fat': ('Rouge', '"Skids" O`Toole', 'Winifred Habbamock', 'Monterey Jack',),
      'yellow_fat': ('Seeker', 'Daisy Walker', 'Harvey Walters', 'Norman Withers',),
      'magenta_fat': ('Mystic', 'Agnes Baker', 'Jacqueline Fine', 'Lily Chen',),
-     'red_fat':('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
-     'red_back_with_fat': ('Ancient One', ),
-     'grey_back': ('Wendy`s amulet', 'The Necronomicon. John Dee Translation'),
+     'red_fat': ('Survivor', 'Wendy Adams', 'Stella Clark', 'Bob Jenkins',),
+     'red_back': ('Ancient One', ),
+     'grey_back': ('Wendy`s amulet', 'The Necronomicon, John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
-     'blue':('horror', ), 
+     'blue': ('horror', ),
      'green': ('clue', 'agility', 'succeed'),
      'yellow': ('intellect', '"skull"', '"cultist"', '"tablet"', '"Elder Thing"'),
      'magenta': ('willpower', ),
@@ -25,9 +30,8 @@ color = {
      'green_fat': Fore.GREEN + Style.BRIGHT, 
      'yellow_fat': Fore.YELLOW + Style.BRIGHT, 
      'magenta_fat': Fore.LIGHTMAGENTA_EX + Style.BRIGHT,
-     'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT, 
-     'red_back_with_fat': Back.LIGHTRED_EX+Style.BRIGHT, 
-     'grey_back': Back.LIGHTWHITE_EX, 
+     'red_fat': Fore.LIGHTRED_EX + Style.BRIGHT,
+     'grey_back': Back.WHITE + Fore.BLACK,
      'red': Fore.RED, 
      'dim_red': Fore.RED+Style.DIM, 
      'blue': Fore.BLUE, 
@@ -36,18 +40,18 @@ color = {
      'magenta': Fore.MAGENTA, 
      'cyan': Fore.CYAN,
      'fat': Style.BRIGHT,
-     'red_back': Back.LIGHTRED_EX + Style.BRIGHT,
-     'yellow_back': Back.LIGHTYELLOW_EX + Style.BRIGHT,
-     'green_back': Back.LIGHTGREEN_EX + Style.BRIGHT
+     'red_back': Back.RED + Fore.BLACK,
+     'yellow_back': Back.YELLOW + Fore.BLACK,
+     'green_back': Back.GREEN + Fore.BLACK
      }
 
 # принимает строку и красит каждое ее слово если находит его в словаре keywords2
 def names_in_color(print_text):
-     for key in keywords2:
-          for i in keywords2[key]:
-               if i in print_text:
-                    print_text = print_text.replace(i,color[key]+i+Style.RESET_ALL)
-     return print_text
+    for key in keywords2:
+        for i in keywords2[key]:
+            if i in print_text:
+                print_text = print_text.replace(i, color[key]+i+Style.RESET_ALL)
+    return print_text
 
 # принимает строку и красит ee в соответствии с цветом text_format
 def text_in_color(text, text_format='fat'):
@@ -76,8 +80,8 @@ def colored_scenario(name):
 
 
 # словарь для окраски очков и процентов
-colored_points_dict = {'red': 25, 'yellow': 75, 'green': 100}
-result_points_dict = {'red_back': 25, 'yellow_back': 75, 'green_back': 100}
+colored_points_dict = {'red': 30, 'yellow': 70, 'green': 100}
+result_points_dict = {'red_back': 30, 'yellow_back': 70, 'green_back': 100}
 
 # функция для окраски очков и процентов
 
@@ -118,6 +122,7 @@ def main():
         print(len(a[0]))
         print(a)
         print(text_in_color('|a|', 'fat'))
+        print(names_in_color('"Auto-fail", "Auto-fail'))
 
 
 main()
