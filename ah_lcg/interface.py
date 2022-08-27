@@ -14,7 +14,6 @@ from ah_lcg.funcs.funcs_for_input import (change_a_player,
 from ah_lcg.logs.func_for_writing_logs import write_a_log
 
 
-# НЕ ЗАБУДЬ СДЕЛАТЬ СЛОВАРЬ С ИСЧЕЗАЮЩИМ АЙТЕМОМ ПРИ ВЫБОРЕ КЛЮЧА
 # ПРОТЕСТРУЙ С СУМКОЙ ПОЛНОЙ ФАЙЛОВ ИЛИ УСПЕХОВ
 # ЧТЕНИЕ ЛОГОВ ИЗ csv
 # ЗАМУТ С ФЛАГАМИ В ПОБОЧНОМ МЕНЮ

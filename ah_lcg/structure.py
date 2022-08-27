@@ -12,8 +12,7 @@ while GAME:
         print('Start a new skill test')
         INPUT = False
 
-    if CALCULATE['result'] or CALCULATE['bag']:
-
+    if True in CALCULATE.values():
         if CALCULATE['result']:
             result = 'calc result'
             print(result)
