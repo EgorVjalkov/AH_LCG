@@ -133,7 +133,7 @@ def use_cards(player):
     return 'there are not any cards now'
 
 
-def dialog_interface(flag_dict, questions_dict, func_dict, player):
+def dialog_interface(flag_dict, questions_dict, type_of_dialog='complex', func_dict={}, player=''):
     while True:
         questions_dict_copy = questions_dict.copy()
         flag_dict_copy = flag_dict.copy()
@@ -145,24 +145,47 @@ def dialog_interface(flag_dict, questions_dict, func_dict, player):
             for key in questions_dict_enumerate:
                 print(f'press "{key}" and "enter" - {questions_dict_enumerate[key]}')
 
-            q_change_answer = N_in_C(f'{what_done}What does {player} change? ')
-            answer = int(ICh(q_change_answer, limit_of_answer))
+            if not player:
+                if what_done:
+                    q_change_answer = N_in_C(f'You try to {what_done}. Anything else? ')
+                else:
+                    q_change_answer = N_in_C(f'What do you change? ')
+            else:
+                if what_done:
+                    q_change_answer = N_in_C(f'{player} tries to {what_done}. Anything else? ')
+                else:
+                    q_change_answer = N_in_C(f'What does {player} change? ')
 
+            answer = int(ICh(q_change_answer, limit_of_answer))
             questions_dict_key = questions_dict_enumerate[answer]
             questions_dict_value = questions_dict_copy[questions_dict_key]
+
+            if type_of_dialog == 'simple':
+                flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
+                return flag_dict
 
             if questions_dict_value == 'exit':
                 result_of_func['flags'] = flag_dict
                 return result_of_func
 
-            if questions_dict_value == 'reset':
+            elif questions_dict_value == 'all':
+                flag_dict = {key: not flag_dict_copy[key] for key in flag_dict_copy}
+                result_of_func['flags'] = flag_dict
+                return result_of_func
+
+            elif questions_dict_value == 'reset':
                 if flag_dict != flag_dict_copy:
                     flag_dict = flag_dict_copy
                     break
+
             else:
                 flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
-                result_of_func[questions_dict_value] = func_dict[questions_dict_value](player)
-                what_done += f'{player} try to {questions_dict_key}: {result_of_func[questions_dict_value]}. '
+                comma = ', ' if what_done else ''
+                if func_dict:
+                    result_of_func[questions_dict_value] = func_dict[questions_dict_value](player)
+                    what_done += f'{comma}{questions_dict_key}: {result_of_func[questions_dict_value]}'
+                else:
+                    what_done += f'{comma}{questions_dict_key}'
                 del questions_dict_copy[questions_dict_key]
 
 
@@ -177,19 +200,31 @@ def func_from_key_and_switch_flag(flag_dict, func_dict, args):
 
 def main():
     if __name__ == '__main__':
-        CALCULATE = {'result': False, 'bag': False}
-        questions = {
-            'add some skill points': 'result',
-            'use cards': 'bag',
-            'reset all changes': 'reset',
-            'recalculate a probability': 'exit'
+        # CALCULATE = {'result': False, 'bag': False}
+        # questions = {
+        #     'add some skill points': 'result',
+        #     'use cards': 'bag',
+        #     'reset all changes': 'reset',
+        #     'recalculate a probability': 'exit'
+        # }
+        # funcs = {'result': add_points, 'bag': use_cards}
+        #
+        # result_of_dialog = dialog_interface('Roland Banks', CALCULATE, questions, funcs)
+
+        flags = {
+            'input player': False, 'input skill': False, 'input skill test': False, 'input chaos bag': False
         }
-        funcs = {'result': add_points, 'bag': use_cards}
 
-        result_of_dialog = dialog_interface(CALCULATE, questions, funcs, 'Roland Banks')
-        # func_results = func_from_key_and_switch_flag(flags, funcs, ("player",))
-        # print(func_results)
-
+        change_a_flag = {
+            'change the investigator': 'input player',
+            'change a skill': 'input skill',
+            'change a skill test': 'input skill test',
+            'change a value of tokens in the chaos bag': 'input chaos bag',
+            'change all': 'all',
+            'reset all changes': 'reset',
+            'proceed to a new skill test': 'exit'
+        }
+        result_of_dialog = dialog_interface(flags, change_a_flag, 'simple')
         print(result_of_dialog)
 
 
