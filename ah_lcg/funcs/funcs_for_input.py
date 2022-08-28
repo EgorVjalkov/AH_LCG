@@ -133,7 +133,7 @@ def use_cards(player):
     return 'there are not any cards now'
 
 
-def dialog_interface(flag_dict, questions_dict, type_of_dialog='complex', func_dict={}, player=''):
+def dialog_interface(flag_dict, questions_dict, player='', func_dict={}):
     while True:
         questions_dict_copy = questions_dict.copy()
         flag_dict_copy = flag_dict.copy()
@@ -160,7 +160,7 @@ def dialog_interface(flag_dict, questions_dict, type_of_dialog='complex', func_d
             questions_dict_key = questions_dict_enumerate[answer]
             questions_dict_value = questions_dict_copy[questions_dict_key]
 
-            if type_of_dialog == 'simple':
+            if 'exit' not in questions_dict.values():
                 flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
                 return flag_dict
 
@@ -224,7 +224,11 @@ def main():
             'reset all changes': 'reset',
             'proceed to a new skill test': 'exit'
         }
-        result_of_dialog = dialog_interface(flags, change_a_flag, 'simple')
+
+        flags_2 = {'pull token': False, 'recalculate': False}
+        quest_2 = {'pull a token': 'pull token', 'add points or use cards': 'recalculate'}
+
+        result_of_dialog = dialog_interface(flags_2, quest_2)
         print(result_of_dialog)
 
 
