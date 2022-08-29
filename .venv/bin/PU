@@ -1,0 +1,5 @@
+#!/home/egorok/AH_LCG/.venv/bin/python
+from ah_lcg.interface import main
+
+if __name__ == '__main__':
+    main()
