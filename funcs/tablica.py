@@ -1,6 +1,6 @@
-from ah_lcg.funcs.prob_funcs import result_cycle
-from ah_lcg.game_data.fast_token_value import keys_dict, chaos_bag_for_probability, chaos_bag_for_pulling
-from ah_lcg.funcs.colored_keywords import text_in_color, colored_points_dict, result_points_dict, color
+from funcs.prob_funcs import result_cycle
+from game_data.fast_token_value import keys_dict, chaos_bag_for_probability, chaos_bag_for_pulling
+from funcs.colored_keywords import text_in_color, colored_points_dict, result_points_dict, color
 from colorama import Style
 
 

@@ -1,17 +1,17 @@
 from random import choice
-from ah_lcg.funcs.colored_keywords import text_in_color, names_in_color as N_in_C
-from ah_lcg.funcs.input_checking import input_checking as ICh
-from ah_lcg.funcs.tablica import succeed_or_fail_list, table
-from ah_lcg.game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
-from ah_lcg.funcs.prob_funcs import result_cycle
-from ah_lcg.funcs.funcs_for_input import (change_a_player,
-                                          find_a_player,
-                                          find_a_scenario,
-                                          input_skill_test,
-                                          input_skill,
-                                          add_points,
-                                          use_cards,
-                                          dialog_interface)
+from funcs.colored_keywords import text_in_color, names_in_color as N_in_C
+from funcs.input_checking import input_checking as ICh
+from funcs.tablica import succeed_or_fail_list, table
+from game_data.fast_token_value import chaos_bag_for_pulling, chaos_bag_for_probability, keys_dict
+from funcs.prob_funcs import result_cycle
+from funcs.funcs_for_input import (change_a_player,
+                                   find_a_player,
+                                   find_a_scenario,
+                                   input_skill_test,
+                                   input_skill,
+                                   add_points,
+                                   use_cards,
+                                   dialog_interface)
 #from ah_lcg.logs.func_for_writing_logs import write_a_log
 
 
@@ -177,7 +177,7 @@ while SKILL_TEST:
             if type(token[1]) != int:
                 bag_for_reveal.remove(token)
                 print(N_in_C(f'{token_name} is pulled. Value is {token[1][0]}. You must reveal another token'))
-
+# !!!!!!!!!!!!!!!!ДОБАВЬ ЗАДРЖКУ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             else:
                 tokens_in_str = '=>'.join(tokens)
                 is_plural = 'are' if len(tokens) > 1 else 'is'

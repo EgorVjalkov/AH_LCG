@@ -1,4 +1,4 @@
-from ah_lcg.funcs.colored_keywords import names_in_color
+from funcs.colored_keywords import names_in_color
 
 
 # НЕОБХОДИМО СДЕЛАТЬ ПОИСК ПО ЛОГАМ (НЕ ПОНИМАЮ КАК КУРСОР ДВИГАТЬ)

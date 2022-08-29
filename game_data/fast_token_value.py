@@ -1,5 +1,5 @@
-from ah_lcg.funcs.input_checking import input_checking as ICh # like a module
-from ah_lcg.funcs.colored_keywords import names_in_color as N_in_C # like a module
+from funcs.input_checking import input_checking as ICh # like a module
+from funcs.colored_keywords import names_in_color as N_in_C # like a module
 
 #Сыщики
 players = (
