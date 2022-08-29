@@ -98,15 +98,16 @@ def find_a_scenario():
 def change_a_player(players_list):
     if len(players_list) > 1:
         players_dict = dict(enumerate(players_list, 1))
+        print(text_in_color(f'Who passes a skill test? ', 'fat'))
         for key in players_dict:
             print(N_in_C(f'press "{key}" and "enter" - {players_dict[key]}'))
         limit_of_answer = tuple(str(i) for i in range(1, len(players_list) + 1))
-        q_change_player = text_in_color(f'Who passes a skill test? ', 'fat')
+        q_change_player = text_in_color(f'Who you change? ', 'fat')
         answer = int(ICh(q_change_player, limit_of_answer))
         player = players_dict[answer]
     else:
         player = players_list[0]
-    print(N_in_C(f'{player} passes a skill test'))
+    print(N_in_C(f'{player} passes a skill test\n'))
     return player
 
 
@@ -133,7 +134,7 @@ def use_cards(player):
     return 'there are not any cards now'
 
 
-def dialog_interface(flag_dict, questions_dict, player='', func_dict={}):
+def dialog_interface(flag_dict, questions_dict, type_of_dialog='complex', player='', func_dict={}):
     while True:
         questions_dict_copy = questions_dict.copy()
         flag_dict_copy = flag_dict.copy()
@@ -147,9 +148,9 @@ def dialog_interface(flag_dict, questions_dict, player='', func_dict={}):
 
             if not player:
                 if what_done:
-                    q_change_answer = N_in_C(f'You try to {what_done}. Anything else? ')
+                    q_change_answer = text_in_color(f'You try to {what_done}. Anything else? ', 'fat')
                 else:
-                    q_change_answer = N_in_C(f'What do you change? ')
+                    q_change_answer = text_in_color(f'What do you change? ', 'fat')
             else:
                 if what_done:
                     q_change_answer = N_in_C(f'{player} tries to {what_done}. Anything else? ')
@@ -160,8 +161,12 @@ def dialog_interface(flag_dict, questions_dict, player='', func_dict={}):
             questions_dict_key = questions_dict_enumerate[answer]
             questions_dict_value = questions_dict_copy[questions_dict_key]
 
-            if 'exit' not in questions_dict.values():
+            if type_of_dialog == 'simple':
                 flag_dict[questions_dict_value] = not flag_dict[questions_dict_value]
+                if not player:
+                    print(text_in_color(f'You change {questions_dict_key}\n', 'fat'))
+                else:
+                    print(N_in_C(f'{player} changes {questions_dict_key}\n'))
                 return flag_dict
 
             if questions_dict_value == 'exit':
@@ -204,32 +209,33 @@ def main():
         # questions = {
         #     'add some skill points': 'result',
         #     'use cards': 'bag',
+        #     'all': 'all',
         #     'reset all changes': 'reset',
         #     'recalculate a probability': 'exit'
         # }
         # funcs = {'result': add_points, 'bag': use_cards}
+
+
+        # flags = {
+        #     'input player': False, 'input skill': False, 'input skill test': False, 'input chaos bag': False
+        # }
         #
-        # result_of_dialog = dialog_interface('Roland Banks', CALCULATE, questions, funcs)
-
-        flags = {
-            'input player': False, 'input skill': False, 'input skill test': False, 'input chaos bag': False
-        }
-
-        change_a_flag = {
-            'change the investigator': 'input player',
-            'change a skill': 'input skill',
-            'change a skill test': 'input skill test',
-            'change a value of tokens in the chaos bag': 'input chaos bag',
-            'change all': 'all',
-            'reset all changes': 'reset',
-            'proceed to a new skill test': 'exit'
-        }
-
+        # change_a_flag = {
+        #     'change the investigator': 'input player',
+        #     'change a skill': 'input skill',
+        #     'change a skill test': 'input skill test',
+        #     'change a value of tokens in the chaos bag': 'input chaos bag',
+        #     'change all': 'all',
+        #     'reset all changes': 'reset',
+        #     'proceed to a new skill test': 'exit'
+        # }
+        #
         flags_2 = {'pull token': False, 'recalculate': False}
         quest_2 = {'pull a token': 'pull token', 'add points or use cards': 'recalculate'}
 
-        result_of_dialog = dialog_interface(flags_2, quest_2)
+        result_of_dialog = dialog_interface(flags_2, quest_2, 'simple')
         print(result_of_dialog)
+        print(flags_2)
 
 
 main()

@@ -25,14 +25,14 @@ def write_checking(player, skill, skill_test, success):
     success = success[0] + '%'
 
     log_entry = [today, now, 'checking', player, skill, skill_test, result, success]
-    with open('logs.csv', 'a') as logs:
+    with open('logs/logs.csv', 'a') as logs:
         writer = csv.writer(logs)
         writer.writerow(log_entry)
 
 
 def write_reveal(player, tokens, value, result, total):
     log_entry = [today, now, 'revealing', player, tokens, value, result, total]
-    with open('logs.csv', 'a') as logs:
+    with open('logs/logs.csv', 'a') as logs:
         writer = csv.writer(logs)
         writer.writerow(log_entry)
         writer.writerow([])
@@ -40,7 +40,7 @@ def write_reveal(player, tokens, value, result, total):
 
 def write_adding(player, points):
     log_entry = [today, now, 'adding', player, points]
-    with open('logs.csv', 'a') as logs:
+    with open('logs/logs.csv', 'a') as logs:
         writer = csv.writer(logs)
         writer.writerow(log_entry)
 
