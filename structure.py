@@ -20,12 +20,13 @@ print(text_in_color('\nHi! Welcome to Probability Utility for Arkham Horror LCG!
 
 
 # new game. Input a count of investigators
-q_start = text_in_color('How many players are? ', 'fat')
-count_of_players = int(ICh(q_start, 'num'))
+q_start = text_in_color('How many players are? Press "num" and "enter" (limit is 4 players) ', 'fat')
+player_limit = tuple(str(i) for i in range(1, 5))
+count_of_players = int(ICh(q_start, player_limit))
+print('')
 
 # finding a investigator
 Investigators = find_a_player(count_of_players)
-print('')
 
 # finding a scenario
 scenario = find_a_scenario()

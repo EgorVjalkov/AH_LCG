@@ -5,9 +5,14 @@ from funcs.colored_keywords import names_in_color as N_in_C, colored_scenario, t
 
 # поиск игроков по имени
 def find_a_player(count_of_players):
+
     Investigators = []
+    players_copy = list(players)
+
     while len(Investigators) < count_of_players:
+
         while True:
+
             # поиск по буквам
             if len(Investigators) == 0:
                 q = text_in_color(
@@ -18,44 +23,58 @@ def find_a_player(count_of_players):
                 q = text_in_color('Input a few first letters of investigator`s name and press "enter" or write "all" ',
                                   'fat')
                 start_of_name = ICh(q, 'l')
+
             # поиск для всех
             if start_of_name == 'all':
-                filtred_players = [i for i in players]
+                filtred_players = [i for i in players_copy]
             # фильтрация
             else:
-                filtred_players = [i for i in players if start_of_name.lower() in i[:len(start_of_name)].lower()]
+                filtred_players = [i for i in players_copy if start_of_name.lower() in i[:len(start_of_name)].lower()]
+
             if not filtred_players:
-                filtred_players = [i for i in players if start_of_name.lower() in i.lower()]
+                filtred_players = [i for i in players_copy if start_of_name.lower() in i.lower()]
+
             # подтверждение для одного
             if len(filtred_players) == 1:
                 q = N_in_C(f'Do you mean {filtred_players[0]}? ')
                 start_of_name = ICh(q)
+
                 if start_of_name == 'y':
                     player = filtred_players[0]
+                    del players_copy[players_copy.index(player)]
                     break
+
             # выбор из нескольких
             elif len(filtred_players) > 1:
-                filtred_players.append('none of them')
+
+                if start_of_name != 'all':
+                    filtred_players.append('none of them')
+
                 menu_dict = dict(enumerate(filtred_players, 1))
+                limit_of_answer = tuple(str(i) for i in range(1, len(filtred_players) + 1))
+
                 for key in menu_dict:
                     print(N_in_C(f'press "{key}" and "enter" - {menu_dict[key]}'))
-                    limit_of_answer = tuple(str(i) for i in range(1, len(filtred_players) + 1))
+
                 q_change_player = text_in_color(f'Who you mean? ', 'fat')
                 answer = int(ICh(q_change_player, limit_of_answer))
-                # подтверждение
-                if answer != len(filtred_players):
-                    player = menu_dict[answer]
-                    break
+                player = menu_dict[answer]
+                del players_copy[players_copy.index(player)]
+                break
+
         Investigators.append(player)
+
         if len(Investigators) == 1:
-            print(N_in_C(f'You changed {player} as the lead investigator'))
+            print(N_in_C(f'You changed {player} as the lead investigator\n'))
         else:
-            print(N_in_C(f'You changed {player}'))
+            print(N_in_C(f'You changed {player}\n'))
+
     return Investigators
 
 
 # поиск сценария по имени
 def find_a_scenario():
+
     while True:
         q_start_of_name = text_in_color(
             'Input a few first letters of a name of scenario !without article! and press "enter" or write "all" ',
@@ -70,27 +89,35 @@ def find_a_scenario():
                              start_of_name_scenario.lower() in i[4:4 + len(start_of_name_scenario)].lower()]
         if not scenario_list:
             scenario_list = [i for i in list(keys_dict.keys()) if start_of_name_scenario.lower() in i.lower()]
+
             # подтверждение для одного
         if len(scenario_list) == 1:
             q = f'Do you mean {colored_scenario(scenario_list[0])}? '
             start_of_name_scenario = ICh(q)
+
             if start_of_name_scenario == 'y':
                 scenario = scenario_list[0]
                 break
+
                 # выбор из нескольких
         elif len(scenario_list) > 1:
-            scenario_list.append('none of them')
+
+            if start_of_name_scenario != 'all':
+                scenario_list.append('none of that')
+
             menu_dict = dict(enumerate(scenario_list, 1))
             for key in menu_dict:
                 print(f'press "{key}" and "enter" - {colored_scenario(menu_dict[key])}')
-                limit_of_answer = tuple(str(i) for i in range(1, len(scenario_list) + 1))
+
+            limit_of_answer = tuple(str(i) for i in range(1, len(scenario_list) + 1))
             q_change_scenario = text_in_color(f'What do you mean? ', 'fat')
             answer = int(ICh(q_change_scenario, limit_of_answer))
-            # подтверждение
-            if answer != len(scenario_list):
-                scenario = menu_dict[answer]
-                break
-    print(f'Scenario is {colored_scenario(scenario)}')
+
+            scenario = menu_dict[answer]
+            break
+
+    print(f'Scenario is {colored_scenario(scenario)}/n')
+
     return scenario
 
 
