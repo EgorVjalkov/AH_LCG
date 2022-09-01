@@ -189,7 +189,7 @@ def chaos_bag_for_probability(chaos_bag):
         token_value = i[1][0]
         dict_of_tokens[f'{token_name}+'] = [token_value+value for value in dict_of_tokens['bag']]
         num += 1
-    return(dict_of_tokens)
+    return dict_of_tokens
 
 
 #main_func
