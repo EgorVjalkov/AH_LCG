@@ -116,7 +116,7 @@ def find_a_scenario():
             scenario = menu_dict[answer]
             break
 
-    print(f'Scenario is {colored_scenario(scenario)}/n')
+    print(f'Scenario is {colored_scenario(scenario)}\n')
 
     return scenario
 

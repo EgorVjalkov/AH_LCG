@@ -62,7 +62,8 @@ def skull(scenario):
     if type(token_value[0]) == str:
         if 'Press a "num" and "enter"' in token_value[0]:
             answer = -int(ICh(N_in_C(token_value[0]), 'num'))
-        else: answer = (ICh(N_in_C(token_value[0])))
+        else:
+            answer = (ICh(N_in_C(token_value[0])))
         return answer
     return token_value[0]
 

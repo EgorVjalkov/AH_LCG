@@ -30,7 +30,6 @@ Investigators = find_a_player(count_of_players)
 
 # finding a scenario
 scenario = find_a_scenario()
-print('')
 
 # запись в логах
 # write_a_log['start game'](scenario, Investigators)
