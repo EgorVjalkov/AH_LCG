@@ -149,8 +149,8 @@ keys_dict = {
     'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
     'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
     'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys,
-    'Auto-fail bag hard': Testing_Auto_fail_hard,
-    'Elder Sign bag easy': Testing_Elder_Sign_easy
+    #'Auto-fail bag hard': Testing_Auto_fail_hard,
+    #'Elder Sign bag easy': Testing_Elder_Sign_easy
 }
 
 

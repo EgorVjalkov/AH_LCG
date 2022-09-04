@@ -69,7 +69,7 @@ recalculate_questions = {
             'recalculate a probability': 'exit'
         }
 
-# value is points of skill
+# value of adding points of skill
 ADD = 0
 
 recalculate_funcs = {'result': add_points, 'bag': use_cards}
@@ -132,7 +132,7 @@ while SKILL_TEST:
 
     # result table
     table(list_for_table, result)
-    PRINT_TABLE_FLAG = False
+
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MOD A RESULT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -216,6 +216,7 @@ while SKILL_TEST:
 
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!reset to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         if True in INPUT_FLAGS.values():
             CALCULATE = {key: True for key in CALCULATE}
 
