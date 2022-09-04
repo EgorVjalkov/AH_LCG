@@ -132,7 +132,7 @@ while SKILL_TEST:
 
     # result table
     table(list_for_table, result)
-
+    PRINT_TABLE_FLAG = False
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MOD A RESULT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -204,7 +204,7 @@ while SKILL_TEST:
             print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
 
         # interpretation
-        if last_result >= 0:
+        if last_result >= 0 and "Auto-fail" not in tokens_in_str:
             total = f' succeed the skill test by {last_result}'
             print(N_in_C(player) + text_in_color(total, 'green'))
         else:
@@ -216,8 +216,9 @@ while SKILL_TEST:
 
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!reset to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if True in INPUT_FLAGS.values():
+            CALCULATE = {key: True for key in CALCULATE}
 
-        CALCULATE = {key: True for key in CALCULATE}
         ADD = 0
         print('')
 
