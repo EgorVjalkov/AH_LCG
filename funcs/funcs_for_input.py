@@ -134,7 +134,7 @@ def change_a_player(players_list):
         player = players_dict[answer]
     else:
         player = players_list[0]
-    print(N_in_C(f'{player} passes a skill test\n'))
+
     return player
 
 

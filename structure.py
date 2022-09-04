@@ -14,6 +14,7 @@ from funcs.funcs_for_input import (change_a_player,
                                    dialog_interface)
 #from ah_lcg.logs.func_for_writing_logs import write_a_log
 
+# НУЖНО СДЕЛАТЬ, ЧТОБ СУМАКА БЕЗ ПЕРЕМЕННЫХ НЕ РАСЧИТЫВАЛАСЬ ЗАНОВО, ТИПА УДАЛИТЬ ЛИШКУ ИЗ ДИАЛОГА
 
 # greetings!
 print(text_in_color('\nHi! Welcome to Probability Utility for Arkham Horror LCG!\n', 'fat'))
@@ -68,6 +69,9 @@ recalculate_questions = {
             'recalculate a probability': 'exit'
         }
 
+# value is points of skill
+ADD = 0
+
 recalculate_funcs = {'result': add_points, 'bag': use_cards}
 
 
@@ -80,6 +84,8 @@ while SKILL_TEST:
         if INPUT_FLAGS['input player']:
             player = change_a_player(Investigators)
             INPUT_FLAGS['input player'] = False
+
+        print(N_in_C(f'{player} passes a skill test\n'))
 
         if INPUT_FLAGS['input skill']:
             skill = input_skill(player)
@@ -99,12 +105,11 @@ while SKILL_TEST:
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!CALCULATIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     if CALCULATE['result']:
-
+        skill += ADD
         result = skill - skill_test
         CALCULATE['result'] = False
 
     if CALCULATE['bag']:
-
         chaos_bag_values = chaos_bag_for_probability(chaos_bag)
 
         f_succeed = lambda i: result_cycle(result, chaos_bag_values, i)
@@ -119,9 +124,11 @@ while SKILL_TEST:
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PRINT A RESULT TABLE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    # skill test data
+    # Head
+    ADD_in_str = f' ({ADD} added)' if ADD else ''
     print(N_in_C(player))
-    print(text_in_color(f'Skill is {skill} points. \nSkill test is {skill_test}. \nResult is {result}'))
+    print(text_in_color(f'Skill is {skill} points{ADD_in_str}.'))
+    print(f'Skill test is {skill_test}. Result is {result}')
 
     # result table
     table(list_for_table, result)
@@ -147,10 +154,12 @@ while SKILL_TEST:
 
         # change a values
         if 'result' in dialog_dict:
-            skill += dialog_dict['result']
+            ADD = dialog_dict['result']
 
         if 'bag' in dialog_dict:
             chaos_bag = dialog_dict['bag']
+
+    print()
 
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PULL A TOKEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -202,10 +211,15 @@ while SKILL_TEST:
             total = f' fail the skill test by {abs(last_result)}'
             print(N_in_C(player) + text_in_color(total, 'red'))
 
-        print('')
-
         # logs
         # write_a_log['revealing'](player, tokens_in_str, token_value, last_result, total)
+
+
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!reset to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        CALCULATE = {key: True for key in CALCULATE}
+        ADD = 0
+        print('')
 
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RE-INPUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
