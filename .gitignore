@@ -4,5 +4,6 @@ funcs/__pycache__
 logs/logs.csv
 tests
 .idea
+.venv
 
 

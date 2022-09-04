@@ -1,6 +1,7 @@
 from funcs.input_checking import input_checking as ICh # like a module
 from funcs.colored_keywords import names_in_color as N_in_C # like a module
 
+
 #Сыщики
 players = (
     'Roland Banks', 'Daisy Walker', '"Skids" O`Toole', 'Agnes Baker', 'Wendy Adams', # CORE-SET
@@ -124,33 +125,50 @@ symbol_values = {'skull': skull, 'cultist': cultist, 'tablet': tablet, 'Elder Th
 # SCENARIO CHAOS TOKEN KEYS
 
 # Core-set
-The_Gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
+
+The_Night_of_Zealot_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4',
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
-The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
-    'skull', 'skull', 'cultist', 'tablet', 'Elder Thing', 'Auto-fail', 'Elder Sign']
 
-# Labirinths of Lunasy
-The_Labyrinths_of_Lunasy_A_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
-    'skull', 'skull', 'Elder Thing', 'Elder Thing', 'Auto-fail', 'Elder Sign']
-The_Labyrinths_of_Lunasy_B_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
-    'skull', 'skull', 'tablet', 'tablet', 'Auto-fail', 'Elder Sign']
-The_Labyrinths_of_Lunasy_C_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
-    'skull', 'skull', 'cultist', 'cultist', 'Auto-fail', 'Elder Sign']
+The_Devourer_Below_standard_keys = The_Night_of_Zealot_standard_keys.copy()
+The_Devourer_Below_standard_keys.append('Elder Thing')
 
-Testing_Auto_fail_hard = ['Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail']
-Testing_Elder_Sign_easy = ['Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign']
-# для поиска по ключам
-keys_dict = {
+
+camp_keys_dict = {
     #CORE-SET
-    'The Gathering standard': The_Gathering_standard_keys,
-    'The Midnight Masks standard': The_Gathering_standard_keys,
-    'The Devourer Below standard': The_Devouver_Below_standard_keys,
-    #The Labirinths of Lunasy
-    'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
-    'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
-    'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys,
+    'The Gathering standard': The_Night_of_Zealot_standard_keys,
+    'The Midnight Masks standard': The_Night_of_Zealot_standard_keys,
+    'The Devourer Below standard': The_Devourer_Below_standard_keys,
     #'Auto-fail bag hard' : Testing_Auto_fail_hard,
     #'Elder Sign bag easy' : Testing_Elder_Sign_easy
+}
+
+# standalone mode keys
+
+# Carnival of Horrors
+
+The_Carnevale_of_Horrors = []
+
+# Labyrinths of Lunacy
+Lab_bag = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
+    'skull', 'skull', 'Auto-fail', 'Elder Sign']
+
+# group A
+The_Labyrinths_of_Lunacy_A_keys = Lab_bag.copy()
+The_Labyrinths_of_Lunacy_A_keys.extend(['Elder Thing']*2)
+
+# group B
+The_Labyrinths_of_Lunacy_B_keys = Lab_bag.copy()
+The_Labyrinths_of_Lunacy_B_keys.extend(['tablet']*2)
+
+# group C
+The_Labyrinths_of_Lunacy_C_keys = Lab_bag.copy()
+The_Labyrinths_of_Lunacy_C_keys.extend(['cultist']*2)
+
+std_keys_dict = {
+    #The Labirinths of Lunacy
+    'The Labyrinths of Lunacy standard group A': The_Labyrinths_of_Lunacy_A_keys,
+    'The Labyrinths of Lunacy standard group B': The_Labyrinths_of_Lunacy_B_keys,
+    'The Labyrinths of Lunacy standard group C': The_Labyrinths_of_Lunacy_C_keys,
 }
 
 
@@ -195,10 +213,11 @@ def chaos_bag_for_probability(chaos_bag):
 #main_func
 def main():
     if __name__ == '__main__':
-        print(tablet('The Labyrinths of Lunasy'))
-        print(skull('The Gathering standard'))
-        bag = chaos_bag_for_pulling(keys_dict, 'The Labyrinths of Lunasy standard group C', 'Roland Banks')
-        print(bag)
-        print(chaos_bag_for_probability(bag))
+        print(The_Labyrinths_of_Lunacy_C_keys)
+        #print(tablet('The Labyrinths of Lunasy'))
+        #print(skull('The Gathering standard'))
+        #bag = chaos_bag_for_pulling(std_keys_dict, 'The Labyrinths of Lunasy standard group C', 'Roland Banks')
+        #print(bag)
+        #print(chaos_bag_for_probability(bag))
 
 main()
