@@ -155,61 +155,74 @@ while SKILL_TEST:
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PULL A TOKEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    if PULL_TOKEN_to_RECALCULATE_FLAG['pull token']:
-        # logs
-        # list_by_0 = result_cycle(result, chaos_bag_values, (0, 'succeed by 0'))[0]
-        # succeed_by_0 = [i[1] for i in list_by_0 if i[0] == str(result)]
-        # write_a_log['checking'](player, skill, skill_test, succeed_by_0)
+        if PULL_TOKEN_to_RECALCULATE_FLAG['pull token']:
+            # logs
+            # list_by_0 = result_cycle(result, chaos_bag_values, (0, 'succeed by 0'))[0]
+            # succeed_by_0 = [i[1] for i in list_by_0 if i[0] == str(result)]
+            # write_a_log['checking'](player, skill, skill_test, succeed_by_0)
 
-        bag_for_reveal = chaos_bag.copy()
-        REVEAL_FLAG = True
-        token_value = 0
-        tokens = []
+            bag_for_reveal = chaos_bag.copy()
+            REVEAL_FLAG = True
+            token_value = 0
+            tokens = []
+            double_frost = False
+            Auto_fail_flag = False
 
-        while REVEAL_FLAG:
+            while REVEAL_FLAG:
 
-            token = choice(bag_for_reveal)
-            token_name = f'"{token[0]}"'
-            pull_token_value = token[1] if type(token[1]) == int else token[1][0]
-            tokens.append(token_name)
-            token_value += pull_token_value
+                token = choice(bag_for_reveal)
+                token_name = f'"{token[0]}"'
+                pull_token_value = token[1] if type(token[1]) == int else token[1][0]
+                tokens.append(token_name)
+                token_value += pull_token_value
 
-            if type(token[1]) != int:
-                bag_for_reveal.remove(token)
-                print(N_in_C(f'{token_name} is pulled. Value is {token[1][0]}. You must reveal another token'))
-# !!!!!!!!!!!!!!!!ДОБАВЬ ЗАДРЖКУ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                if tokens.count('"Frost"') > 1:
+                    double_frost = True
+                    break
+
+                if type(token[1]) != int:
+                    bag_for_reveal.remove(token)
+                    print(N_in_C(f'{token_name} is pulled. Value is {token[1][0]}. You must reveal another token'))
+                # !!!!!!!!!!!!!!!!ДОБАВЬ ЗАДРЖКУ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                else:
+                    is_plural = 'are' if len(tokens) > 1 else 'is'
+                    last_result = result + token_value
+                    REVEAL_FLAG = False
+
+            tokens_in_str = '=>'.join(tokens)
+
+            # for especially tokens
+            if "Auto-fail" in tokens_in_str or double_frost:
+                Auto_fail_flag = True
+                last_result = -skill_test
+                print(N_in_C(f'{tokens_in_str} {is_plural} pulled. {player}`s skill is 0. Result is {last_result}'))
+            elif "Elder Sign" in tokens_in_str and token_value > 50:
+                last_result = skill
+                print(N_in_C(f'{tokens_in_str} {is_plural} pulled. skill test is 0. Result is {last_result}'))
             else:
-                tokens_in_str = '=>'.join(tokens)
-                is_plural = 'are' if len(tokens) > 1 else 'is'
-                last_result = result + token_value
-                REVEAL_FLAG = False
+                print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
 
-        # for especially tokens
-        if "Auto-fail" in tokens_in_str:
-            last_result = -skill_test
-            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. {player}`s skill is 0. Result is {last_result}'))
-        elif "Elder Sign" in tokens_in_str and token_value > 50:
-            last_result = skill
-            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. skill test is 0. Result is {last_result}'))
-        else:
-            print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
+            # interpretation
+            if last_result >= 0 and not Auto_fail_flag:
+                total = f' succeed the skill test by {last_result}'
+                print(N_in_C(player) + text_in_color(total, 'green'))
+            else:
+                total = f' fail the skill test by {abs(last_result)}'
+                print(N_in_C(player) + text_in_color(total, 'red'))
 
-        # interpretation
-        if last_result >= 0:
-            total = f' succeed the skill test by {last_result}'
-            print(N_in_C(player) + text_in_color(total, 'green'))
-        else:
-            total = f' fail the skill test by {abs(last_result)}'
-            print(N_in_C(player) + text_in_color(total, 'red'))
+            # logs
+            # write_a_log['revealing'](player, tokens_in_str, token_value, last_result, total)
 
-        print('')
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!reset to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        # logs
-        # write_a_log['revealing'](player, tokens_in_str, token_value, last_result, total)
+            if False in INPUT_FLAGS.values():
+                CALCULATE = {key: True for key in CALCULATE}
 
+            ADD = 0
+            print('')
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RE-INPUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RE-INPUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        re_input_dialog = dialog_interface(INPUT_FLAGS, question_INPUT_FLAGS, 'complex')
-        INPUT_FLAGS = re_input_dialog['flags']
-        print('')
+            re_input_dialog = dialog_interface(INPUT_FLAGS, question_INPUT_FLAGS, 'complex')
+            INPUT_FLAGS = re_input_dialog['flags']
+            print('')
