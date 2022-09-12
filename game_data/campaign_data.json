@@ -1,0 +1,54 @@
+[{
+   "name": "Night of the Zealot",
+   "difficulty": "standard",
+   "start bag": "['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']",
+   "The Gathering ": {
+      "name": "The Gathering ",
+      "skull": {
+         "value": "X is the number of Ghoul enemies at your location."
+      },
+      "cultist": {
+         "value": "-1",
+         "if fail": "take 1 horror."
+      },
+      "tablet": {
+         "value": "-2",
+         "instant effect": "If there is a Ghoul enemy at your location, take 1 damage."
+      }
+   },
+   "The Midnight Masks": {
+      "name": "The Midnight Masks",
+      "skull": {
+         "value": "X is the highest number of doom on a Cultist enemy in play."
+      },
+      "cultist": {
+         "value": "-2",
+         "instant effect": "Place 1 doom on the nearest Cultist enemy."
+      },
+      "tablet": {
+         "value": "-3",
+         "if fail": "place 1 of your clues on your location."
+      }
+   },
+   "The Devourer Below": {
+      "name": "The Devourer Below",
+      "change bag": "add 1 'Elder Thing'",
+      "skull": {
+         "value": "X is the number of Monster enemies in play."
+      },
+      "cultist": {
+         "value": "-2",
+         "instant effect": "Place 1 doom on the nearest enemy."
+      },
+      "tablet": {
+         "value": "-3",
+         "instant effect": "If there is a Monster enemy at your location, take 1 damage."
+      },
+      "Elder Thing": {
+         "value": "-5",
+         "reveal": "If there is an Ancient One enemy in play, reveal another token."
+      }
+   }
+}
+
+]

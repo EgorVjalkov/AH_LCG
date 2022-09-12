@@ -5,9 +5,7 @@ from game_data.fast_token_value import Elder_Sign
 
 # The Night of a Zealot scenarios
 
-The_Night_of_Zealot_standard_bag = [
-    '+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4',
-    'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
+The_Night_of_Zealot_standard_bag = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
 
 The_Gathering_standard_symbols = {
     'skull': {
