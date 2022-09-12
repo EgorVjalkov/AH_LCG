@@ -17,7 +17,7 @@ keywords2 = {
      'grey_back': ('Wendy`s amulet', 'The Necronomicon, John Dee Translation'),
      'red': ('damage', 'Ghoul', 'Cultist', 'Monster', '"Auto-fail"', 'combat', 'fail'),
      'dim_red': ('doom', ), 
-     'blue': ('horror', ),
+     'blue': ('horror', '"Frost"'),
      'green': ('clue', 'agility', 'succeed'),
      'yellow': ('intellect', '"skull"', '"cultist"', '"tablet"', '"Elder Thing"'),
      'magenta': ('willpower', ),

@@ -53,7 +53,8 @@ def skull(scenario):
         'The Midnight Masks standard': '"skull": what is the highest number of doom on a Cultist enemy in play? Press a "num" and "enter" ',
         'The Devourer Below standard': '"skull": what is the number of Monster enemies in play? Press a "num" and "enter" ',
         #Expansions
-        'The Labyrinths of Lunasy': (-1, 'reveal')
+        'The Labyrinths of Lunasy': (-1, 'reveal'),
+        'The Ice and Death I standard': '"skull": what is half the shelter value of your location (rounded up)? Press a "num" and "enter" ',
     }
     token_value = [value[key] for key in value if key in scenario]
     if not token_value: 
@@ -73,7 +74,8 @@ def cultist(scenario):
         #CORE-SET
         'The Gathering standard': -1, 'The Midnight Masks standard': -2, 'The Devourer Below standard': -2,
         #Expansions
-        'The Labyrinths of Lunasy': -3
+        'The Labyrinths of Lunasy': -3,
+        'The Ice and Death I standard': -2
     }
     token_value = [value[key] for key in value if key in scenario]
     if not token_value: 
@@ -87,7 +89,8 @@ def tablet(scenario):
         #CORE-SET
         'The Gathering standard': -2, 'The Midnight Masks standard': -2, 'The Devourer Below standard': -3,
         #Expansions
-        'The Labyrinths of Lunasy': -4
+        'The Labyrinths of Lunasy': -4,
+        'The Ice and Death I standard': -3
     }
     token_value = [value[key] for key in value if key in scenario]
     if not token_value: 
@@ -117,8 +120,8 @@ def Elder_Thing(scenario):
 
 
 #констуктор жетонов
-symbol_values = {'skull': skull, 'cultist': cultist, 'tablet': tablet, 'Elder Thing': Elder_Thing, 
-'Auto-fail': lambda x: -99, 'Elder Sign': Elder_Sign}
+symbol_values = {'skull': skull, 'cultist': cultist, 'tablet': tablet, 'Elder Thing': Elder_Thing,
+'Auto-fail': lambda x: -99, 'Elder Sign': Elder_Sign, 'Frost': lambda x: (-1, 'reveal')}
 
 
 # SCENARIO CHAOS TOKEN KEYS
@@ -128,6 +131,10 @@ The_Gathering_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3
     'skull', 'skull', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
 The_Devouver_Below_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', 
     'skull', 'skull', 'cultist', 'tablet', 'Elder Thing', 'Auto-fail', 'Elder Sign']
+
+# The Edge of the Earth
+The_Ice_and_Death_I_standard_keys = ['+1', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4',
+    'Frost', 'skull', 'skull', 'cultist', 'cultist', 'tablet', 'Auto-fail', 'Elder Sign']
 
 # Labirinths of Lunasy
 The_Labyrinths_of_Lunasy_A_standard_keys = ['+1', '0', '0', '0', '-1', '-1', '-1', '-2', '-2', '-3', '-4', '-5',
@@ -141,14 +148,16 @@ Testing_Auto_fail_hard = ['Auto-fail', 'Auto-fail', 'Auto-fail', 'Auto-fail', 'A
 Testing_Elder_Sign_easy = ['Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign', 'Elder Sign']
 # для поиска по ключам
 keys_dict = {
-    #CORE-SET
+    # CORE-SET
     'The Gathering standard': The_Gathering_standard_keys,
     'The Midnight Masks standard': The_Gathering_standard_keys,
     'The Devourer Below standard': The_Devouver_Below_standard_keys,
-    #The Labirinths of Lunasy
+    # The Labirinths of Lunasy
     'The Labyrinths of Lunasy standard group A': The_Labyrinths_of_Lunasy_A_standard_keys,
     'The Labyrinths of Lunasy standard group B': The_Labyrinths_of_Lunasy_B_standard_keys,       
     'The Labyrinths of Lunasy standard group C': The_Labyrinths_of_Lunasy_C_standard_keys,
+    # The Edge of the Earth
+    'The Ice and Death I standard': The_Ice_and_Death_I_standard_keys
     #'Auto-fail bag hard': Testing_Auto_fail_hard,
     #'Elder Sign bag easy': Testing_Elder_Sign_easy
 }

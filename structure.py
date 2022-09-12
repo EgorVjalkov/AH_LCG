@@ -174,6 +174,8 @@ while SKILL_TEST:
         REVEAL_FLAG = True
         token_value = 0
         tokens = []
+        double_frost = False
+        Auto_fail_flag = False
 
         while REVEAL_FLAG:
 
@@ -183,18 +185,24 @@ while SKILL_TEST:
             tokens.append(token_name)
             token_value += pull_token_value
 
+            if tokens.count('"Frost"') > 1:
+                double_frost = True
+                break
+
             if type(token[1]) != int:
                 bag_for_reveal.remove(token)
                 print(N_in_C(f'{token_name} is pulled. Value is {token[1][0]}. You must reveal another token'))
 # !!!!!!!!!!!!!!!!ДОБАВЬ ЗАДРЖКУ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             else:
-                tokens_in_str = '=>'.join(tokens)
                 is_plural = 'are' if len(tokens) > 1 else 'is'
                 last_result = result + token_value
                 REVEAL_FLAG = False
 
+        tokens_in_str = '=>'.join(tokens)
+
         # for especially tokens
-        if "Auto-fail" in tokens_in_str:
+        if "Auto-fail" in tokens_in_str or double_frost:
+            Auto_fail_flag = True
             last_result = -skill_test
             print(N_in_C(f'{tokens_in_str} {is_plural} pulled. {player}`s skill is 0. Result is {last_result}'))
         elif "Elder Sign" in tokens_in_str and token_value > 50:
@@ -204,7 +212,7 @@ while SKILL_TEST:
             print(N_in_C(f'{tokens_in_str} {is_plural} pulled. Value is {token_value}. Result is {last_result}'))
 
         # interpretation
-        if last_result >= 0 and "Auto-fail" not in tokens_in_str:
+        if last_result >= 0 and not Auto_fail_flag:
             total = f' succeed the skill test by {last_result}'
             print(N_in_C(player) + text_in_color(total, 'green'))
         else:
@@ -217,7 +225,7 @@ while SKILL_TEST:
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!reset to zero!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        if True in INPUT_FLAGS.values():
+        if False in INPUT_FLAGS.values():
             CALCULATE = {key: True for key in CALCULATE}
 
         ADD = 0
